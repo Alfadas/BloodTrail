@@ -12,7 +12,9 @@ public class MapTile {
         if ((int)biom != (int)subBiom / 10) {
            throw new System.Exception("Invalid Subbiom '"+subBiom+"' for biom '"+biom+"'");
         }
-        Debug.Log(biom);
+        this.biom = biom;
+        this.subBiom = subBiom;
+       // Debug.Log(biom);
         //Debug.Log(subBiom);
     }
 
