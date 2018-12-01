@@ -39,13 +39,19 @@ public class MapManager : MonoBehaviour {
         biomChance = new Dictionary<BIOM, int>();
         materials = new Dictionary<BIOM, Material>();
         subBiomChance = new Dictionary<SUBBIOM, int>();
-        biomChance[BIOM.Desert] = 10;
-        biomChance[BIOM.Farm] = 3;
-        biomChance[BIOM.Grassland] = 10;
-        biomChance[BIOM.Mountain] = 5;
-        biomChance[BIOM.Town] = 2;
-        biomChance[BIOM.Water] = 2;
-        biomChance[BIOM.Woods] = 20;
+
+        biomChance[BIOM.Water] = 60;
+        biomChance[BIOM.Desert] = 100;
+        biomChance[BIOM.Farm] = 30;
+        
+        
+        biomChance[BIOM.Town] = 1;
+        biomChance[BIOM.Grassland] = 100;
+       
+        biomChance[BIOM.Woods] = 200;
+       
+        biomChance[BIOM.Desert] = 100;
+        biomChance[BIOM.Mountain] = 100;
 
         subBiomChance[SUBBIOM.CityWall] = 2;
         subBiomChance[SUBBIOM.DarkWood] = 2;

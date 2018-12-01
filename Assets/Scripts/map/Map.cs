@@ -44,14 +44,16 @@ public class Map {
         }
 
         int offset = 500;
-
+        float scale = 0.03f;
+        float scale2 = 0.1f;
         GameObject map = GameObject.Find("Map");
         for (int z = 0; z < height; z++)
         {
             for (int x = 0; x < width; x++)
             {
-                float noiseValue = (Noise.Generate(x + seed, z + seed)+1)/2;
-                float noiseValueSub = (Noise.Generate(x + seed+ offset, z + seed+ offset)+1)/2;
+                float noiseValue = ((Noise.Generate((x + seed)*scale, (z + seed) * scale) +1)/2+ 
+                    (Noise.Generate((x + seed) * scale2, (z + seed) * scale2) + 1) / 2)/2;
+                float noiseValueSub = (Noise.Generate((x + seed) * scale + offset, (z + seed)* scale + offset)+1)/2;
 
                 float prop = 0f;
                 BIOM biom=BIOM.Desert;
