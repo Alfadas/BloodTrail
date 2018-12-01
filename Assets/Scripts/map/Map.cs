@@ -18,6 +18,19 @@ public class Map {
         return tiles.TryGetValue(coordinates,out t) ? t : null;
     }
 
+    private float[] getDecrease(int x, int z){
+
+        float retX = 1 - (width - (width - x) + 2 * x) / width;
+        float retZ = 1 - (height - (height - z) + 2 * z) / height;
+        if (retX < 0)
+            retX = 0;
+        if (retZ < 0)
+            retZ = 0;
+        Debug.Log("retX="+retX+" retz="+retZ);
+        float[] ret = new float[]{retX, retZ};
+        return ret;
+
+    }
     public Map(int seed,int width,int height,GameObject prefabTile, Dictionary<BIOM, int> biomChance, Dictionary<SUBBIOM, int> subBiomChance, Dictionary<BIOM, Material> materials)
     {
         if (seed > 100000||seed<0)
@@ -45,14 +58,16 @@ public class Map {
 
         int offset = 500;
         float scale = 0.03f;
-        float scale2 = 0.1f;
+        float scale2 = 0.13f;
+
         GameObject map = GameObject.Find("Map");
         for (int z = 0; z < height; z++)
         {
             for (int x = 0; x < width; x++)
             {
-                float noiseValue = ((Noise.Generate((x + seed)*scale, (z + seed) * scale) +1)/2+ 
-                    (Noise.Generate((x + seed) * scale2, (z + seed) * scale2) + 1) / 2)/2;
+                float[] decrease = getDecrease(x, z);
+                float noiseValue = (((Noise.Generate((x + seed)*scale, (z + seed) * scale) +1)/2+ 
+                    (Noise.Generate((x + seed) * scale2, (z + seed) * scale2) + 1) / 2)/2) - Mathf.Max(decrease[0],decrease[1]);
                 float noiseValueSub = (Noise.Generate((x + seed) * scale + offset, (z + seed)* scale + offset)+1)/2;
 
                 float prop = 0f;
@@ -87,6 +102,7 @@ public class Map {
                 tiles[new Vector2Int(x, z)] = new MapTile(tile, biom, subBiom);
                // Debug.Log(materials[0].name);
             }
+           
         }
     }
 }
