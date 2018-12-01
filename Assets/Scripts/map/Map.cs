@@ -20,12 +20,16 @@ public class Map {
 
     private float[] getDecrease(int x, int z){
 
-        float retX = 1 - (width - (width - x) + 2 * x) / width;
-        float retZ = 1 - (height - (height - z) + 2 * z) / height;
-        if (retX < 0)
+        float retX = Mathf.Max(1 - Mathf.Log10(width-x ), 1 - Mathf.Log10(x ));
+
+
+
+        float retZ = Mathf.Max(1 - Mathf.Log10(height - z ), 1 - Mathf.Log10(z ));
+        if ( x > 6 && x < width-6)
             retX = 0;
-        if (retZ < 0)
+        if (z > 6 && z < width - 6)
             retZ = 0;
+        
         Debug.Log("retX="+retX+" retz="+retZ);
         float[] ret = new float[]{retX, retZ};
         return ret;

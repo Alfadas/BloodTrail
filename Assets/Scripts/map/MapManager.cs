@@ -44,7 +44,7 @@ public class MapManager : MonoBehaviour {
         biomChance[BIOM.Desert] = 30;
         biomChance[BIOM.Farm] = 30;
         
-         biomChance[BIOM.Woods] = 200;
+        biomChance[BIOM.Woods] = 200;
         biomChance[BIOM.Town] = 1;
         biomChance[BIOM.Grassland] = 100;
        
