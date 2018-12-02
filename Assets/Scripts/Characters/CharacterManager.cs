@@ -4,21 +4,20 @@ using UnityEngine;
 
 public class CharacterManager : MonoBehaviour
 	{
-	[SerializeField] int maxcharacters = 6;
+	[SerializeField] int maxcharacters = 10;
+	[SerializeField] int maxcombatcharacters = 5;
+	[SerializeField] int startcharacters = 5;
+	[SerializeField] GameObject[] characterprefabs = new GameObject [3];
 
-	private Character[] characters;
+	private List<GameObject> characters;
 
 	void Start()
 		{
-		characters = new Character[maxcharacters];
-		for(int I = 0; I < characters.Length; ++I)
+		System.Random random = new System.Random();
+		characters = new List<GameObject>(maxcharacters);
+		for(int I = 0; I < startcharacters; ++I)
 			{
-			characters[I] = null; // TODO: Instantiate new character here
+			characters.Add(Instantiate(characterprefabs[random.Next(characterprefabs.Length)])); // TODO: New characters spawn at (0, 0, 0), would there be a better place?
 			}
-		}
-
-	void Update()
-		{
-
 		}
 	}

@@ -16,12 +16,14 @@ public class Character : MonoBehaviour
 	private int nutrition;
 	private int[] stats;
 
+	// TODO: Implement Character Highlighter, to avoid having Alfadas touch this code
+
 	void Start()
 		{
+		reRollStats();
+
 		health = getMaxHealth();
 		nutrition = Mathf.RoundToInt(getMaxNutrition() * 0.5f);
-
-		reRollStats();
 		}
 
 	void Update()
@@ -189,6 +191,6 @@ public class Character : MonoBehaviour
 			// SCIENCE!!
 			factor = 1 - (0.002f * (Mathf.Abs(nutrition - 1)^2));
 			}
-		return Mathf.FloorToInt(stats[stat] * factor);
+		return Mathf.Max(Mathf.FloorToInt(stats[stat] * factor), 0);
 		}
 	}

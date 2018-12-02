@@ -543,7 +543,6 @@ GameObject:
   m_Component:
   - component: {fileID: 429266930}
   - component: {fileID: 429266929}
-  - component: {fileID: 429266931}
   m_Layer: 5
   m_Name: CharacterManager
   m_TagString: Untagged
@@ -562,7 +561,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5acabbdaf4caa2644ba61b81efbe5899, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxcharacters: 6
+  maxcharacters: 10
+  maxcombatcharacters: 5
+  startcharacters: 5
+  characterprefabs:
+  - {fileID: 1069983627785472, guid: ee66a6386d1128c43929131266016c4f, type: 2}
+  - {fileID: 1924714119854762, guid: 9a586f793c0ccc345b286306a1808c23, type: 2}
+  - {fileID: 1856176124075180, guid: 2f7658d7bfffd9243ac02e6e5520dd2e, type: 2}
 --- !u!224 &429266930
 RectTransform:
   m_ObjectHideFlags: 0
@@ -581,18 +586,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &429266931
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 429266928}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9286d668fd819e948b331a45d8af9d27, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  defaultstatboostnumber: 2
 --- !u!1 &514874376
 GameObject:
   m_ObjectHideFlags: 0
