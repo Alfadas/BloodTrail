@@ -37,10 +37,7 @@ public class Map {
     }
     public Map(int seed,int width,int height,GameObject prefabTile, Dictionary<BIOM, int> biomChance, Dictionary<SUBBIOM, int> subBiomChance, Dictionary<BIOM, Material> materials)
     {
-        if (seed > 100000||seed<0)
-        {
-            throw new System.Exception("Seed must be ]0-100000]");
-        }
+      
         this.width = width;
         this.height = height;
         this.prefabTile = prefabTile;
@@ -63,6 +60,7 @@ public class Map {
         int offset = 500;
         float scale = 0.03f;
         float scale2 = 0.13f;
+        Dictionary<Vector2Int, MapTile> cities = new Dictionary<Vector2Int, MapTile>(); 
 
         GameObject map = GameObject.Find("Map");
         for (int z = 0; z < height; z++)
@@ -101,15 +99,146 @@ public class Map {
                 GameObject tile = UnityEngine.Object.Instantiate(prefabTile, new Vector3(x, 0, z), Quaternion.identity);
                 tile.GetComponent<MeshRenderer>().material = materials[biom];
                 tile.transform.parent = map.transform;
-
-                
                 tiles[new Vector2Int(x, z)] = new MapTile(tile, biom, subBiom);
+
+                if (subBiom == SUBBIOM.TownCenter) {
+                    cities[new Vector2Int(x, z)] = tiles[new Vector2Int(x, z)];
+                }
                 // Debug.Log(materials[0].name);
                
             }
            
         }
-        makeShoreLine(shoreSouth: true);
+        //makeShoreLine(shoreSouth: true);
+        makeCityStreets(cities);
+    }
+    private void makeCityStreets(Dictionary<Vector2Int,MapTile> cities) {
+
+
+        Material road = Resources.Load("Materials/Map/Road", typeof(Material)) as Material;
+        Material roadC = Resources.Load("Materials/Map/RoadCross", typeof(Material)) as Material;
+        Material roadT = Resources.Load("Materials/Map/RoadT", typeof(Material)) as Material;
+        Material roadD = Resources.Load("Materials/Map/RoadDiogonal", typeof(Material)) as Material;
+
+        const int streetsPerCity = 1;
+        const int weightWrong = 10;  
+       
+        Random.seed = this.seed;
+        List<Vector2Int> keyList = new List<Vector2Int>(cities.Keys); 
+
+        foreach (KeyValuePair < Vector2Int, MapTile> city in cities){
+            for (int i=0; i < streetsPerCity; i++)
+            {
+                MapTile cityStart = city.Value;
+                Vector2Int currentPos = city.Key;
+              
+                MapTile cityEnd = cities[keyList[Random.Range(0, keyList.Count)]];
+                Vector3 cityEndVec = cityEnd.getTile().transform.position;
+                Vector2Int cityEndPos = new Vector2Int((int)cityEndVec.x, (int)cityEndVec.z);
+              
+                Vector2Int LastPosition = new Vector2Int(-1,-1);
+
+                while (currentPos != cityEndPos) {
+                    Vector2Int direction = cityEndPos - currentPos;
+                    int strongVal = Mathf.Abs(direction.x) > Mathf.Abs(direction.y) ? direction.x : direction.y;
+                    int weakVal = Mathf.Abs(direction.x) < Mathf.Abs(direction.y) ? direction.x : direction.y;
+
+                    Vector2Int strongDir = Mathf.Abs(direction.x) > Mathf.Abs(direction.y)?
+                        (direction.x<0?Vector2Int.left: Vector2Int.right ):
+                        (direction.y<0? Vector2Int.down: Vector2Int.up );
+                    Vector2Int weakDir = Mathf.Abs(direction.x) < Mathf.Abs(direction.y) ?
+                        (direction.x < 0 ? Vector2Int.left : Vector2Int.right) :
+                        (direction.y < 0 ? Vector2Int.down : Vector2Int.up);
+                    Vector2Int wrongDir = weakDir*(-1);
+                    Vector2Int newPos;
+                     int randVar = Random.Range(1, 100);
+                    
+                    if (randVar < weightWrong&& currentPos + wrongDir!=LastPosition)
+                    {
+                        newPos = currentPos+ wrongDir;
+                        Debug.Log("wrong Dir");
+                    }
+                    else if (randVar < (100 - weightWrong) * (strongVal / ((float)strongVal + weakVal)) && currentPos + strongDir!=LastPosition)
+                    {
+                        newPos = currentPos + strongDir;
+                        Debug.Log("strong Dir");
+                    }
+                    else if(currentPos + weakDir != LastPosition) {
+                        newPos = currentPos + weakDir;
+                        Debug.Log("weak Dir");
+                    }
+                    else
+                    {
+                        newPos = currentPos + strongDir;
+                        Debug.Log("strong Dir");
+                    }
+
+                    //**check new pos**//
+                    MapTile tileUp; 
+                         tiles.TryGetValue(newPos + Vector2Int.up,out tileUp);
+                    MapTile tileDown;
+                         tiles.TryGetValue(newPos + Vector2Int.down, out tileDown);
+                    MapTile tileLeft;
+                         tiles.TryGetValue(newPos + Vector2Int.left, out tileLeft);
+                    MapTile tileRight;
+                         tiles.TryGetValue(newPos + Vector2Int.right,out tileRight);
+                    Debug.Log(newPos);
+                    GameObject newTile = tiles[newPos].getTile();
+
+                    if (tiles[newPos].getBiom()==BIOM.Town) {
+                        break;
+                    }
+
+                    bool up = tileUp!=null&&(tileUp.getBiom()==BIOM.Town|| tileUp.getSubBiom()==SUBBIOM.Street);
+                    bool down = tileDown != null && (tileDown.getBiom() == BIOM.Town || tileDown.getSubBiom() == SUBBIOM.Street);
+                    bool left = tileLeft != null && (tileLeft.getBiom() == BIOM.Town || tileLeft.getSubBiom() == SUBBIOM.Street);
+                    bool right = tileRight != null && (tileRight.getBiom() == BIOM.Town || tileRight.getSubBiom() == SUBBIOM.Street);
+
+                    int count = 0;
+                    count += up ? 1 : 0;
+                    count += down ? 1 : 0;
+                    count += left ? 1 : 0;
+                    count += right ? 1 : 0;
+
+                    switch (count) {
+                        case 1://normal Road
+                            newTile.GetComponent<MeshRenderer>().material = road;
+                            if (up || down)// turn road
+                            {
+                               newTile.transform.Rotate(Vector3.up * 90);      
+                            }
+                            Debug.Log("Road");
+                            break;
+                        case 2://t
+                            newTile.GetComponent<MeshRenderer>().material = roadT; //when left right and down 
+                            if (up&&left&&down) {
+                                newTile.transform.Rotate(Vector3.up * 90);
+                            } else if (left&up&right){
+                               newTile.transform.Rotate(Vector3.up * 180);
+                            } else if (up&right&down) {
+                               newTile.transform.Rotate(Vector3.up * 270);
+                            }
+                            Debug.Log("t");
+                            break;
+                        case 3: //kreuzung
+                        case 4:
+                             newTile.GetComponent<MeshRenderer>().material = roadC; //when left right and down 
+                            Debug.Log("c");
+                            break;
+                        default:
+                            throw new System.Exception("something wong");
+                    }
+
+                    //check old possition
+                    
+
+                    tiles[newPos].setSubBiom(SUBBIOM.Street);
+                    LastPosition = currentPos;
+                    currentPos = newPos;
+                }
+
+            }
+        }
     }
 
     private void makeShoreLine(bool shoreNord=false,bool shoreEast=false,bool shoreSouth= false ,bool shoreWest=false) {
