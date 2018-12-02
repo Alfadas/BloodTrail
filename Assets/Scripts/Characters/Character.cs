@@ -186,7 +186,7 @@ public class Character : MonoBehaviour
 		float factor = 1;
 		if(nutrition <= 0)
 			{
-			// SCIENCE!
+			// SCIENCE!!
 			factor = 1 - (0.002f * (Mathf.Abs(nutrition - 1)^2));
 			}
 		return Mathf.FloorToInt(stats[stat] * factor);
