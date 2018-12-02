@@ -21,6 +21,16 @@ public class Character : MonoBehaviour
 		health = getMaxHealth();
 		nutrition = Mathf.RoundToInt(getMaxNutrition() * 0.5f);
 
+		reRollStats();
+		}
+
+	void Update()
+		{
+
+		}
+
+	public void reRollStats()
+		{
 		System.Random random = new System.Random();
 
 		int maxstatboost = 5 - defaultstatboostnumber;
@@ -87,11 +97,6 @@ public class Character : MonoBehaviour
 				stats[I] = random.Next(21, 61);
 				}
 			}
-		}
-
-	void Update()
-		{
-
 		}
 
 	// Returns, whether the character is dead after the attack (does not imply that he was killed by the attack)
