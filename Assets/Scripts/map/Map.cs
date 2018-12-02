@@ -25,12 +25,12 @@ public class Map {
 
 
         float retZ = Mathf.Max(1 - Mathf.Log10(height - z ), 1 - Mathf.Log10(z ));
-        if ( x > 6 && x < width-6)
+        //if (/* x > 6 &&x < width-6*/ )
             retX = 0;
-        if (z > 6 && z < width - 6)
+        if (z > 6 /*&& z < height - 6*/)
             retZ = 0;
         
-        Debug.Log("retX="+retX+" retz="+retZ);
+        //Debug.Log("retX="+retX+" retz="+retZ);
         float[] ret = new float[]{retX, retZ};
         return ret;
 
@@ -84,7 +84,7 @@ public class Map {
                     if (prop > noiseValue)
                         break;
                 }
-                Debug.Log(prop);
+                //Debug.Log(prop);
                 float subProp = 0f;
                 SUBBIOM subBiom = SUBBIOM.DesertHot;
                 foreach (KeyValuePair<SUBBIOM, int> chance in subBiomChance) {
@@ -104,9 +104,36 @@ public class Map {
 
                 
                 tiles[new Vector2Int(x, z)] = new MapTile(tile, biom, subBiom);
-               // Debug.Log(materials[0].name);
+                // Debug.Log(materials[0].name);
+               
             }
            
         }
+        makeShoreLine(shoreSouth: true);
+    }
+
+    private void makeShoreLine(bool shoreNord=false,bool shoreEast=false,bool shoreSouth= false ,bool shoreWest=false) {
+    
+
+
+        if (shoreSouth && !shoreNord && !shoreEast &&  !shoreWest) {
+            int x = 0;
+            int z = 0;
+
+            MapTile positon = getTile(new Vector2Int(x, z));
+            while (positon.getBiom() == BIOM.Water) {
+                positon = getTile(new Vector2Int(x, ++z));
+                Debug.Log(positon.getBiom());
+
+            }
+            //Debug.Log("troll");
+            
+        }
+
+    }
+    private void getShore(MapTile position,int x,int y) {
+    /*    last
+        Vector2int orientation = Vector2Int(Vector2.down);
+        position();*/
     }
 }
