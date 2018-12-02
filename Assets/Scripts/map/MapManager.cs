@@ -19,7 +19,7 @@ public class MapManager : MonoBehaviour {
     private Map map;
 
     [SerializeField]
-    private int seed0bis100000=0;
+    private int seed =0;
     [SerializeField]
     private int width = 100;
     [SerializeField]
@@ -53,7 +53,7 @@ public class MapManager : MonoBehaviour {
         biomChance[BIOM.Desert] = 100;
         biomChance[BIOM.Mountain] = 150;
 
-        subBiomChance[SUBBIOM.CityWall] = 2;
+        //subBiomChance[SUBBIOM.CityWall] = 2;
 
         subBiomChance[SUBBIOM.DarkWood] = 2;
         subBiomChance[SUBBIOM.Deep] = 2;
@@ -95,7 +95,7 @@ public class MapManager : MonoBehaviour {
             }
            
         }
-        map = new Map(seed0bis100000 == 0 ? Random.Range(1, 100000) : seed0bis100000, width, height, prefabTile, biomChance, subBiomChance, materials);
+        map = new Map(seed == 0 ? Random.Range(1, 100000) : seed, width, height, prefabTile, biomChance, subBiomChance, materials);
 
     }
     public Map getMap() {
