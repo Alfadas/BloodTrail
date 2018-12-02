@@ -33,6 +33,9 @@ public class RollEncounter : MonoBehaviour {
     [SerializeField] int eChanceCamp = 20;
     [SerializeField] int eChanceRuin = 20;
 
+
+    int eChanceRoadblockModified = 0;
+    int eChanceThiefsModified = 0;
     int encounterEnemyCount = 0;
     string[] encounterObj;
 
@@ -43,7 +46,16 @@ public class RollEncounter : MonoBehaviour {
         roll = Random.Range(1, 101);
         if (roll <= eChanceFight)
         {
-            
+            if (mapTile.getSubBiom() != SUBBIOM.Street)
+            {
+                eChanceRoadblockModified = 0;
+                eChanceThiefsModified = eChanceThiefs+eChanceRoadblock;
+            }
+            else
+            {
+                eChanceRoadblockModified = eChanceRoadblock;
+                eChanceThiefsModified = eChanceThiefs;
+            }
             buildEncounter.CategorizeTile(mapTile, SpecializeEncounterFight(), encounterEnemyCount);
         }
         else if (roll <= eChanceFight + eChanceDialoge)
@@ -65,7 +77,7 @@ public class RollEncounter : MonoBehaviour {
     {
         int roll;
         roll = Random.Range(1, 101);
-        if (roll <= eChanceRoadblock)//Roadblock
+        if (roll <= eChanceRoadblockModified)//Roadblock
         {
             RandomEnemy(2);
             encounterEnemyCount += 2;
@@ -84,7 +96,7 @@ public class RollEncounter : MonoBehaviour {
             
             
         }
-        else if (roll <= eChanceRoadblock + eChanceThiefs)//Thiefs
+        else if (roll <= eChanceRoadblock + eChanceThiefsModified)//Thiefs
         {
             RandomEnemy(3);
             encounterEnemyCount += 1;
