@@ -59,7 +59,7 @@ public class BuildEncounter : MonoBehaviour
     List<GameObject> midd;
     List<GameObject> edge;
     List<GameObject> back;
-    List<GameObject> enemies;
+    List<Character> enemies;
 
 
     int edgeWidth = 5;
@@ -82,7 +82,7 @@ public class BuildEncounter : MonoBehaviour
         edge = new List<GameObject>();
         midd = new List<GameObject>();
         back = new List<GameObject>();
-        enemies = new List<GameObject>();
+        enemies = new List<Character>();
         int edgeObjectCount = 0;
 
 
@@ -275,7 +275,9 @@ public class BuildEncounter : MonoBehaviour
             }
             if (backCounter <= encounterEnemyCount)
             {
-                enemies.Add(backObj);
+                Character newEnemy = backObj.GetComponent<Character>();
+                newEnemy.reRollStats();
+                enemies.Add(newEnemy);
             }
             backCounter++;
         }
@@ -331,7 +333,7 @@ public class BuildEncounter : MonoBehaviour
             }
         }
     }
-    public List<GameObject> GetEnemies()
+    public List<Character> GetEnemies()
     {
         return enemies;
     }
