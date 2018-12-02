@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Character : MonoBehaviour
 	{
-	[SerializeField] int defaultstatboostnumber = 2;
+	[SerializeField] int defaultstatboostnumber = 2; // TODO: Secure, that this is always >= 0 and < number of stats
 
 	public const int STAT_ENDURANCE = 0;
 	public const int STAT_STRENGTH = 1;
