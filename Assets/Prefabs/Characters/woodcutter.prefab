@@ -38,7 +38,7 @@ GameObject:
   - component: {fileID: 4324992432471904}
   - component: {fileID: 114665736565180962}
   m_Layer: 0
-  m_Name: Woodcutter
+  m_Name: woodcutter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
