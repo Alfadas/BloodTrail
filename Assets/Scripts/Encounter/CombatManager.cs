@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class CombatManager : MonoBehaviour {
     [SerializeField] BuildEncounter buildEncounter;
+    [SerializeField] CaracterArrayHolder caracterArrayHolder;
     List<Character> enemies;
     List<Character> playerGroup;
     List<Character> participants;
     List<Character> deadParticipants;
+    Character[] playerCharacter;
     int participantCount;
 
     Queue<Character> participantsQueue;
@@ -16,10 +18,13 @@ public class CombatManager : MonoBehaviour {
     Character selectedCharacter;
     [SerializeField] GameObject CombatButtons;
 
+    int combatActionCount = 1;
+    public bool aiTurn = false;
+
     public void StartFight()
     {
         participantsQueue = new Queue<Character>();
-        playerGroup = new List<Character>(); //get Playergroup
+        playerGroup.AddRange(caracterArrayHolder.playerGroup);
         deadParticipants = new List<Character>();
         enemies = buildEncounter.GetEnemies();
         participants.AddRange(enemies);
@@ -68,6 +73,10 @@ public class CombatManager : MonoBehaviour {
                 currentCharacter = null;
             }
         }
+        if (enemies.Contains(currentCharacter))
+        {
+            aiTurn = true;
+        }
         CombatButtons.SetActive(true);
     }
     public void Attack()
@@ -77,7 +86,7 @@ public class CombatManager : MonoBehaviour {
         {
             deadParticipants.Add(selectedCharacter);
         }
-        EndTurn();
+        StartCoroutine("AttackAnimation");
     }
 
     void EndTurn()
@@ -101,5 +110,24 @@ public class CombatManager : MonoBehaviour {
     void GameLost()
     {
         Application.Quit();//TODO add bad ending
+    }
+    void EnemyTurn()
+    {
+        int rollAction;
+        int rollCharacter;
+        rollAction = Random.Range(1, combatActionCount + 1);
+        rollCharacter = Random.Range(1, playerGroup.Count);
+        playerCharacter = playerGroup.ToArray();
+        SetSelected(playerCharacter[rollCharacter]);
+        if (rollAction == 1)
+        {
+            Attack();
+        }
+    }
+
+    IEnumerable AttackAnimation()
+    {
+        yield return new WaitForSeconds(2);
+        EndTurn();
     }
 }

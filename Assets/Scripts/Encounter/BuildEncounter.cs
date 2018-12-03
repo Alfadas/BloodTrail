@@ -60,6 +60,7 @@ public class BuildEncounter : MonoBehaviour
     List<GameObject> edge;
     List<GameObject> back;
     List<Character> enemies;
+    List<Character> playerGroup;
 
 
     int edgeWidth = 5;
@@ -280,6 +281,32 @@ public class BuildEncounter : MonoBehaviour
                 enemies.Add(newEnemy);
             }
             backCounter++;
+        }
+        //Get Playergroup
+        int frontCounter = 1;
+        foreach (Character character in playerGroup)
+        {
+            if (frontCounter == 2)
+            {
+                character.gameObject.transform.position = new Vector3(gameObject.transform.position.x + npcXSpacing, gameObject.transform.position.y, gameObject.transform.position.z);
+            }
+            else if (frontCounter == 3)
+            {
+                character.gameObject.transform.position = new Vector3(gameObject.transform.position.x - npcXSpacing, gameObject.transform.position.y, gameObject.transform.position.z);
+            }
+            else if (frontCounter == 4)
+            {
+                character.gameObject.transform.position = new Vector3(gameObject.transform.position.x + (npcXSpacing * 2), gameObject.transform.position.y, gameObject.transform.position.z);
+            }
+            else if (frontCounter == 5)
+            {
+                character.gameObject.transform.position = new Vector3(gameObject.transform.position.x - (npcXSpacing * 2), gameObject.transform.position.y, gameObject.transform.position.z);
+            }
+            else
+            {
+                character.gameObject.transform.position = gameObject.transform.position;
+            }
+            frontCounter++;
         }
     }
     public void RollEdgePosition(string side, GameObject edgeObj)
