@@ -203,7 +203,9 @@ public class Map {
        const int minsteps = 6;//steps bevore road can turn in weak wrong direction 
        //  int maxCity = Mathf.RoundToInt( Mathf.Pow( (float) (width + height) / 2 , 1 / (float)2) );
         List<Vector2Int> roadsToCheck = new List<Vector2Int>();
-  
+        Dictionary<Vector2Int, List<Vector2Int>> cityConnectsToRoad = new Dictionary<Vector2Int, List<Vector2Int>>();
+            
+
 
         Material road = Resources.Load("Materials/Map/Road", typeof(Material)) as Material;
         Material roadC = Resources.Load("Materials/Map/RoadCross", typeof(Material)) as Material;
@@ -211,7 +213,7 @@ public class Map {
         Material roadD = Resources.Load("Materials/Map/RoadDiagonal", typeof(Material)) as Material;
 
         const int streetsPerCity = 1;
-        const int weightWrong = 2;  
+        const int weightWrong = 5;  
        
         Random.seed = this.seed;
         Dictionary<Vector2Int, Vector2Int> fromToCities = new Dictionary<Vector2Int, Vector2Int>();
@@ -225,6 +227,7 @@ public class Map {
                 int key = Random.Range(0, keyList.Count);
                 //MapTile city = cities[keyList[key]];
                 MapTile cityStart = city.Value;
+                Vector2Int cityStartPos = city.Key;
                 Vector2Int currentPos = city.Key;//keyList[key];
 
 
@@ -234,7 +237,9 @@ public class Map {
                // Debug.Log("cityEnd: "+ cityEndPos);
                 Vector2Int LastPosition = new Vector2Int(-1,-1);
                 int steps = 0;
-
+                bool stop=false;
+                bool stopNow = false;
+                bool nextToRoad = false;
                 if ((currentPos == cityEndPos)||
                     (fromToCities.ContainsKey(city.Key) && fromToCities[city.Key] == cityEndPos) ||
                     (fromToCities.ContainsKey(cityEndPos) && fromToCities[cityEndPos] == city.Key) ){
@@ -245,9 +250,14 @@ public class Map {
                 fromToCities[city.Key] = cityEndPos;
                 fromToCities[cityEndPos] = city.Key;
                 Debug.Log("start = " + city.Key + " End = " + cityEndPos);
-                while (currentPos != cityEndPos ) {
-           
-                     
+                List <Vector2Int> thisRoad = new List<Vector2Int>();
+                while (currentPos != cityEndPos) {
+
+                    if(!cityConnectsToRoad.ContainsKey(cityStartPos))
+                    cityConnectsToRoad[cityStartPos] = new List<Vector2Int>();
+                    if (!cityConnectsToRoad.ContainsKey(cityEndPos))
+                        cityConnectsToRoad[cityEndPos] = new List<Vector2Int>();
+
                     Vector2Int direction = cityEndPos - currentPos;
                     int strongVal = Mathf.Abs(direction.x) > Mathf.Abs(direction.y) ? direction.x : direction.y;
                     int weakVal = Mathf.Abs(direction.x) < Mathf.Abs(direction.y) ? direction.x : direction.y;
@@ -261,13 +271,16 @@ public class Map {
                     Vector2Int wrongDir = weakDir*(-1);
                     Vector2Int newPos;
                      int randVar = Random.Range(1, 100);
+
+                    float distToDest = Vector2Int.Distance(currentPos, cityEndPos);
                     // Debug.Log("weak = strong?" + (weakDir == strongDir));
                     if (randVar < weightWrong && currentPos + wrongDir != LastPosition &&
                         steps > minsteps && tiles[currentPos + wrongDir].getBiom() != BIOM.Water &&
-                        (currentPos + wrongDir).x < width-1 && (currentPos + wrongDir).y < height - 1 && (currentPos + wrongDir).x > 0 && (currentPos + wrongDir).y > 0 ) 
+                        (currentPos + wrongDir).x < width - 1 && (currentPos + wrongDir).y < height - 1 && (currentPos + wrongDir).x > 0 && (currentPos + wrongDir).y > 0 && distToDest>4)
                     {
                         newPos = currentPos + wrongDir;
-                       // Debug.Log("wrong Dir");
+
+                        // Debug.Log("wrong Dir");
                     }
                     else if (randVar < (100 - weightWrong) * (strongVal / ((float)strongVal + weakVal)) &&
                         currentPos + strongDir != LastPosition && tiles[currentPos + strongDir].getBiom() != BIOM.Water &&
@@ -334,20 +347,75 @@ public class Map {
                         throw new System.Exception("out of options");
 
                     }
-                        
-                        
+
+
+                    //  Vector2Int newDir = newPos - currentPos;
+                    if (
+
+                        ((cityConnectsToRoad[cityStartPos].Contains(currentPos + Vector2Int.up) ||
+                        cityConnectsToRoad[cityEndPos].Contains(currentPos + Vector2Int.up)) &&
+                        !(thisRoad.Contains(currentPos + Vector2Int.up)))
+                        ) {
+                        stop = true;
+                        newPos = currentPos + Vector2Int.up;
+                        Debug.Log(" stopt at" + newPos);
+                    }
+
+
+                    if((cityConnectsToRoad[cityStartPos].Contains(currentPos + Vector2Int.down) ||
+                        cityConnectsToRoad[cityEndPos].Contains(currentPos + Vector2Int.down) )&&
+                        !(thisRoad.Contains(currentPos + Vector2Int.down)))
+                    {
+                        stop = true;
+                        newPos = currentPos + Vector2Int.down;
+                        Debug.Log(" stopt at" + newPos);
+                    }
+
+                    if ((cityConnectsToRoad[cityStartPos].Contains(currentPos + Vector2Int.left) ||
+                        cityConnectsToRoad[cityEndPos].Contains(currentPos + Vector2Int.left)) &&
+                        !(thisRoad.Contains(currentPos + Vector2Int.left))) 
+                        {
+                            stop = true;
+                            newPos = currentPos + Vector2Int.left;
+                        Debug.Log(" stopt at" + newPos);
+                    }
                     
 
-                    tiles[newPos].setSubBiom(SUBBIOM.Street);
-                   // Debug.Log("pos street: " + newPos.x + "," + newPos.y +" -> "+tiles[newPos].getSubBiom());
+                        if((cityConnectsToRoad[cityStartPos].Contains(currentPos + Vector2Int.right) ||
+                        cityConnectsToRoad[cityEndPos].Contains(currentPos + Vector2Int.right)) &&
+                        !(thisRoad.Contains(currentPos + Vector2Int.right)))
+                    {
+                        stop = true;
+                        newPos = currentPos + Vector2Int.right;
+                        Debug.Log(" stopt at" + newPos);
+                    }
+                        
+                   
+                    thisRoad.Add(newPos);
+                    cityConnectsToRoad[cityStartPos].Add(newPos);
+                    cityConnectsToRoad[cityEndPos].Add(newPos);
+                   
+
+                    
+                      tiles[newPos].setSubBiom(SUBBIOM.Street);
+                    // Debug.Log("pos street: " + newPos.x + "," + newPos.y +" -> "+tiles[newPos].getSubBiom());
+                   
+                       
 
                     Vector2Int aRoadPos = makeRoad( currentPos,  road,  roadC,  roadD,  roadT);
-                 
+
+                   
 
                     if (aRoadPos != new Vector2Int(-1, -1))
                         roadsToCheck.Add(aRoadPos);
 
+                    if (stop) {
 
+                        aRoadPos = makeRoad(newPos, road, roadC, roadD, roadT);
+                        if (aRoadPos != new Vector2Int(-1, -1))
+                            roadsToCheck.Add(aRoadPos);
+                        break;
+                    }
                     //check old possition
 
 
@@ -355,14 +423,28 @@ public class Map {
                     LastPosition = currentPos;
                     currentPos = newPos;
                     steps++;
-                }            
+                    
+                }
+                
+               // Debug.Log("start " + cityStartPos + " :");
+
+                foreach (Vector2Int v in cityConnectsToRoad[cityStartPos]) {
+                //    Debug.Log("V.x=" + v.x + "V.y" + v.y);
+                }
+
+
+                //Debug.Log("end " + cityEndPos + " :" );
+                foreach (Vector2Int v in cityConnectsToRoad[cityEndPos])
+                {
+                  //  Debug.Log("V.x=" + v.x + "V.y" + v.y);
+                }
             }
           
         }
-        foreach ( Vector2Int r in roadsToCheck) {
+       
 
-            
-            
+        foreach ( Vector2Int r in roadsToCheck) {
+      
             
             Vector2Int currentPos = r;
             //Debug.Log("Checked " + r.x + " " + r.y);
