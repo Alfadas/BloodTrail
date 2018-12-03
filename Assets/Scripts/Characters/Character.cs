@@ -15,18 +15,21 @@ public class Character : MonoBehaviour
 	public const int STAT_INTELLIGENCE = 3;
 	public const int STAT_CHARISMA = 4;
 
+	private static System.Random random = new System.Random();
 	private CharacterManager manager;
 	private string name;
 	private int health;
 	private int nutrition;
 	private int[] stats;
+	private bool defensestance;
 
 	void Start()
 		{
 		reRollStats();
 
-		health = getMaxHealth();
 		nutrition = Mathf.RoundToInt(getMaxNutrition() * 0.5f);
+		health = getMaxHealth();
+		defensestance = false;
 		}
 
 	// Makes the character lose nutrition and, if he is not starving, regenerate health based on passed time.
@@ -49,8 +52,6 @@ public class Character : MonoBehaviour
 		string[] consonants = { "b", "c", "d", "f", "g", "h", "j", "k", "l", "m", "n", "p", "r", "s", "t", "v", "w", "x", "y", "z" };
 		string[] maleending = { "o", "u", "b", "c", "d", "f", "g", "k", "l", "m", "n", "p", "r", "s", "t", "v", "w", "x", "z" };
 		string[] femaleending = { "a", "e", "i", "y" };
-
-		System.Random random = new System.Random(Random.Range(0, 100000));
 
 		name = capitals[random.Next(capitals.Length)];
 
@@ -108,7 +109,6 @@ public class Character : MonoBehaviour
 	// Generates new random stats for this character.
 	public void reRollStats()
 		{
-		System.Random random = new System.Random();
 		int maxstatboost = 5 - defaultstatboost;
 		int statboostmodifier = 0;
 		for(int I = 0; I < maxstatboost; ++I)
@@ -135,7 +135,7 @@ public class Character : MonoBehaviour
 			}
 
 		// Pull out some random stats to boost according to statboostcount
-		int[] statlist = { STAT_ENDURANCE, STAT_ENDURANCE, STAT_ENDURANCE, STAT_ENDURANCE, STAT_ENDURANCE };
+		int[] statlist = {STAT_ENDURANCE, STAT_STRENGTH, STAT_AGILITY, STAT_INTELLIGENCE, STAT_CHARISMA};
 		for(int I = statlist.Length - 1; I >= statlist.Length - statboostcount; --I)
 			{
 			int luckyindex = random.Next(statlist.Length - I);
@@ -166,7 +166,7 @@ public class Character : MonoBehaviour
 
 			if(boosted)
 				{
-				stats[I] = random.Next(61, 101);
+				stats[I] = random.Next(81, 101);
 				}
 			else
 				{
@@ -195,6 +195,14 @@ public class Character : MonoBehaviour
 		marker.SetActive(false);
 		}
 
+	public void die()
+		{
+		if(manager != null)
+			{
+			manager.killCharacter(this);
+			}
+		}
+
 	// Returns, whether the character is dead after the attack (does not imply that he was killed by the attack)
 	public bool hurt(int damage)
 		{
@@ -202,12 +210,8 @@ public class Character : MonoBehaviour
 
 		if(health <= 0)
 			{
-			if(manager != null)
-				{
-				manager.killCharacter(this);
-				}
-
-			return false;
+			die();
+			return true;
 			}
 
 		return false;
@@ -304,8 +308,18 @@ public class Character : MonoBehaviour
 		return Mathf.Max(Mathf.FloorToInt(stats[stat] * factor), 0);
 		}
 
+	public bool isDefenseStance()
+		{
+		return defensestance;
+		}
+
 	public void setManager(CharacterManager manager)
 		{
 		this.manager = manager;
+		}
+
+	public void setDefenseStance(bool defensestance)
+		{
+		this.defensestance = defensestance;
 		}
 	}

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class BuildEncounter : MonoBehaviour
 {
+    [SerializeField] CaracterArrayHolder caracterArrayHolder;
+    [SerializeField] MapManager mapManager;
     [Header("TileProperties")]
     [SerializeField] int zLength = 25;
     [SerializeField] float sideSwitchDivMin = 1.9f;
@@ -52,23 +54,27 @@ public class BuildEncounter : MonoBehaviour
     [Header("Enemys")]
     [SerializeField] int enemyCount;
     [SerializeField] int heavyEnemyCount;
+    [SerializeField] int neutralCount = 4;
 
     Dictionary<string, GameObject> backObjs;
 
     GameObject ground;
-    List<GameObject> midd;
-    List<GameObject> edge;
-    List<GameObject> back;
+    public List<GameObject> midd;
+    public List<GameObject> edge;
+    public List<GameObject> back;
     List<Character> enemies;
     List<Character> playerGroup;
+    Map map;
 
 
     int edgeWidth = 5;
+    bool isStreet;
+    public string[] encounterOb;
 
     // Use this for initialization
     void Start()
     {
-        objName = new string[] { "swordman1", "swordman2", "swordman3", "swordman4", "thief", "chest", "baricade" };
+        objName = new string[] { "Solider1", "Solider2", "Solider3", "Knight", "Thief1", "Thief2", "Thief3", "Thief4", "Bandit1", "Bandit2", "Bandit3", "Bandit4", "Bandit5", "Barricade", "Woodcutter1", "Woodcutter2", "Woman1", "Woman2", "Soldier1", "Soldier2" };
         backObjs = new Dictionary<string, GameObject>();
         for (int i = 0; i < objName.Length; i++)
         {
@@ -78,13 +84,17 @@ public class BuildEncounter : MonoBehaviour
 
     public void CategorizeTile(MapTile mapTile, string[] encounterObj, int encounterEnemyCount)
     {
+        map = mapManager.getMap();
         ResetEncounter();
         ground = null;
         edge = new List<GameObject>();
         midd = new List<GameObject>();
         back = new List<GameObject>();
         enemies = new List<Character>();
+        playerGroup = new List<Character>();
         int edgeObjectCount = 0;
+        isStreet = false;
+        encounterOb = encounterObj;
 
 
         switch (mapTile.getBiom())
@@ -103,6 +113,7 @@ public class BuildEncounter : MonoBehaviour
                     edgeObjectCount = Random.Range(streetMinEdgeObjects, streetMaxEdgeObjects + 1);
                     midd.Add(middStreet[Random.Range(0, middStreet.Length)]);
                     edgeWidth = streetEdgeWidth;
+                    isStreet = true;
                 }
                 else
                 {
@@ -129,6 +140,7 @@ public class BuildEncounter : MonoBehaviour
                     edgeObjectCount = Random.Range(streetMinEdgeObjects, streetMaxEdgeObjects + 1);
                     midd.Add(middStreet[Random.Range(0, middStreet.Length)]);
                     edgeWidth = streetEdgeWidth;
+                    isStreet = true;
                 }
                 else
                 {
@@ -138,24 +150,34 @@ public class BuildEncounter : MonoBehaviour
             case BIOM.Town:
                 ground = groundTown;
                 edgeWidth = streetEdgeWidth;
-
-                if (mapTile.getSubBiom() == SUBBIOM.CityWall)
+                GameObject tile = mapTile.getTile();
+                if (map.isTileCityWall(new Vector2Int(Mathf.RoundToInt(tile.transform.position.x), Mathf.RoundToInt(tile.transform.position.z))))
                 {
                     edge.AddRange(edgeGrass);
                     edgeObjectCount = Random.Range(grassMinEdgeObjects, grassMaxEdgeObjects + 1);
                     midd.Add(middTownWall[Random.Range(0, middTownWall.Length)]);
-                    break;
-                }
-                else if (mapTile.getSubBiom() == SUBBIOM.TownCenter)
-                {
-                    edge.AddRange(edgeTown);
-                    edgeObjectCount = Random.Range(townMinEdgeObjects, townMaxEdgeObjects + 1);
-                    midd.Add(middTown[Random.Range(0, middTown.Length)]);
+                    midd.Add(middStreet[Random.Range(0, middStreet.Length)]);
                     break;
                 }
                 else
                 {
-                    Debug.LogWarning("no SubBiom case: " + mapTile.getSubBiom());
+                    edge.AddRange(edgeTown);
+                    if (mapTile.getSubBiom() == SUBBIOM.TownCenter)
+                    {
+                        edgeObjectCount = Random.Range(townMinEdgeObjects, townMaxEdgeObjects + 1);
+                        midd.Add(middTown[Random.Range(0, middTown.Length)]);
+                        break;
+                    }
+                    else if (mapTile.getSubBiom() == SUBBIOM.Street)
+                    {
+                        edgeObjectCount = Random.Range(streetMinEdgeObjects, streetMaxEdgeObjects + 1);
+                        midd.Add(middStreet[Random.Range(0, middStreet.Length)]);
+                        isStreet = true;
+                    }
+                    else
+                    {
+                        Debug.LogWarning("no SubBiom case: " + mapTile.getSubBiom());
+                    }
                 }
                 break;
             case BIOM.Farm:
@@ -182,36 +204,96 @@ public class BuildEncounter : MonoBehaviour
         }
         for (int i = 0; i < encounterObj.Length; i++)
         {
-
             if (encounterObj[i] == "randomE")
             {
                 int roll;
                 roll = Random.Range(0, enemyCount);
                 if (roll == 0)
                 {
-                    if (!AddToBack("swordman1")) { i--; continue; }
+                    if (!AddToBack("Thief1")) { i--; continue; }
                 }
                 else if (roll == 1)
                 {
-                    if (!AddToBack("swordman2")) { i--; continue; }
+                    if (!AddToBack("Thief2")) { i--; continue; }
                 }
                 else if (roll == 2)
                 {
-                    if (!AddToBack("swordman3")) { i--; continue; }
+                    if (!AddToBack("Thief3")) { i--; continue; }
                 }
                 else if (roll == 3)
                 {
-                    if (!AddToBack("swordman4")) { i--; continue; }
+                    if (!AddToBack("Thief4")) { i--; continue; }
                 }
                 else if (roll == 4)
                 {
-                    if (!AddToBack("thief")) { i--; continue; }
+                    if (!AddToBack("Bandit1")) { i--; continue; }
+                }
+                else if (roll == 5)
+                {
+                    if (!AddToBack("Bandit2")) { i--; continue; }
+                }
+                else if (roll == 6)
+                {
+                    if (!AddToBack("Bandit3")) { i--; continue; }
+                }
+                else if (roll == 7)
+                {
+                    if (!AddToBack("Bandit4")) { i--; continue; }
+                }
+                else if (roll == 8)
+                {
+                    if (!AddToBack("Bandit5")) { i--; continue; }
                 }
             }
             else if (encounterObj[i] == "randomHE")
             {
                 int roll;
                 roll = Random.Range(0, heavyEnemyCount);
+                if (roll == 0)
+                {
+                    if (!AddToBack("Solider1")) { i--; continue; }
+                }
+                else if (roll == 1)
+                {
+                    if (!AddToBack("Solider2")) { i--; continue; }
+                }
+                else if (roll == 2)
+                {
+                    if (!AddToBack("Solider3")) { i--; continue; }
+                }
+                else if (roll == 3)
+                {
+                    if (!AddToBack("Knight")) { i--; continue; }
+                }
+            }
+            else if (encounterObj[i] == "randomN")
+            {
+                int roll;
+                roll = Random.Range(0, heavyEnemyCount);
+                if (roll == 0)
+                {
+                    if (!AddToBack("Woodcutter1")) { i--; continue; }
+                }
+                else if (roll == 1)
+                {
+                    if (!AddToBack("Woodcutter2")) { i--; continue; }
+                }
+                else if (roll == 2)
+                {
+                    if (!AddToBack("Woman1")) { i--; continue; }
+                }
+                else if (roll == 3)
+                {
+                    if (!AddToBack("Woman2")) { i--; continue; }
+                }
+                else if (roll == 4)
+                {
+                    if (!AddToBack("Soldier1")) { i--; continue; }
+                }
+                else if (roll == 4)
+                {
+                    if (!AddToBack("Soldier2")) { i--; continue; }
+                }
             }
             else
             {
@@ -228,23 +310,28 @@ public class BuildEncounter : MonoBehaviour
         int backCounter = 1;
         int sideSwitchPoint = Mathf.RoundToInt(edgeObjectCount / Random.Range(sideSwitchDivMin, sideSwitchDivMax));
         ground.transform.position = gameObject.transform.position;
-        foreach (GameObject edgeObj in edge)
+        foreach (GameObject edgeO in edge)
         {
+            int roll;
+            roll = Random.Range(0, edge.Count);
+            GameObject[] edgeObj = edge.ToArray();
             if (edgeCounter > edgeObjectCount)
             {
                 break;
             }
             else if (edgeCounter > sideSwitchPoint)
             {
-                EdgePositionControll edgePositionControll = edgeObj.GetComponent<EdgePositionControll>();
+                EdgePositionControll edgePositionControll = edgeObj[roll].GetComponent<EdgePositionControll>();
                 edgePositionControll.SetBuildNumber(edgeCounter);
-                RollEdgePosition("l", edgeObj);
+                edgePositionControll.placeTry = 0;
+                RollEdgePosition("l", edgeObj[roll]);
             }
             else
             {
-                EdgePositionControll edgePositionControll = edgeObj.GetComponent<EdgePositionControll>();
+                EdgePositionControll edgePositionControll = edgeObj[roll].GetComponent<EdgePositionControll>();
                 edgePositionControll.SetBuildNumber(edgeCounter);
-                RollEdgePosition("r", edgeObj);
+                edgePositionControll.placeTry = 0;
+                RollEdgePosition("r", edgeObj[roll]);
             }
             edgeCounter++;
         }
@@ -282,7 +369,7 @@ public class BuildEncounter : MonoBehaviour
             }
             backCounter++;
         }
-        //Get Playergroup
+        playerGroup.AddRange(caracterArrayHolder.playerGroup);
         int frontCounter = 1;
         foreach (Character character in playerGroup)
         {
@@ -315,15 +402,32 @@ public class BuildEncounter : MonoBehaviour
         int rollZ;
         rollX = Random.Range(0, edgeWidth);
         rollZ = Random.Range(0, zLength);
-        if (side == "r")
+        if (isStreet)
         {
-            edgeObj.transform.position = new Vector3(edgePosR.position.x - rollX, edgePosR.position.y, edgePosR.position.z + rollZ);
+            if (side == "r")
+            {
+                edgeObj.transform.position = new Vector3(edgePosR.position.x - rollX, edgePosR.position.y+1, edgePosR.position.z + rollZ);
+                edgeObj.transform.rotation = Quaternion.Euler(0, -90, 0);
+            }
+            if (side == "l")
+            {
+                edgeObj.transform.position = new Vector3(edgePosL.position.x + rollX, edgePosL.position.y+1, edgePosL.position.z + rollZ);
+                edgeObj.transform.rotation = Quaternion.Euler(0, 90, 0);
+            }
         }
-        if (side == "l")
+        else
         {
-            edgeObj.transform.position = new Vector3(edgePosL.position.x + rollX, edgePosL.position.y, edgePosL.position.z + rollZ);
+            if (side == "r")
+            {
+                edgeObj.transform.position = new Vector3(edgePosR.position.x - rollX, edgePosR.position.y, edgePosR.position.z + rollZ);
+                edgeObj.transform.rotation = Quaternion.Euler(0, -90, 0);
+            }
+            if (side == "l")
+            {
+                edgeObj.transform.position = new Vector3(edgePosL.position.x + rollX, edgePosL.position.y, edgePosL.position.z + rollZ);
+                edgeObj.transform.rotation = Quaternion.Euler(0, 90, 0);
+            }
         }
-
     }
     bool AddToBack(string npc)
     {
@@ -356,6 +460,7 @@ public class BuildEncounter : MonoBehaviour
             {
                 EdgePositionControll edgePositionControll = edgeObj.GetComponent<EdgePositionControll>();
                 edgePositionControll.SetBuildNumber(0);
+                edgePositionControll.placeTry = 0;
                 edgeObj.transform.localPosition = Vector3.zero;
             }
         }

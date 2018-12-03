@@ -38,7 +38,6 @@ GameObject:
   - component: {fileID: 4317092670931052}
   - component: {fileID: 33260233227300530}
   - component: {fileID: 23345410550791582}
-  - component: {fileID: 135040070823518010}
   m_Layer: 0
   m_Name: Marker
   m_TagString: Untagged
@@ -102,6 +101,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4685663039901952}
   - component: {fileID: 114522461658083222}
+  - component: {fileID: 65644674309961734}
+  - component: {fileID: 114856082230874200}
+  - component: {fileID: 114952042777231128}
   m_Layer: 0
   m_Name: Thief
   m_TagString: Untagged
@@ -174,7 +176,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1539026014394904}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -30}
+  m_LocalPosition: {x: 0, y: 1, z: -60}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4730847474955356}
@@ -391,6 +393,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1763510265342216}
   m_Mesh: {fileID: 4300000, guid: 8d4b4f0dd4889b04dbf5830eaf0989f1, type: 3}
+--- !u!65 &65644674309961734
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1833801612149084}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 20, y: 44, z: 14}
+  m_Center: {x: 0, y: 22, z: -60}
 --- !u!114 &114522461658083222
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -402,19 +416,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9286d668fd819e948b331a45d8af9d27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultstatboostnumber: 2
+  defaultstatboost: 2
   marker: {fileID: 1357855340859892}
   friendcolor: {fileID: 2100000, guid: 441d2bccf9f8caa42a1669f5b849fce1, type: 2}
   foecolor: {fileID: 2100000, guid: 6d1fb2c02a558fe4fa1f7547c37e9ced, type: 2}
---- !u!135 &135040070823518010
-SphereCollider:
+--- !u!114 &114856082230874200
+MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1357855340859892}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_GameObject: {fileID: 1833801612149084}
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ce708a2cbe9044408dea31bcd61b888, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isEdge: 0
+  placeTry: 0
+--- !u!114 &114952042777231128
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1833801612149084}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13a4a0d286765b0419b26f628c1867f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  combatManager: {fileID: 0}
