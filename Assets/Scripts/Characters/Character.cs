@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Character : MonoBehaviour
 	{
-	[SerializeField] int defaultstatboostnumber = 2; // TODO: Secure, that this is always >= 0 and < number of stats
+	[SerializeField] int defaultstatboost = 2; // TODO: Secure, that this is always >= 0 and < number of stats
 	[SerializeField] GameObject marker;
 	[SerializeField] Material friendcolor;
 	[SerializeField] Material foecolor;
@@ -15,6 +15,8 @@ public class Character : MonoBehaviour
 	public const int STAT_INTELLIGENCE = 3;
 	public const int STAT_CHARISMA = 4;
 
+	private CharacterManager manager;
+	private string name;
 	private int health;
 	private int nutrition;
 	private int[] stats;
@@ -27,26 +29,6 @@ public class Character : MonoBehaviour
 		nutrition = Mathf.RoundToInt(getMaxNutrition() * 0.5f);
 		}
 
-	// Displays a marker below a character to mark him as active friend or targeted foe.
-	public void markCharacter(bool foe)
-		{
-		if(foe)
-			{
-			marker.GetComponent<Renderer>().material = foecolor;
-			}
-		else
-			{
-			marker.GetComponent<Renderer>().material = friendcolor;
-			}
-		marker.SetActive(true);
-		}
-
-	// Deactivates the marker below the character.
-	public void unmarkCharacter()
-		{
-		marker.SetActive(false);
-		}
-
 	// Makes the character lose nutrition and, if he is not starving, regenerate health based on passed time.
 	public void updateCharacter(int time)
 		{
@@ -57,12 +39,77 @@ public class Character : MonoBehaviour
 			}
 		}
 
+	public string rollName(bool male)
+		{
+		const int VOCAL = 0;
+		const int CONSONANT = 1;
+
+		string[] capitals = { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "R", "S", "T", "U", "V", "W", "X", "Y", "Z" };
+		string[] vocals = { "a", "e", "i", "o", "u" };
+		string[] consonants = { "b", "c", "d", "f", "g", "h", "j", "k", "l", "m", "n", "p", "r", "s", "t", "v", "w", "x", "y", "z" };
+		string[] maleending = { "o", "u", "b", "c", "d", "f", "g", "k", "l", "m", "n", "p", "r", "s", "t", "v", "w", "x", "z" };
+		string[] femaleending = { "a", "e", "i", "y" };
+
+		System.Random random = new System.Random(Random.Range(0, 100000));
+
+		name = capitals[random.Next(capitals.Length)];
+
+		int previous = CONSONANT;
+		bool consonantchain = false;
+		for(int I = 0; I < 4; ++I)
+			{
+			if(previous == VOCAL)
+				{
+				if(random.NextDouble() < 0.05)
+					{
+					name += vocals[random.Next(vocals.Length)];
+					previous = VOCAL;
+					}
+				else
+					{
+					name += consonants[random.Next(consonants.Length)];
+					previous = CONSONANT;
+					}
+				}
+			else if(previous == CONSONANT)
+				{
+				if(random.NextDouble() < 0.05)
+					{
+					name += consonants[random.Next(consonants.Length)];
+					previous = CONSONANT;
+					consonantchain = true;
+					}
+				else
+					{
+					name += vocals[random.Next(vocals.Length)];
+					previous = VOCAL;
+					consonantchain = false;
+					}
+				}
+
+			if(random.NextDouble() < 0.2)
+				{
+				break;
+				}
+			}
+
+		if(male)
+			{
+			name += maleending[random.Next(maleending.Length)];
+			}
+		else
+			{
+			name += femaleending[random.Next(femaleending.Length)];
+			}
+
+		return name;
+		}
+
 	// Generates new random stats for this character.
 	public void reRollStats()
 		{
 		System.Random random = new System.Random();
-
-		int maxstatboost = 5 - defaultstatboostnumber;
+		int maxstatboost = 5 - defaultstatboost;
 		int statboostmodifier = 0;
 		for(int I = 0; I < maxstatboost; ++I)
 			{
@@ -76,20 +123,20 @@ public class Character : MonoBehaviour
 				}
 			}
 
-		int statboostnumber = defaultstatboostnumber;
+		int statboostcount = defaultstatboost;
 		if(random.NextDouble() < 0.5)
 			{
-			statboostnumber += statboostmodifier;
+			statboostcount += statboostmodifier;
 			}
 		else
 			{
-			// Map statnumber from interval [0, maxstatboost] on [0, defaultstatnumber] to avoid getting negative statnumbers in a fair way
-			statboostnumber -= Mathf.RoundToInt(((float) statboostmodifier / (float) maxstatboost) * (float) defaultstatboostnumber);
+			// Map statboostcount from interval [0, maxstatboost] on [0, defaultstatcount] to avoid getting negative statcounts in a fair way
+			statboostcount -= Mathf.RoundToInt(((float)statboostmodifier / (float)maxstatboost) * (float)defaultstatboost);
 			}
 
-		// Pull out some random stats to boost according to statboostnumber
-		int[] statlist = {STAT_ENDURANCE, STAT_ENDURANCE, STAT_ENDURANCE, STAT_ENDURANCE,STAT_ENDURANCE};
-		for(int I = statlist.Length - 1; I >= statlist.Length - statboostnumber; --I)
+		// Pull out some random stats to boost according to statboostcount
+		int[] statlist = { STAT_ENDURANCE, STAT_ENDURANCE, STAT_ENDURANCE, STAT_ENDURANCE, STAT_ENDURANCE };
+		for(int I = statlist.Length - 1; I >= statlist.Length - statboostcount; --I)
 			{
 			int luckyindex = random.Next(statlist.Length - I);
 			int luckystat = statlist[luckyindex];
@@ -97,7 +144,7 @@ public class Character : MonoBehaviour
 			statlist[luckyindex] = statlist[I];
 			statlist[I] = luckystat;
 			}
-		int[] boostedstats = new int[statboostnumber];
+		int[] boostedstats = new int[statboostcount];
 		for(int I = 0; I < boostedstats.Length; ++I)
 			{
 			// TODO: Optimization: sort entries during copy
@@ -128,6 +175,26 @@ public class Character : MonoBehaviour
 			}
 		}
 
+	// Displays a marker below a character to mark him as active friend or targeted foe.
+	public void markCharacter(bool foe)
+		{
+		if(foe)
+			{
+			marker.GetComponent<Renderer>().material = foecolor;
+			}
+		else
+			{
+			marker.GetComponent<Renderer>().material = friendcolor;
+			}
+		marker.SetActive(true);
+		}
+
+	// Deactivates the marker below the character.
+	public void unmarkCharacter()
+		{
+		marker.SetActive(false);
+		}
+
 	// Returns, whether the character is dead after the attack (does not imply that he was killed by the attack)
 	public bool hurt(int damage)
 		{
@@ -135,7 +202,11 @@ public class Character : MonoBehaviour
 
 		if(health <= 0)
 			{
-			// TODO: Kill character
+			if(manager != null)
+				{
+				manager.killCharacter(this);
+				}
+
 			return false;
 			}
 
@@ -185,18 +256,6 @@ public class Character : MonoBehaviour
 		return nutrition;
 		}
 
-	// Returns the current health
-	public int getHealth()
-		{
-		return health;
-		}
-
-	// Returns the current nutrition
-	public int getNutrition()
-		{
-		return nutrition;
-		}
-
 	// Returns the current maximum health for this character based on his current endurance stat
 	public int getMaxHealth()
 		{
@@ -209,6 +268,30 @@ public class Character : MonoBehaviour
 		return 20 + Mathf.RoundToInt(getStat(STAT_ENDURANCE) * 0.2f);
 		}
 
+	public string getName()
+		{
+		if(name != null)
+			{
+			return name;
+			}
+		else
+			{
+			return "Noname";
+			}
+		}
+
+	// Returns the current health
+	public int getHealth()
+		{
+		return health;
+		}
+
+	// Returns the current nutrition
+	public int getNutrition()
+		{
+		return nutrition;
+		}
+
 	// Returns the requested stat multiplied by the current hunger-factor
 	public int getStat(int stat)
 		{
@@ -216,8 +299,13 @@ public class Character : MonoBehaviour
 		if(nutrition <= 0)
 			{
 			// SCIENCE!!
-			factor = 1 - (0.002f * (Mathf.Abs(nutrition - 1)^2));
+			factor = 1 - (0.002f * (Mathf.Abs(nutrition - 1) ^ 2));
 			}
 		return Mathf.Max(Mathf.FloorToInt(stats[stat] * factor), 0);
+		}
+
+	public void setManager(CharacterManager manager)
+		{
+		this.manager = manager;
 		}
 	}
