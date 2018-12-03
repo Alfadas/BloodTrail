@@ -20,4 +20,12 @@ public class CharacterManager : MonoBehaviour
 			characters.Add(Instantiate(characterprefabs[random.Next(characterprefabs.Length)])); // TODO: New characters spawn at (0, 0, 0), would there be a better place?
 			}
 		}
+
+	public void updateCharacters(int time)
+		{
+		foreach(GameObject character in characters)
+			{
+			character.GetComponent<Character>().updateCharacter(time);
+			}
+		}
 	}

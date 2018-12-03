@@ -5,6 +5,9 @@ using UnityEngine;
 public class Character : MonoBehaviour
 	{
 	[SerializeField] int defaultstatboostnumber = 2; // TODO: Secure, that this is always >= 0 and < number of stats
+	[SerializeField] GameObject marker;
+	[SerializeField] Material friendcolor;
+	[SerializeField] Material foecolor;
 
 	public const int STAT_ENDURANCE = 0;
 	public const int STAT_STRENGTH = 1;
@@ -16,8 +19,6 @@ public class Character : MonoBehaviour
 	private int nutrition;
 	private int[] stats;
 
-	// TODO: Implement Character Highlighter, to avoid having Alfadas touch this code
-
 	void Start()
 		{
 		reRollStats();
@@ -26,11 +27,37 @@ public class Character : MonoBehaviour
 		nutrition = Mathf.RoundToInt(getMaxNutrition() * 0.5f);
 		}
 
-	void Update()
+	// Displays a marker below a character to mark him as active friend or targeted foe.
+	public void markCharacter(bool foe)
 		{
-
+		if(foe)
+			{
+			marker.GetComponent<Renderer>().material = foecolor;
+			}
+		else
+			{
+			marker.GetComponent<Renderer>().material = friendcolor;
+			}
+		marker.SetActive(true);
 		}
 
+	// Deactivates the marker below the character.
+	public void unmarkCharacter()
+		{
+		marker.SetActive(false);
+		}
+
+	// Makes the character lose nutrition and, if he is not starving, regenerate health based on passed time.
+	public void updateCharacter(int time)
+		{
+		hunger(time * 2);
+		if(nutrition > 0)
+			{
+			heal(time * 2);
+			}
+		}
+
+	// Generates new random stats for this character.
 	public void reRollStats()
 		{
 		System.Random random = new System.Random();
@@ -158,18 +185,6 @@ public class Character : MonoBehaviour
 		return nutrition;
 		}
 
-	// Returns the current maximum health for this character based on his current endurance stat
-	private int getMaxHealth()
-		{
-		return Mathf.RoundToInt(getStat(STAT_ENDURANCE) * 1.2f);
-		}
-
-	// Returns the current maximum nutrition for this character based on his current endurance stat
-	private int getMaxNutrition()
-		{
-		return 20 + Mathf.RoundToInt(getStat(STAT_ENDURANCE) * 0.2f);
-		}
-
 	// Returns the current health
 	public int getHealth()
 		{
@@ -180,6 +195,18 @@ public class Character : MonoBehaviour
 	public int getNutrition()
 		{
 		return nutrition;
+		}
+
+	// Returns the current maximum health for this character based on his current endurance stat
+	public int getMaxHealth()
+		{
+		return Mathf.RoundToInt(getStat(STAT_ENDURANCE) * 1.2f);
+		}
+
+	// Returns the current maximum nutrition for this character based on his current endurance stat
+	public int getMaxNutrition()
+		{
+		return 20 + Mathf.RoundToInt(getStat(STAT_ENDURANCE) * 0.2f);
 		}
 
 	// Returns the requested stat multiplied by the current hunger-factor
