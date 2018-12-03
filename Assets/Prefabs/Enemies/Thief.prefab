@@ -38,7 +38,6 @@ GameObject:
   - component: {fileID: 4317092670931052}
   - component: {fileID: 33260233227300530}
   - component: {fileID: 23345410550791582}
-  - component: {fileID: 135040070823518010}
   m_Layer: 0
   m_Name: Marker
   m_TagString: Untagged
@@ -104,6 +103,7 @@ GameObject:
   - component: {fileID: 114522461658083222}
   - component: {fileID: 65644674309961734}
   - component: {fileID: 114856082230874200}
+  - component: {fileID: 114952042777231128}
   m_Layer: 0
   m_Name: Thief
   m_TagString: Untagged
@@ -432,15 +432,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isEdge: 0
---- !u!135 &135040070823518010
-SphereCollider:
+  placeTry: 0
+--- !u!114 &114952042777231128
+MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1357855340859892}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_GameObject: {fileID: 1833801612149084}
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13a4a0d286765b0419b26f628c1867f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  combatManager: {fileID: 0}
