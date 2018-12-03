@@ -37,7 +37,8 @@ public class Map {
     }
     public Map(int seed,int width,int height,GameObject prefabTile, Dictionary<BIOM, int> biomChance, Dictionary<SUBBIOM, int> subBiomChance, Dictionary<BIOM, Material> materials)
     {
-      
+
+        Debug.Log("seed= "+seed);
         this.width = width;
         this.height = height;
         this.prefabTile = prefabTile;
@@ -180,7 +181,7 @@ public class Map {
     }
     private void makeCityStreets(Dictionary<Vector2Int,MapTile> cities) {
        const int minsteps = 6;//steps bevore road can turn in weak wrong direction 
-
+       //  int maxCity = Mathf.RoundToInt( Mathf.Pow( (float) (width + height) / 2 , 1 / (float)2) );
         List<Vector2Int> roadsToCheck = new List<Vector2Int>();
   
 
@@ -190,25 +191,42 @@ public class Map {
         Material roadD = Resources.Load("Materials/Map/RoadDiagonal", typeof(Material)) as Material;
 
         const int streetsPerCity = 1;
-        const int weightWrong = 10;  
+        const int weightWrong = 2;  
        
         Random.seed = this.seed;
-        List<Vector2Int> keyList = new List<Vector2Int>(cities.Keys); 
-
-        foreach (KeyValuePair < Vector2Int, MapTile> city in cities){
+        Dictionary<Vector2Int, Vector2Int> fromToCities = new Dictionary<Vector2Int, Vector2Int>();
+        List<Vector2Int> keyList = new List<Vector2Int>(cities.Keys);
+       // int streetCounter = 0;
+        //Debug.Log(maxCity);
+        foreach (KeyValuePair < Vector2Int, MapTile> city in cities){ //jetzt durch while ersetzt
+       // while(streetCounter < maxCity) { 
             for (int i=0; i < streetsPerCity; i++)
             {
+                int key = Random.Range(0, keyList.Count);
+                //MapTile city = cities[keyList[key]];
                 MapTile cityStart = city.Value;
-                Vector2Int currentPos = city.Key;
-                
+                Vector2Int currentPos = city.Key;//keyList[key];
+
+
                 MapTile cityEnd = cities[keyList[Random.Range(0, keyList.Count)]];
                 Vector3 cityEndVec = cityEnd.getTile().transform.position;
                 Vector2Int cityEndPos = new Vector2Int((int)cityEndVec.x, (int)cityEndVec.z);
-                Debug.Log("cityEnd: "+ cityEndPos);
+               // Debug.Log("cityEnd: "+ cityEndPos);
                 Vector2Int LastPosition = new Vector2Int(-1,-1);
                 int steps = 0;
-                while (currentPos != cityEndPos) {
 
+                if ((currentPos == cityEndPos)||
+                    (fromToCities.ContainsKey(city.Key) && fromToCities[city.Key] == cityEndPos) ||
+                    (fromToCities.ContainsKey(cityEndPos) && fromToCities[cityEndPos] == city.Key) ){
+                        continue;
+                }
+
+               // streetCounter++;
+                fromToCities[city.Key] = cityEndPos;
+                fromToCities[cityEndPos] = city.Key;
+                Debug.Log("start = " + city.Key + " End = " + cityEndPos);
+                while (currentPos != cityEndPos ) {
+           
                      
                     Vector2Int direction = cityEndPos - currentPos;
                     int strongVal = Mathf.Abs(direction.x) > Mathf.Abs(direction.y) ? direction.x : direction.y;
@@ -223,44 +241,59 @@ public class Map {
                     Vector2Int wrongDir = weakDir*(-1);
                     Vector2Int newPos;
                      int randVar = Random.Range(1, 100);
-                    Debug.Log("weak = strong?" + (weakDir == strongDir));
+                   // Debug.Log("weak = strong?" + (weakDir == strongDir));
                     if (randVar < weightWrong && currentPos + wrongDir != LastPosition && steps > minsteps && tiles[currentPos + wrongDir].getBiom() != BIOM.Water)
                     {
                         newPos = currentPos + wrongDir;
-                        Debug.Log("wrong Dir");
+                       // Debug.Log("wrong Dir");
                     }
                     else if (randVar < (100 - weightWrong) * (strongVal / ((float)strongVal + weakVal)) && currentPos + strongDir != LastPosition && tiles[currentPos + strongDir].getBiom() != BIOM.Water)
                     {
                         newPos = currentPos + strongDir;
-                        Debug.Log("strong Dir");
+                       // Debug.Log("strong Dir");
                     }
                     else if (currentPos + weakDir != LastPosition && steps > minsteps && tiles[currentPos + weakDir].getBiom() != BIOM.Water)
                     {
                         newPos = currentPos + weakDir;
-                        Debug.Log("weak Dir");
+                       // Debug.Log("weak Dir");
                     } // try all dir for possible solution
                     else if (currentPos + wrongDir != LastPosition && tiles[currentPos + wrongDir].getBiom() != BIOM.Water)
                     {
                         newPos = currentPos + wrongDir;
-                        Debug.Log("wrong Dir");
+                        //Debug.Log("wrong Dir");
                     }
 
                     else if (currentPos + weakDir != LastPosition && tiles[currentPos + weakDir].getBiom() != BIOM.Water)
                     {
                         newPos = currentPos + weakDir;
-                        Debug.Log("weak Dir");
+                        //Debug.Log("weak Dir");
                     }
 
                     else if (currentPos + strongDir != LastPosition && tiles[currentPos + strongDir].getBiom() != BIOM.Water)
                     {
                         newPos = currentPos + strongDir;
-                        Debug.Log("strong Dir");
+                        //Debug.Log("strong Dir");
+                    }//--- 
+                    else if (currentPos + strongDir != LastPosition)
+                    {
+                        newPos = currentPos + strongDir;
+                        //Debug.Log("strong Dir");
                     }
-                    else if (currentPos + strongDir * (-1) != LastPosition)
+                    else if (currentPos + weakDir != LastPosition)
+                    {
+                        newPos = currentPos + weakDir;
+                        //Debug.Log("weak Dir");
+                    }
+                    else if (currentPos + wrongDir != LastPosition )
+                    {
+                        newPos = currentPos + wrongDir;
+                        //Debug.Log("wrong Dir");
+                    }             
+                    /*else if (currentPos + strongDir * (-1) != LastPosition)
                     {
                         newPos = currentPos + strongDir * (-1);
-                        Debug.Log("false Dir");
-                    }
+                      //  Debug.Log("false Dir");
+                    }*/
                     else {
                         Debug.Log("last pos:" + LastPosition.x+","+LastPosition.y);
                         Debug.Log(" currentPos: " + currentPos.x + "," + currentPos.y );
@@ -275,7 +308,7 @@ public class Map {
                     
 
                     tiles[newPos].setSubBiom(SUBBIOM.Street);
-                    Debug.Log("pos street: " + newPos.x + "," + newPos.y +" -> "+tiles[newPos].getSubBiom());
+                   // Debug.Log("pos street: " + newPos.x + "," + newPos.y +" -> "+tiles[newPos].getSubBiom());
 
                     Vector2Int aRoadPos = makeRoad( currentPos,  road,  roadC,  roadD,  roadT);
                  
@@ -301,7 +334,7 @@ public class Map {
             
             
             Vector2Int currentPos = r;
-            Debug.Log("Checked " + r.x + " " + r.y);
+            //Debug.Log("Checked " + r.x + " " + r.y);
 
 
             //get surroundings 

@@ -25,6 +25,7 @@ public class MapTile {
     public void setSubBiom(SUBBIOM sub) {
         this.subBiom = sub;
     }
+
     public void setBiom(BIOM bio)
     {
         this.biom = bio;
