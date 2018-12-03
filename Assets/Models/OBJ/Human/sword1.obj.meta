@@ -1,16 +1,16 @@
 fileFormatVersion: 2
-guid: 648396eb3d9d448469e9e30cc4477292
+guid: 590e4f674df9921469abaec4614fc5ec
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
-    100000: sword
+    100000: sword1
     100002: //RootNode
-    400000: sword
+    400000: sword1
     400002: //RootNode
-    2100000: swordMat
-    2300000: sword
-    3300000: sword
-    4300000: sword
+    2100000: sword1Mat
+    2300000: sword1
+    3300000: sword1
+    4300000: sword1
   externalObjects: {}
   materials:
     importMaterials: 1
