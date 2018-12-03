@@ -45,10 +45,10 @@ public class Map {
     }
     public Map(int seed,int width,int height,GameObject prefabTile, Dictionary<BIOM, int> biomChance, Dictionary<SUBBIOM, int> subBiomChance, Dictionary<BIOM, Material> materials)
     {
-
+       
         Debug.Log("seed= "+seed);
-        if (Mathf.Abs((float)seed) > 100000)
-            throw new System.Exception("Seed musst be between -100000 and 1000000");
+        if (seed < 0 && seed< 2147484) 
+            throw new System.Exception("Seed musst be between [0 - 2147484]");
 
         this.width = width;
         this.height = height;

@@ -96,7 +96,7 @@ public class MapManager : MonoBehaviour {
             }
            
         }
-        map = new Map(seed == 0 ? Random.Range(-100000, 100000) : seed, width, height, prefabTile, biomChance, subBiomChance, materials);
+        map = new Map(seed == 0 ? Random.Range(0, 2147483) : seed, width, height, prefabTile, biomChance, subBiomChance, materials);
 
     }
     public Map getMap() {
