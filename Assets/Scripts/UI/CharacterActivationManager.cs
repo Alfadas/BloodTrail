@@ -33,6 +33,7 @@ public class CharacterActivationManager : MonoBehaviour
 		{
 		deactivatePanels();
 		characterbuttons[button].SetActive(!characterbuttons[button].activeSelf);
+		button.GetComponent<CharacterPanel>().updateCharacterInfo();
 		}
 
 	public void deactivatePanels()
@@ -46,6 +47,18 @@ public class CharacterActivationManager : MonoBehaviour
 	public void addCharacter(GameObject characterbutton, GameObject characterpanel)
 		{
 		characterbuttons.Add(characterbutton, characterpanel);
+		}
+
+	public void removeCharacters()
+		{
+		characterbuttons = new Dictionary<GameObject, GameObject>();
+		}
+
+	public bool isActive()
+		{
+		IEnumerator<GameObject> e = characterbuttons.Keys.GetEnumerator();
+		e.MoveNext();
+		return (characterbuttons.Count > 0 && e.Current.activeSelf);
 		}
 
 	public void setCloseButton(GameObject closebutton)

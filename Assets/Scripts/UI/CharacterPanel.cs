@@ -18,11 +18,22 @@ public class CharacterPanel : MonoBehaviour
 			{
 			Text[] textfields = this.gameObject.GetComponentsInChildren<Text>();
 
-			// int[] stats = 
+			textfields[2].text = character.getName();
 
-			textfields[1].text = character.getName();
-			textfields[2].text = "specific stats";
+			textfields[3].text = "Endurance: " + character.getStat(Character.STAT_ENDURANCE);
+			textfields[4].text = "Strength: " + character.getStat(Character.STAT_STRENGTH);
+			textfields[5].text = "Agility: " + character.getStat(Character.STAT_AGILITY);
+			textfields[6].text = "Intelligence: " + character.getStat(Character.STAT_INTELLIGENCE);
+			textfields[7].text = "Charisma: " + character.getStat(Character.STAT_CHARISMA);
+
+			textfields[8].text = "Health: " + character.getHealth() + "/" + character.getMaxHealth() + "  Nutrition: " + character.getNutrition() + "/" + character.getMaxNutrition();
+			textfields[9].text = "Weapon: " + "none";
 			}
+		}
+
+	public Character getCharacter()
+		{
+		return character;
 		}
 
 	public void setCharacter(Character character)
