@@ -73,7 +73,7 @@ public class Character : MonoBehaviour
 				}
 			else if(previous == CONSONANT)
 				{
-				if(random.NextDouble() < 0.05)
+				if(random.NextDouble() < 0.05 && !consonantchain)
 					{
 					name += consonants[random.Next(consonants.Length)];
 					previous = CONSONANT;

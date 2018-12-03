@@ -13,8 +13,10 @@ public class CharacterManager : MonoBehaviour
 	[SerializeField] Button parentbutton;
 	[SerializeField] Button characterbutton;
 	[SerializeField] Button closebutton;
-	[SerializeField] GameObject characterpanel;
-	[SerializeField] ActivationManager activationmanager;
+	[SerializeField] CharacterActivationManager activationmanager;
+	/*[SerializeField] GameObject characterpanel;
+	[SerializeField] ActivationManager buttonactivationmanager;
+	[SerializeField] ActivationManager panelactivationmanager;*/
 
 	private List<Character> characters;
 	private List<GameObject> characterbuttons;
@@ -48,10 +50,11 @@ public class CharacterManager : MonoBehaviour
 					}
 				}
 
-			characterbuttons = new List<GameObject>(characters.Count);
+			characterbuttons = new List<GameObject>(characters.Count + 1);
 			int x = 80;
 			int y = 60;
 			GameObject newbutton;
+			List<GameObject> panels = new List<GameObject>(characters.Count);
 			foreach(Character character in characters)
 				{
 				newbutton = Instantiate(characterbutton, new Vector3(x, y, 0), Quaternion.identity).gameObject;
@@ -59,19 +62,25 @@ public class CharacterManager : MonoBehaviour
 				newbutton.GetComponentInChildren<Text>().text = character.getName();
 				newbutton.GetComponent<CharacterPanel>().setCharacter(character);
 				characterbuttons.Add(newbutton);
+				//panels.Add(newbutton.GetComponent<CharacterPanel>().gameObject); this is bs, wont yield a panel i suspect
+				activationmanager.addCharacter(newbutton, newbutton.transform.GetChild(1).gameObject);
 				y += 40;
 				}
 
 			newbutton = Instantiate(closebutton, new Vector3(x, y, 0), Quaternion.identity).gameObject;
 			newbutton.transform.SetParent(parentbutton.gameObject.transform, false);
 			characterbuttons.Add(newbutton);
+			activationmanager.setCloseButton(newbutton);
 
 			newbutton.GetComponent<ActivationManager>().setActivatables(characterbuttons);
-			activationmanager.setActivatables(characterbuttons);
+			/*buttonactivationmanager.setActivatables(characterbuttons);
+			panelactivationmanager.setActivatables(panels);*/
 			}
 		else
 			{
-			activationmanager.changeState();
+			activationmanager.changeButtonStates();
+			/*buttonactivationmanager.changeState();
+			panelactivationmanager.deactivate();*/
 			}
 		}
 
