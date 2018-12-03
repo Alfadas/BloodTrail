@@ -73,7 +73,7 @@ public class Character : MonoBehaviour
 				}
 			else if(previous == CONSONANT)
 				{
-				if(random.NextDouble() < 0.1)
+				if(random.NextDouble() < 0.05)
 					{
 					name += consonants[random.Next(consonants.Length)];
 					previous = CONSONANT;
@@ -204,7 +204,7 @@ public class Character : MonoBehaviour
 			{
 			if(manager != null)
 				{
-				manager.killCharacter(this.gameObject);
+				manager.killCharacter(this);
 				}
 
 			return false;

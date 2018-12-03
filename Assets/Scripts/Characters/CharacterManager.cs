@@ -8,18 +8,20 @@ public class CharacterManager : MonoBehaviour
 	[SerializeField] int maxcharacters = 10;
 	[SerializeField] int maxcombatcharacters = 5;
 	[SerializeField] int startcharacters = 5;
-	[SerializeField] GameObject[] characterprefabs = new GameObject [3];
+	[SerializeField] List<GameObject> characterprefabs;
 	[SerializeField] int maleprefabcount = 2;
 	[SerializeField] Button parentbutton;
 	[SerializeField] Button characterbutton;
 	[SerializeField] Button closebutton;
+	[SerializeField] GameObject characterpanel;
+	[SerializeField] ActivationManager activationmanager;
 
-	private List<GameObject> characters;
-	private List<Button> characterbuttons;
+	private List<Character> characters;
+	private List<GameObject> characterbuttons;
 
 	void Start()
 		{
-		characters = new List<GameObject>(maxcharacters);
+		characters = new List<Character>(maxcharacters);
 		for(int I = 0; I < startcharacters; ++I)
 			{
 			addCharacter();
@@ -28,51 +30,83 @@ public class CharacterManager : MonoBehaviour
 
 	public void updateCharacters(int time)
 		{
-		foreach(GameObject character in characters)
+		foreach(Character character in characters)
 			{
-			character.GetComponent<Character>().updateCharacter(time);
+			character.updateCharacter(time);
 			}
 		}
 
-	public void generateCharacterSelection()
+	public void changeStateCharacterSelection()
 		{
-		int x = 80;
-		int y = 60;
-		Button button;
-
-		foreach(GameObject character in characters)
+		if(characterbuttons == null || characterbuttons.Count != (characters.Count + 1)) // + 1 for "Close"-Button
 			{
-			button = Instantiate(characterbutton, new Vector3(x, y, 0), Quaternion.identity);
-			button.gameObject.transform.SetParent(parentbutton.gameObject.transform, false);
-			button.GetComponentInChildren<Text>().text = character.GetComponent<Character>().getName();
-			y += 40;
-			}
+			if(characterbuttons != null)
+				{
+				foreach(GameObject oldbutton in characterbuttons)
+					{
+					Destroy(oldbutton);
+					}
+				}
 
-		button = Instantiate(closebutton, new Vector3(x, y, 0), Quaternion.identity);
-		button.gameObject.transform.SetParent(parentbutton.gameObject.transform, false);
+			characterbuttons = new List<GameObject>(characters.Count);
+			int x = 80;
+			int y = 60;
+			GameObject newbutton;
+			foreach(Character character in characters)
+				{
+				newbutton = Instantiate(characterbutton, new Vector3(x, y, 0), Quaternion.identity).gameObject;
+				newbutton.transform.SetParent(parentbutton.gameObject.transform, false);
+				newbutton.GetComponentInChildren<Text>().text = character.getName();
+				newbutton.GetComponent<CharacterPanel>().setCharacter(character);
+				characterbuttons.Add(newbutton);
+				y += 40;
+				}
+
+			newbutton = Instantiate(closebutton, new Vector3(x, y, 0), Quaternion.identity).gameObject;
+			newbutton.transform.SetParent(parentbutton.gameObject.transform, false);
+			characterbuttons.Add(newbutton);
+
+			newbutton.GetComponent<ActivationManager>().setActivatables(characterbuttons);
+			activationmanager.setActivatables(characterbuttons);
+			}
+		else
+			{
+			activationmanager.changeState();
+			}
+		}
+
+	public void changeStateCharacterPanel(string charactername)
+		{
+
 		}
 
 	public void addCharacter()
 		{
 		System.Random random = new System.Random(); // TODO: seed?
-		int prefabindex = random.Next(characterprefabs.Length);
-		GameObject character = Instantiate(characterprefabs[prefabindex]);  // TODO: New characters spawn at (0, 0, 0), would there be a better place?
+		int prefabindex = random.Next(characterprefabs.Count);
+		Character character = Instantiate(characterprefabs[prefabindex]).GetComponent<Character>();  // TODO: New characters spawn at (0, 0, 0), would there be a better place?
 
 		characters.Add(character);
 		if(prefabindex < maleprefabcount)
 			{
-			character.GetComponent<Character>().rollName(true);
+			character.rollName(true);
 			}
 		else
 			{
-			character.GetComponent<Character>().rollName(false);
+			character.rollName(false);
 			}
-		character.GetComponent<Character>().setManager(this);
+		character.setManager(this);
 		}
 
-	public void killCharacter(GameObject character)
+	public void killCharacter(Character character)
 		{
 		characters.Remove(character);
-		Destroy(character);
+		Destroy(character.gameObject);
+		}
+
+	// Returns all current party characters
+	public List<Character> getCharacters()
+		{
+		return characters;
 		}
 	}
