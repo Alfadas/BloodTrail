@@ -159,7 +159,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 114179046378506132}
-        m_MethodName: changeState
+        m_MethodName: deactivate
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

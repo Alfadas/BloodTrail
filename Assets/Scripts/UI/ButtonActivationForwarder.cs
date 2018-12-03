@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// TODO: Kill this class with fire, rework UI-System
 public class ButtonActivationForwarder : MonoBehaviour
 	{
 	public void forwardActivation()
