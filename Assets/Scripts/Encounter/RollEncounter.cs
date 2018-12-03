@@ -41,34 +41,37 @@ public class RollEncounter : MonoBehaviour {
 
     public void RollNewEncounter(MapTile mapTile)
     {
-        encounterEnemyCount = 0;
-        int roll;
-        roll = Random.Range(1, 101);
-        if (roll <= eChanceFight)
+        if (mapTile.getBiom() != BIOM.Mountain)
         {
-            if (mapTile.getSubBiom() != SUBBIOM.Street)
+            encounterEnemyCount = 0;
+            int roll;
+            roll = Random.Range(1, 101);
+            if (roll <= eChanceFight)
             {
-                eChanceRoadblockModified = 0;
-                eChanceThiefsModified = eChanceThiefs+eChanceRoadblock;
+                if (mapTile.getSubBiom() != SUBBIOM.Street)
+                {
+                    eChanceRoadblockModified = 0;
+                    eChanceThiefsModified = eChanceThiefs + eChanceRoadblock;
+                }
+                else
+                {
+                    eChanceRoadblockModified = eChanceRoadblock;
+                    eChanceThiefsModified = eChanceThiefs;
+                }
+                buildEncounter.CategorizeTile(mapTile, SpecializeEncounterFight(), encounterEnemyCount);
             }
-            else
+            else if (roll <= eChanceFight + eChanceDialoge)
             {
-                eChanceRoadblockModified = eChanceRoadblock;
-                eChanceThiefsModified = eChanceThiefs;
+                buildEncounter.CategorizeTile(mapTile, SpecializeEncounterDialoge(), encounterEnemyCount);
             }
-            buildEncounter.CategorizeTile(mapTile, SpecializeEncounterFight(), encounterEnemyCount);
-        }
-        else if (roll <= eChanceFight + eChanceDialoge)
-        {
-            buildEncounter.CategorizeTile(mapTile, SpecializeEncounterDialoge(), encounterEnemyCount);
-        }
-        else if (roll <= eChanceFight + eChanceDialoge + eChanceObjects)
-        {
-            buildEncounter.CategorizeTile(mapTile, SpecializeEncounterObjects(), encounterEnemyCount);
-        }
-        else if (roll <= eChanceFight + eChanceDialoge + eChanceObjects + eChanceTrader)
-        {
-            buildEncounter.CategorizeTile(mapTile, SpecializeEncounterTrader(), encounterEnemyCount);
+            else if (roll <= eChanceFight + eChanceDialoge + eChanceObjects)
+            {
+                buildEncounter.CategorizeTile(mapTile, SpecializeEncounterObjects(), encounterEnemyCount);
+            }
+            else if (roll <= eChanceFight + eChanceDialoge + eChanceObjects + eChanceTrader)
+            {
+                buildEncounter.CategorizeTile(mapTile, SpecializeEncounterTrader(), encounterEnemyCount);
+            }
         }
     }
 
@@ -83,15 +86,15 @@ public class RollEncounter : MonoBehaviour {
             encounterEnemyCount += 2;
             if (encounterEnemyCount == 2)
             {
-                return new string[] { "randomE", "randomE", "baricade" };
+                return new string[] { "randomE", "randomE", "Barricade" };
             }
             else if (encounterEnemyCount == 3)
             {
-                return new string[] { "randomE", "randomE", "randomE", "baricade" };
+                return new string[] { "randomE", "randomE", "randomE", "Barricade" };
             }
             else
             {
-                return new string[] { "randomE", "randomE", "randomE", "randomE", "baricade" };
+                return new string[] { "randomE", "randomE", "randomE", "randomE", "Barricade" };
             }
             
             

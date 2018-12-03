@@ -12,6 +12,7 @@ public class Map {
     private Dictionary<Vector2Int, MapTile> tiles;
     private Dictionary<Vector2Int, MapTile> citySave;
 
+
     private int seed;
 
     public MapTile getTile(Vector2Int coordinates) {
@@ -20,12 +21,17 @@ public class Map {
     }
     public bool isTileCityWall(Vector2Int v) {
         foreach (KeyValuePair<Vector2Int, MapTile> c in citySave) {
-            if (Vector2Int.Distance(c.Key, v) < 2)
+            float dist = Vector2Int.Distance(c.Key, v);
+            if (dist < 2&& dist>0)
                 return true;           
         }
         return false;
     }
 
+    public bool isTileCityWall(MapTile m) {
+
+        return isTileCityWall(new Vector2Int((int)m.getTile().transform.position.x, (int)m.getTile().transform.position.y)); 
+    }
     private float[] getDecrease(int x, int z){
 
         float retX = Mathf.Max(1 - Mathf.Log10(width-x ), 1 - Mathf.Log10(x ));
