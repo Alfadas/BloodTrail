@@ -8,7 +8,7 @@ public enum BIOM { Desert, Grassland, Woods, Town, Farm, Water, Mountain };
 /**
  *  (int)subbiom / 10 should be the (int)Biom 
  */
-public enum SUBBIOM { Street=-1, DesertHot, DesertCold, Steppe=10, Greenfield, DarkWood=20, EdgeOfForest, TownCenter=30, CityWall , Field=40, Farmhouse, Shallow=50, Deep,Impassable=60, Passable }
+public enum SUBBIOM { Street=-1, DesertHot, DesertCold, Steppe=10, Greenfield, DarkWood=20, EdgeOfForest, TownCenter=30, CityWall , Harbor, Field=40, Farmhouse, Shallow=50, Deep,Impassable=60, Passable }
 /*
 [System.Serializable] public class BiomDictionary : SerializableDictionary<BIOM, int> { }
 [System.Serializable] public class SubBiomDictionary : SerializableDictionary<SUBBIOM, int> { }
@@ -41,16 +41,16 @@ public class MapManager : MonoBehaviour {
         subBiomChance = new Dictionary<SUBBIOM, int>();
 
         biomChance[BIOM.Water] = 60;
-        biomChance[BIOM.Desert] = 30;
+        biomChance[BIOM.Farm] = 30;
         biomChance[BIOM.Farm] = 30;
         
         biomChance[BIOM.Woods] = 200;
         biomChance[BIOM.Town] = 1;
         biomChance[BIOM.Grassland] = 100;
-       
-       
-       
-        biomChance[BIOM.Desert] = 100;
+
+
+
+        biomChance[BIOM.Farm] = 100;
         biomChance[BIOM.Mountain] = 150;
 
         //subBiomChance[SUBBIOM.CityWall] = 2;
@@ -60,12 +60,13 @@ public class MapManager : MonoBehaviour {
         subBiomChance[SUBBIOM.DesertCold] = 2;
         subBiomChance[SUBBIOM.DesertHot] = 2;
         subBiomChance[SUBBIOM.EdgeOfForest] = 2;
-        subBiomChance[SUBBIOM.Farmhouse] = 2;
-        subBiomChance[SUBBIOM.Field] = 2;
+       
+        subBiomChance[SUBBIOM.Field] = 4;
+        subBiomChance[SUBBIOM.Farmhouse] = 12;
         subBiomChance[SUBBIOM.Greenfield] = 2;
         subBiomChance[SUBBIOM.Impassable] = 2;
         subBiomChance[SUBBIOM.Passable] = 2;
-        subBiomChance[SUBBIOM.Shallow] = 2;
+ 
         subBiomChance[SUBBIOM.Steppe] = 2;
         subBiomChance[SUBBIOM.TownCenter] = 2;
 

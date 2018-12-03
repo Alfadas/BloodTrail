@@ -25,6 +25,24 @@ public class MapTile {
     public void setSubBiom(SUBBIOM sub) {
         this.subBiom = sub;
     }
+    public void setBiom(BIOM bio)
+    {
+        this.biom = bio;
+    }
+    public int getSpeed() {
+        if (getSubBiom() == SUBBIOM.Street)
+            return 160;
+        if (getBiom() == BIOM.Grassland)
+            return 100;
+        if (getBiom() == BIOM.Mountain)
+            return 20;
+        if (getBiom() == BIOM.Woods)
+            return 60;
+        if(getBiom() == BIOM.Farm)
+            return 80;
+        Debug.Log("getSpeed called on not defined biom!");
+        return 100;
+    }
     public BIOM getBiom()
     {
         return biom;
