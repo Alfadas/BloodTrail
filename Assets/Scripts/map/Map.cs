@@ -14,7 +14,12 @@ public class Map {
 
 
     private int seed;
-
+    public int getWidth() {
+        return width;
+    }
+    public int getHeight() {
+        return height;
+    }
     public MapTile getTile(Vector2Int coordinates) {
         MapTile t;
         return tiles.TryGetValue(coordinates,out t) ? t : null;
@@ -27,7 +32,18 @@ public class Map {
         }
         return false;
     }
+    private Material getRandomMat(BIOM bio)
+    {
+        Material ret=null;
+        switch (bio) {
+            case BIOM.Woods:
+                ret = Resources.Load("Materials/Map/Lake", typeof(Material)) as Material;
+                break;
 
+        }
+        return ret;
+
+    }
     public bool isTileCityWall(MapTile m) {
 
         return isTileCityWall(new Vector2Int((int)m.getTile().transform.position.x, (int)m.getTile().transform.position.y)); 
@@ -140,6 +156,8 @@ public class Map {
                     tile.GetComponent<MeshRenderer>().material = Resources.Load("Materials/Map/Lake", typeof(Material)) as Material;
                 if(subBiom==SUBBIOM.Farmhouse)
                     tile.GetComponent<MeshRenderer>().material = Resources.Load("Materials/Map/FarmHouse", typeof(Material)) as Material;
+                //if (biom == BIOM.Woods)
+                 //   tile.GetComponent<MeshRenderer>().material = getRandomMat(BIOM.Woods);
                 tile.transform.parent = map.transform;
                 tiles[new Vector2Int(x, z)] = new MapTile(tile, biom, subBiom);
 
