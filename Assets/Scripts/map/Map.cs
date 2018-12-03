@@ -39,6 +39,9 @@ public class Map {
     {
 
         Debug.Log("seed= "+seed);
+        if (Mathf.Abs((float)seed) > 100000)
+            throw new System.Exception("Seed musst be between -100000 and 1000000");
+
         this.width = width;
         this.height = height;
         this.prefabTile = prefabTile;
