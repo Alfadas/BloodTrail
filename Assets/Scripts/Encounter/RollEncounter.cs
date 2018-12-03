@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class RollEncounter : MonoBehaviour {
+
+    [SerializeField] Transform cameraEncounterPos;
+    [SerializeField] Transform cameraMapPos;
+    [SerializeField] CombatManager combatManager;
     [SerializeField] BuildEncounter buildEncounter;
     [SerializeField] int noEnemyChance = 60;
     [Header("EncounterType")]
@@ -38,11 +42,13 @@ public class RollEncounter : MonoBehaviour {
     int eChanceThiefsModified = 0;
     int encounterEnemyCount = 0;
     string[] encounterObj;
+    bool started = false;
 
     public void RollNewEncounter(MapTile mapTile)
     {
-        if (mapTile.getBiom() != BIOM.Mountain)
+        if (mapTile.getBiom() != BIOM.Mountain && !started)
         {
+            started = true;
             encounterEnemyCount = 0;
             int roll;
             roll = Random.Range(1, 101);
@@ -59,18 +65,23 @@ public class RollEncounter : MonoBehaviour {
                     eChanceThiefsModified = eChanceThiefs;
                 }
                 buildEncounter.CategorizeTile(mapTile, SpecializeEncounterFight(), encounterEnemyCount);
+                StartCoroutine(StartEncounter());
+                combatManager.StartFight();
             }
             else if (roll <= eChanceFight + eChanceDialoge)
             {
                 buildEncounter.CategorizeTile(mapTile, SpecializeEncounterDialoge(), encounterEnemyCount);
+                StartCoroutine(StartEncounter());
             }
             else if (roll <= eChanceFight + eChanceDialoge + eChanceObjects)
             {
                 buildEncounter.CategorizeTile(mapTile, SpecializeEncounterObjects(), encounterEnemyCount);
+                StartCoroutine(StartEncounter());
             }
             else if (roll <= eChanceFight + eChanceDialoge + eChanceObjects + eChanceTrader)
             {
                 buildEncounter.CategorizeTile(mapTile, SpecializeEncounterTrader(), encounterEnemyCount);
+                StartCoroutine(StartEncounter());
             }
         }
     }
@@ -95,9 +106,7 @@ public class RollEncounter : MonoBehaviour {
             else
             {
                 return new string[] { "randomE", "randomE", "randomE", "randomE", "Barricade" };
-            }
-            
-            
+            } 
         }
         else if (roll <= eChanceRoadblock + eChanceThiefsModified)//Thiefs
         {
@@ -132,7 +141,6 @@ public class RollEncounter : MonoBehaviour {
             {
                 return new string[] { "randomHE", "randomHE", "randomE", "randomE" };
             }
-            
         }
     }
 
@@ -184,5 +192,15 @@ public class RollEncounter : MonoBehaviour {
 
         return new string[] { };
     }
-    
+
+    IEnumerator StartEncounter()
+    {
+        yield return new WaitForSeconds(2);
+        Camera.main.transform.position = cameraEncounterPos.position;
+        Camera.main.transform.rotation = cameraEncounterPos.rotation;
+        started = false;
+
+    }
 }
+
+

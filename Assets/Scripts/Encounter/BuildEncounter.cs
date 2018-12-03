@@ -54,6 +54,7 @@ public class BuildEncounter : MonoBehaviour
     [Header("Enemys")]
     [SerializeField] int enemyCount;
     [SerializeField] int heavyEnemyCount;
+    [SerializeField] int neutralCount = 4;
 
     Dictionary<string, GameObject> backObjs;
 
@@ -73,7 +74,7 @@ public class BuildEncounter : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        objName = new string[] { "Solider1", "Solider2", "Solider3", "Knight", "Thief1", "Thief2", "Thief3", "Thief4", "Bandit1", "Bandit2", "Bandit3", "Bandit4", "Bandit5", "Barricade" };
+        objName = new string[] { "Solider1", "Solider2", "Solider3", "Knight", "Thief1", "Thief2", "Thief3", "Thief4", "Bandit1", "Bandit2", "Bandit3", "Bandit4", "Bandit5", "Barricade", "Woodcutter1", "Woodcutter2", "Woman1", "Woman2", "Soldier1", "Soldier2" };
         backObjs = new Dictionary<string, GameObject>();
         for (int i = 0; i < objName.Length; i++)
         {
@@ -263,6 +264,35 @@ public class BuildEncounter : MonoBehaviour
                 else if (roll == 3)
                 {
                     if (!AddToBack("Knight")) { i--; continue; }
+                }
+            }
+            else if (encounterObj[i] == "randomN")
+            {
+                int roll;
+                roll = Random.Range(0, heavyEnemyCount);
+                if (roll == 0)
+                {
+                    if (!AddToBack("Woodcutter1")) { i--; continue; }
+                }
+                else if (roll == 1)
+                {
+                    if (!AddToBack("Woodcutter2")) { i--; continue; }
+                }
+                else if (roll == 2)
+                {
+                    if (!AddToBack("Woman1")) { i--; continue; }
+                }
+                else if (roll == 3)
+                {
+                    if (!AddToBack("Woman2")) { i--; continue; }
+                }
+                else if (roll == 4)
+                {
+                    if (!AddToBack("Soldier1")) { i--; continue; }
+                }
+                else if (roll == 4)
+                {
+                    if (!AddToBack("Soldier2")) { i--; continue; }
                 }
             }
             else

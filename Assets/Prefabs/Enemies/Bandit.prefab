@@ -38,7 +38,6 @@ GameObject:
   - component: {fileID: 4714201300390684}
   - component: {fileID: 33601124778944862}
   - component: {fileID: 23132572547582824}
-  - component: {fileID: 135779739355720918}
   m_Layer: 0
   m_Name: Marker
   m_TagString: Untagged
@@ -72,6 +71,7 @@ GameObject:
   - component: {fileID: 114893095822989840}
   - component: {fileID: 65381150269272424}
   - component: {fileID: 114872582603136076}
+  - component: {fileID: 114570497645284984}
   m_Layer: 0
   m_Name: Bandit
   m_TagString: Untagged
@@ -405,6 +405,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 20, y: 44, z: 14}
   m_Center: {x: 0, y: 22, z: -60}
+--- !u!114 &114570497645284984
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1353464719973374}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13a4a0d286765b0419b26f628c1867f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  combatManager: {fileID: 0}
 --- !u!114 &114872582603136076
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -417,6 +429,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isEdge: 0
+  placeTry: 0
 --- !u!114 &114893095822989840
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -432,15 +445,3 @@ MonoBehaviour:
   marker: {fileID: 1305757665827694}
   friendcolor: {fileID: 2100000, guid: 441d2bccf9f8caa42a1669f5b849fce1, type: 2}
   foecolor: {fileID: 2100000, guid: 6d1fb2c02a558fe4fa1f7547c37e9ced, type: 2}
---- !u!135 &135779739355720918
-SphereCollider:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1305757665827694}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}

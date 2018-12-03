@@ -9,7 +9,6 @@ public class CombatManager : MonoBehaviour {
     List<Character> playerGroup;
     List<Character> participants;
     List<Character> deadParticipants;
-    Character[] playerCharacter;
     int participantCount;
 
     Queue<Character> participantsQueue;
@@ -24,8 +23,11 @@ public class CombatManager : MonoBehaviour {
     public void StartFight()
     {
         participantsQueue = new Queue<Character>();
-        playerGroup.AddRange(caracterArrayHolder.playerGroup);
+        playerGroup = new List<Character>();
+        participants = new List<Character>();
         deadParticipants = new List<Character>();
+
+        playerGroup.AddRange(caracterArrayHolder.playerGroup);
         enemies = buildEncounter.GetEnemies();
         participants.AddRange(enemies);
         participants.AddRange(playerGroup);
@@ -46,7 +48,7 @@ public class CombatManager : MonoBehaviour {
             participantsQueue.Enqueue(fastestParticipant);
             participants.Remove(fastestParticipant);
         }
-        NextTurn();
+        StartCoroutine(WaitForSecToStart(2));
     }
 
     void NextTurn()
@@ -76,30 +78,51 @@ public class CombatManager : MonoBehaviour {
         if (enemies.Contains(currentCharacter))
         {
             aiTurn = true;
+            currentCharacter.markCharacter(false);
+            EnemyTurn();
         }
-        CombatButtons.SetActive(true);
+        else
+        {
+            currentCharacter.markCharacter(false);
+            aiTurn = false;
+            CombatButtons.SetActive(true);
+        }
     }
     public void Attack()
     {
-        int damage = 0;//TODO add damage
+        int damage = currentCharacter.getStat(1)/5;
+        if (selectedCharacter == null || (playerGroup.Contains(selectedCharacter) && !aiTurn))
+        {
+            SetSelected(enemies[0]);
+        }
         if (selectedCharacter.hurt(damage))
         {
             deadParticipants.Add(selectedCharacter);
         }
-        StartCoroutine("AttackAnimation");
+        StartCoroutine(AttackAnimation());
+    }
+    public void Defens()
+    {
+        //Character.defend
+        StartCoroutine(AttackAnimation());
     }
 
     void EndTurn()
     {
-        CombatButtons.SetActive(false);
+        currentCharacter.unmarkCharacter();
         participantsQueue.Enqueue(currentCharacter);
         currentCharacter = null;
         NextTurn();
     }
 
-    void SetSelected(Character selected)
+    public void SetSelected(Character selected)
     {
+        if (selectedCharacter != null)
+        {
+            selectedCharacter.unmarkCharacter();
+        }
         selectedCharacter = selected;
+        selectedCharacter.markCharacter(true);
     }
 
     void EndFight()
@@ -116,18 +139,23 @@ public class CombatManager : MonoBehaviour {
         int rollAction;
         int rollCharacter;
         rollAction = Random.Range(1, combatActionCount + 1);
-        rollCharacter = Random.Range(1, playerGroup.Count);
-        playerCharacter = playerGroup.ToArray();
-        SetSelected(playerCharacter[rollCharacter]);
+        rollCharacter = Random.Range(0, playerGroup.Count);
+        SetSelected(playerGroup[rollCharacter]);
         if (rollAction == 1)
         {
             Attack();
         }
     }
 
-    IEnumerable AttackAnimation()
+    IEnumerator AttackAnimation()
     {
+        CombatButtons.SetActive(false);
         yield return new WaitForSeconds(2);
         EndTurn();
+    }
+    IEnumerator WaitForSecToStart(int sec)
+    {
+        yield return new WaitForSeconds(sec);
+        NextTurn();
     }
 }
