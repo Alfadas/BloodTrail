@@ -255,50 +255,61 @@ public class Map {
                     Vector2Int wrongDir = weakDir*(-1);
                     Vector2Int newPos;
                      int randVar = Random.Range(1, 100);
-                   // Debug.Log("weak = strong?" + (weakDir == strongDir));
-                    if (randVar < weightWrong && currentPos + wrongDir != LastPosition && steps > minsteps && tiles[currentPos + wrongDir].getBiom() != BIOM.Water)
+                    // Debug.Log("weak = strong?" + (weakDir == strongDir));
+                    if (randVar < weightWrong && currentPos + wrongDir != LastPosition &&
+                        steps > minsteps && tiles[currentPos + wrongDir].getBiom() != BIOM.Water &&
+                        (currentPos + wrongDir).x < width-1 && (currentPos + wrongDir).y < height - 1 && (currentPos + wrongDir).x > 0 && (currentPos + wrongDir).y > 0 ) 
                     {
                         newPos = currentPos + wrongDir;
                        // Debug.Log("wrong Dir");
                     }
-                    else if (randVar < (100 - weightWrong) * (strongVal / ((float)strongVal + weakVal)) && currentPos + strongDir != LastPosition && tiles[currentPos + strongDir].getBiom() != BIOM.Water)
+                    else if (randVar < (100 - weightWrong) * (strongVal / ((float)strongVal + weakVal)) &&
+                        currentPos + strongDir != LastPosition && tiles[currentPos + strongDir].getBiom() != BIOM.Water &&
+                        (currentPos + strongDir).x < width - 1 && (currentPos + strongDir).y < height - 1 && (currentPos + strongDir).x > 0 && (currentPos + strongDir).y > 0 )
                     {
                         newPos = currentPos + strongDir;
                        // Debug.Log("strong Dir");
                     }
-                    else if (currentPos + weakDir != LastPosition && steps > minsteps && tiles[currentPos + weakDir].getBiom() != BIOM.Water)
+                    else if (currentPos + weakDir != LastPosition && steps > minsteps && tiles[currentPos + weakDir].getBiom() != BIOM.Water &&
+                        (currentPos + weakDir).x < width - 1 && (currentPos + weakDir).y < height - 1 && (currentPos + weakDir).x > 0 && (currentPos + weakDir).y > 0 )
                     {
                         newPos = currentPos + weakDir;
                        // Debug.Log("weak Dir");
                     } // try all dir for possible solution
-                    else if (currentPos + wrongDir != LastPosition && tiles[currentPos + wrongDir].getBiom() != BIOM.Water)
+                    else if (currentPos + wrongDir != LastPosition && tiles[currentPos + wrongDir].getBiom() != BIOM.Water &&
+                        (currentPos + wrongDir).x < width - 1 && (currentPos + wrongDir).y < height - 1 && (currentPos + wrongDir).x > 0 && (currentPos + wrongDir).y > 0 )
                     {
                         newPos = currentPos + wrongDir;
                         //Debug.Log("wrong Dir");
                     }
 
-                    else if (currentPos + weakDir != LastPosition && tiles[currentPos + weakDir].getBiom() != BIOM.Water)
+                    else if (currentPos + weakDir != LastPosition && tiles[currentPos + weakDir].getBiom() != BIOM.Water &&
+                        (currentPos + weakDir).x < width - 1 && (currentPos + weakDir).y < height - 1 && (currentPos + weakDir).x > 0 && (currentPos + weakDir).y > 0 )
                     {
                         newPos = currentPos + weakDir;
                         //Debug.Log("weak Dir");
                     }
 
-                    else if (currentPos + strongDir != LastPosition && tiles[currentPos + strongDir].getBiom() != BIOM.Water)
+                    else if (currentPos + strongDir != LastPosition && tiles[currentPos + strongDir].getBiom() != BIOM.Water &&
+                        (currentPos + strongDir).x < width - 1 && (currentPos + strongDir).y < height - 1 && (currentPos + strongDir).x > 0 && (currentPos + strongDir).y > 0)
                     {
                         newPos = currentPos + strongDir;
                         //Debug.Log("strong Dir");
                     }//--- 
-                    else if (currentPos + strongDir != LastPosition)
+                    else if (currentPos + strongDir != LastPosition &&
+                        (currentPos + strongDir).x < width - 1 && (currentPos + strongDir).y < height - 1 && (currentPos + strongDir).x > 0 && (currentPos + strongDir).y > 0 )
                     {
                         newPos = currentPos + strongDir;
                         //Debug.Log("strong Dir");
                     }
-                    else if (currentPos + weakDir != LastPosition)
+                    else if (currentPos + weakDir != LastPosition &&
+                        (currentPos + weakDir).x < width - 1 && (currentPos + weakDir).y < height - 1 && (currentPos + weakDir).x > 0 && (currentPos + weakDir).y > 0)
                     {
                         newPos = currentPos + weakDir;
                         //Debug.Log("weak Dir");
                     }
-                    else if (currentPos + wrongDir != LastPosition )
+                    else if (currentPos + wrongDir != LastPosition &&
+                        (currentPos + wrongDir).x < width - 1 && (currentPos + wrongDir).y < height - 1 && (currentPos + wrongDir).x > 0 && (currentPos + wrongDir).y > 0)
                     {
                         newPos = currentPos + wrongDir;
                         //Debug.Log("wrong Dir");
