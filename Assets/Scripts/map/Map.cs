@@ -10,12 +10,20 @@ public class Map {
     private GameObject prefabTile;
     private Dictionary<BIOM, Material> materials;
     private Dictionary<Vector2Int, MapTile> tiles;
+    private Dictionary<Vector2Int, MapTile> citySave;
 
     private int seed;
 
     public MapTile getTile(Vector2Int coordinates) {
         MapTile t;
         return tiles.TryGetValue(coordinates,out t) ? t : null;
+    }
+    public bool isTileCityWall(Vector2Int v) {
+        foreach (KeyValuePair<Vector2Int, MapTile> c in citySave) {
+            if (Vector2Int.Distance(c.Key, v) < 2)
+                return true;           
+        }
+        return false;
     }
 
     private float[] getDecrease(int x, int z){
@@ -137,9 +145,12 @@ public class Map {
             }
            
         }
+        this.citySave = cities;
         makeHarbour(cities);
         //makeShoreLine(shoreSouth: true);
         makeCityStreets(cities);
+
+         //Debug.Log("is City wall ? "+isTileCityWall(new Vector2Int(16, 14)));
     }
     private void makeHarbour(Dictionary<Vector2Int,MapTile> cities) {
          Material mat = Resources.Load("Materials/Map/Harbour", typeof(Material)) as Material;

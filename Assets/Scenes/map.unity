@@ -325,7 +325,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 472aa6958e58e744f8ac3b9582a9b5c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  seed: 66
+  seed: 100000
   width: 50
   height: 50
   prefabTile: {fileID: 1180600446959368, guid: 43ba782f58ab7d84fb97aa4467f5e248, type: 2}
