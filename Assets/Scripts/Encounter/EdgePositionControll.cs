@@ -7,7 +7,9 @@ public class EdgePositionControll : MonoBehaviour {
     BuildEncounter buildEncounter;
     GameObject encounter;
 
+    int maxTrys = 20;
     int buildNumber = 0;
+    public int placeTry = 0;
 
     private void OnTriggerStay(Collider other)
     {
@@ -18,13 +20,21 @@ public class EdgePositionControll : MonoBehaviour {
             EdgePositionControll otherEdgePositionControll = other.gameObject.GetComponent<EdgePositionControll>();
             if (otherEdgePositionControll.GetBuildNumber() < buildNumber)
             {
-                if (gameObject.transform.position.x < 0)
+                if (placeTry >= maxTrys)
                 {
-                    buildEncounter.RollEdgePosition("l", gameObject);
+                    gameObject.transform.localPosition = Vector3.zero;
                 }
                 else
                 {
-                    buildEncounter.RollEdgePosition("r", gameObject);
+                    if (gameObject.transform.position.x < 0)
+                    {
+                        buildEncounter.RollEdgePosition("l", gameObject);
+                    }
+                    else
+                    {
+                        buildEncounter.RollEdgePosition("r", gameObject);
+                    }
+                    placeTry++;
                 }
             }
         }
