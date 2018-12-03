@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+// TODO: Kill this class with fire, rework UI-System
 public class CharacterActivationManager : MonoBehaviour
 	{
 	private Dictionary<GameObject, GameObject> characterbuttons;
