@@ -9,4 +9,9 @@ public class ButtonActivationForwarder : MonoBehaviour
 		{
 		this.gameObject.transform.parent.gameObject.GetComponent<CharacterActivationManager>().changePanelState(this.gameObject);
 		}
+
+	public void sacrifice()
+		{
+		this.gameObject.GetComponent<CharacterPanel>().getCharacter().die();
+		}
 	}

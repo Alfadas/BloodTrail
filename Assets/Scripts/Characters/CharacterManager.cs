@@ -13,10 +13,7 @@ public class CharacterManager : MonoBehaviour
 	[SerializeField] Button parentbutton;
 	[SerializeField] Button characterbutton;
 	[SerializeField] Button closebutton;
-	[SerializeField] CharacterActivationManager activationmanager;
-	/*[SerializeField] GameObject characterpanel;
-	[SerializeField] ActivationManager buttonactivationmanager;
-	[SerializeField] ActivationManager panelactivationmanager;*/
+	[SerializeField] CharacterActivationManager characteractivator;
 
 	private List<Character> characters;
 	private List<GameObject> characterbuttons;
@@ -44,6 +41,8 @@ public class CharacterManager : MonoBehaviour
 			{
 			if(characterbuttons != null)
 				{
+				characteractivator.removeCharacters();
+
 				foreach(GameObject oldbutton in characterbuttons)
 					{
 					Destroy(oldbutton);
@@ -62,31 +61,21 @@ public class CharacterManager : MonoBehaviour
 				newbutton.GetComponentInChildren<Text>().text = character.getName();
 				newbutton.GetComponent<CharacterPanel>().setCharacter(character);
 				characterbuttons.Add(newbutton);
-				//panels.Add(newbutton.GetComponent<CharacterPanel>().gameObject); this is bs, wont yield a panel i suspect
-				activationmanager.addCharacter(newbutton, newbutton.transform.GetChild(1).gameObject);
+				characteractivator.addCharacter(newbutton, newbutton.transform.GetChild(1).gameObject);
 				y += 40;
 				}
 
 			newbutton = Instantiate(closebutton, new Vector3(x, y, 0), Quaternion.identity).gameObject;
 			newbutton.transform.SetParent(parentbutton.gameObject.transform, false);
 			characterbuttons.Add(newbutton);
-			activationmanager.setCloseButton(newbutton);
+			characteractivator.setCloseButton(newbutton);
 
 			newbutton.GetComponent<ActivationManager>().setActivatables(characterbuttons);
-			/*buttonactivationmanager.setActivatables(characterbuttons);
-			panelactivationmanager.setActivatables(panels);*/
 			}
 		else
 			{
-			activationmanager.changeButtonStates();
-			/*buttonactivationmanager.changeState();
-			panelactivationmanager.deactivate();*/
+			characteractivator.changeButtonStates();
 			}
-		}
-
-	public void changeStateCharacterPanel(string charactername)
-		{
-
 		}
 
 	public void addCharacter()
@@ -110,7 +99,11 @@ public class CharacterManager : MonoBehaviour
 	public void killCharacter(Character character)
 		{
 		characters.Remove(character);
-		Destroy(character.gameObject);
+		Destroy(character.gameObject, 0.5f); // Delay, to give character some time to finish his business
+		if(characteractivator.isActive())
+			{
+			characteractivator.changeButtonStates();
+			}
 		}
 
 	// Returns all current party characters
