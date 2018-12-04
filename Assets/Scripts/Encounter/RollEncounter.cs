@@ -47,15 +47,18 @@ public class RollEncounter : MonoBehaviour {
     string[] encounterObj;
     bool started = false;
     string dialoge;
+    CameraManager cameraManager;
 
-    public void RollNewEncounter(MapTile mapTile)
+    public bool RollNewEncounter(MapTile mapTile)
     {
+        Debug.Log("encounter");
         if (mapTile.getBiom() != BIOM.Mountain && !started)
         {
             started = true;
             encounterEnemyCount = 0;
             int roll;
             roll = Random.Range(1, 101);
+            Debug.Log("encounter+");
             if (roll <= eChanceFight)
             {
                 if (mapTile.getSubBiom() != SUBBIOM.Street)
@@ -69,25 +72,40 @@ public class RollEncounter : MonoBehaviour {
                     eChanceThiefsModified = eChanceThiefs;
                 }
                 buildEncounter.CategorizeTile(mapTile, SpecializeEncounterFight(), encounterEnemyCount);
+                Debug.Log("fight");
                 StartCoroutine(StartEncounter());
                 combatManager.StartFight();
+                return true;
+
             }
             else if (roll <= eChanceFight + eChanceDialoge)
             {
                 buildEncounter.CategorizeTile(mapTile, SpecializeEncounterDialoge(), encounterEnemyCount);
+                Debug.Log("dialog");
                 StartCoroutine(StartEncounter());
                 dialogeManager.StartDialoge(dialoge);
+                return true;
             }
             else if (roll <= eChanceFight + eChanceDialoge + eChanceObjects)
             {
                 buildEncounter.CategorizeTile(mapTile, SpecializeEncounterObjects(), encounterEnemyCount);
                 StartCoroutine(StartEncounter());
+                return true;
             }
             else if (roll <= eChanceFight + eChanceDialoge + eChanceObjects + eChanceTrader)
             {
                 buildEncounter.CategorizeTile(mapTile, SpecializeEncounterTrader(), encounterEnemyCount);
                 StartCoroutine(StartEncounter());
+                return true;
             }
+            else
+            {
+                return false;
+            }
+        }
+        else
+        {
+            return false;
         }
     }
 
@@ -207,9 +225,10 @@ public class RollEncounter : MonoBehaviour {
     IEnumerator StartEncounter()
     {
         yield return new WaitForSeconds(1);
+        cameraManager = Camera.main.gameObject.GetComponent<CameraManager>();
+        cameraManager.active = false;
         Camera.main.transform.position = cameraEncounterPos.position;
         Camera.main.transform.rotation = cameraEncounterPos.rotation;
-        started = false;
     }
 
     public void EndEncounter(int proceed)
@@ -218,6 +237,7 @@ public class RollEncounter : MonoBehaviour {
         {
             Camera.main.transform.position = cameraMapPos.position;
             Camera.main.transform.rotation = cameraMapPos.rotation;
+            cameraManager.active = true;
             started = false;
         }
         else if (proceed == 1)
