@@ -41,6 +41,8 @@ public class MapTile {
             return 60;
         if(getBiom() == BIOM.Farm)
             return 80;
+        if (getBiom() == BIOM.Water)
+            return 1;
         Debug.Log("getSpeed called on not defined biom!");
         return 100;
     }

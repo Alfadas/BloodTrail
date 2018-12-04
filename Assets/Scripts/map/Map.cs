@@ -11,6 +11,8 @@ public class Map {
     private Dictionary<BIOM, Material> materials;
     private Dictionary<Vector2Int, MapTile> tiles;
     private Dictionary<Vector2Int, MapTile> citySave;
+    private float plageSpeed;
+    private float plagePosition;
 
 
     private int seed;
@@ -31,6 +33,11 @@ public class Map {
                 return true;           
         }
         return false;
+    }
+    public float movePlage(float i=1) {
+        plagePosition += i * plageSpeed;
+        return plagePosition;
+
     }
     private Material getRandomMat(BIOM bio)
     {
@@ -83,7 +90,8 @@ public class Map {
     }
     public Map(int seed,int width,int height,GameObject prefabTile, Dictionary<BIOM, int> biomChance, Dictionary<SUBBIOM, int> subBiomChance, Dictionary<BIOM, Material> materials)
     {
-       
+        this.plageSpeed = 1;
+        this.plagePosition = 0;
         Debug.Log("seed= "+seed);
         if (seed < 0 && seed< 2147484) 
             throw new System.Exception("Seed musst be between [0 - 2147484]");
