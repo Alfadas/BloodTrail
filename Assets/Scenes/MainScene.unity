@@ -4980,7 +4980,7 @@ Light:
   serializedVersion: 8
   m_Type: 1
   m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
-  m_Intensity: 1
+  m_Intensity: 2
   m_Range: 10
   m_SpotAngle: 30
   m_CookieSize: 10
@@ -7152,8 +7152,8 @@ MonoBehaviour:
   characterManager: {fileID: 2123509120}
   buildEncounter: {fileID: 1977554649}
   noEnemyChance: 60
-  eChanceFight: 40
-  eChanceDialoge: 50
+  eChanceFight: 5
+  eChanceDialoge: 10
   eChanceTrader: 0
   eChanceObjects: 0
   eChanceRoadblock: 50

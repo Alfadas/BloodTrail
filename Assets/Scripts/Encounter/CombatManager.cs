@@ -9,7 +9,6 @@ public class CombatManager : MonoBehaviour {
     List<Character> enemies;
     List<Character> playerGroup;
     List<Character> participants;
-    List<Character> deadParticipants;
     int participantCount;
 
     Queue<Character> participantsQueue;
@@ -26,7 +25,6 @@ public class CombatManager : MonoBehaviour {
         participantsQueue = new Queue<Character>();
         playerGroup = new List<Character>();
         participants = new List<Character>();
-        deadParticipants = new List<Character>();
 
         playerGroup = characterManager.getCharacters();
         enemies = buildEncounter.GetEnemies();
@@ -54,28 +52,17 @@ public class CombatManager : MonoBehaviour {
 
     void NextTurn()
     {
-        while (currentCharacter == null)
+		if (enemies.Count == 0 || playerGroup.Count == 0)
         {
-            currentCharacter = participantsQueue.Dequeue();
-            if (deadParticipants.Contains(currentCharacter) && enemies.Contains(currentCharacter))
-            {
-                enemies.Remove(currentCharacter);
-                if (enemies.Count == 0)
-                {
-                    EndFight();
-                }
-                currentCharacter = null;
-            }
-            else if(deadParticipants.Contains(currentCharacter) && playerGroup.Contains(currentCharacter))
-            {
-                playerGroup.Remove(currentCharacter);
-                if (playerGroup.Count == 0)
-                {
-                    EndFight();
-                }
-                currentCharacter = null;
-            }
+            EndFight();
         }
+
+		do
+		{
+			currentCharacter = participantsQueue.Dequeue();
+		}
+		while(currentCharacter == null);
+  
         if (enemies.Contains(currentCharacter))
         {
             aiTurn = true;
@@ -91,20 +78,25 @@ public class CombatManager : MonoBehaviour {
     }
     public void Attack()
     {
-        int damage = currentCharacter.getStat(1)/4;
+		currentCharacter.setDefenseStance(false);
+
+        int damage = Mathf.RoundToInt(currentCharacter.getStat(1) * 0.5f);
         if (selectedCharacter == null || (playerGroup.Contains(selectedCharacter) && !aiTurn))
         {
             SetSelected(enemies[0]);
         }
         if (selectedCharacter.hurt(damage))
         {
-            deadParticipants.Add(selectedCharacter);
+			if(!enemies.Remove(selectedCharacter) && !playerGroup.Remove(selectedCharacter))
+				{
+				Debug.Log("Unknown casualty " + selectedCharacter);
+				}
         }
         StartCoroutine(AttackAnimation());
     }
     public void Defens()
     {
-        //Character.defend
+        currentCharacter.setDefenseStance(true);
         StartCoroutine(AttackAnimation());
     }
 
@@ -128,7 +120,7 @@ public class CombatManager : MonoBehaviour {
 
     void EndFight()
     {
-        int reward = 5; //TODO add reward
+        int reward = 5; //TODO add reward // TODO: reward only if player is victorious, EndFight() is also called, when playerGroup is empty
         rollEncounter.EndEncounter(0);
     }
     void EnemyTurn()

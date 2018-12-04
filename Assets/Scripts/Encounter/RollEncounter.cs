@@ -45,16 +45,14 @@ public class RollEncounter : MonoBehaviour {
     int eChanceThiefsModified = 0;
     int encounterEnemyCount = 0;
     string[] encounterObj;
-    bool started = false;
     string dialoge;
     CameraManager cameraManager;
 
     public bool RollNewEncounter(MapTile mapTile)
     {
         Debug.Log("encounter " + mapTile.getBiom());
-        if (mapTile.getBiom() != BIOM.Mountain && !started)
+        if (mapTile.getBiom() != BIOM.Mountain)
         {
-            started = true;
             encounterEnemyCount = 0;
             int roll;
             roll = Random.Range(1, 101);
@@ -238,7 +236,6 @@ public class RollEncounter : MonoBehaviour {
             Camera.main.transform.position = cameraMapPos.position;
             Camera.main.transform.rotation = cameraMapPos.rotation;
             cameraManager.active = true;
-            started = false;
         }
         else if (proceed == 1)
         {

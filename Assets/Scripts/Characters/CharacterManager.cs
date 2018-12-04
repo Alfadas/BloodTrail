@@ -16,6 +16,7 @@ public class CharacterManager : MonoBehaviour
 	[SerializeField] CharacterActivationManager characteractivator;
 	[SerializeField] GameObject defeat;
 
+	private static System.Random random = new System.Random();
 	private List<Character> characters;
 	private List<GameObject> characterbuttons;
 
@@ -81,20 +82,23 @@ public class CharacterManager : MonoBehaviour
 
 	public void addCharacter()
 		{
-		System.Random random = new System.Random(); // TODO: seed?
-		int prefabindex = random.Next(characterprefabs.Count);
-		Character character = Instantiate(characterprefabs[prefabindex]).GetComponent<Character>();  // TODO: New characters spawn at (0, 0, 0), would there be a better place?
+		if(characters.Count < maxcharacters)
+			{
+			int prefabindex = random.Next(characterprefabs.Count);
+			Character character = Instantiate(characterprefabs[prefabindex]).GetComponent<Character>();  // TODO: New characters spawn at (0, 0, 0), would there be a better place?
 
-		characters.Add(character);
-		if(prefabindex < maleprefabcount)
-			{
-			character.rollName(true);
+			characters.Add(character);
+			if(prefabindex < maleprefabcount)
+				{
+				character.rollName(true);
+				}
+			else
+				{
+				character.rollName(false);
+				}
+
+			character.setManager(this);
 			}
-		else
-			{
-			character.rollName(false);
-			}
-		character.setManager(this);
 		}
 
 	public void killCharacter(Character character)
@@ -106,7 +110,10 @@ public class CharacterManager : MonoBehaviour
 			characteractivator.changeButtonStates();
 			}
 
-		defeat.SetActive(true);
+		if(characters.Count <= 0)
+			{
+			defeat.SetActive(true);
+			}
 		}
 
 	public void killAll()

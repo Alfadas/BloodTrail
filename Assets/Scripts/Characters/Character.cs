@@ -204,6 +204,10 @@ public class Character : MonoBehaviour
 			{
 			manager.killCharacter(this);
 			}
+		else
+			{
+			Destroy(gameObject, 0.5f);
+			}
 		}
 
 	// Returns, whether the character is dead after the attack (does not imply that he was killed by the attack)

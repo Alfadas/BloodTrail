@@ -22,8 +22,7 @@ public class GroupManager : MonoBehaviour
 
 		// Spawn
 		gameObject.transform.position = new Vector3(random.Next(0, map.getWidth()), 0, map.getHeight() - 1);
-		targetmarker.transform.position = gameObject.transform.position;
-		targetmarker.SetActive(false);
+		resetTarget();
 		}
 
 	void Update()
@@ -52,7 +51,7 @@ public class GroupManager : MonoBehaviour
 		{
 		if(gameObject.transform.position.Equals(targetmarker.transform.position))
 			{
-			targetmarker.SetActive(false);
+			resetTarget();
 			}
 		else
 			{
@@ -71,7 +70,6 @@ public class GroupManager : MonoBehaviour
 				// Move party
 				Vector2 direction = new Vector2(targetmarker.transform.position.x - gameObject.transform.position.x, targetmarker.transform.position.z - gameObject.transform.position.z);
 				direction = direction / direction.magnitude;
-
 				if(Mathf.Abs(direction.x) > Mathf.Abs(direction.y))
 					{
 					gameObject.transform.Translate(direction.x / Mathf.Abs(direction.x), 0, 0); // Move 1 unit in either positive or negative x direction
@@ -80,12 +78,10 @@ public class GroupManager : MonoBehaviour
 					{
 					gameObject.transform.Translate(0, 0, direction.y / Mathf.Abs(direction.y)); // Move 1 unit in either positive or negative y direction
 					}
-				// gameObject.transform.position = new Vector3(Mathf.RoundToInt(gameObject.transform.position.x + direction.x), 0, Mathf.RoundToInt(gameObject.transform.position.z + direction.y)); // Diagonal Movement
 
 				if(encounterroller.RollNewEncounter(currenttile))
 					{
-					targetmarker.transform.position = gameObject.transform.position;
-					targetmarker.SetActive(false);
+					resetTarget();
 					}
 
 				currenttile = map.getTile(new Vector2Int(Mathf.RoundToInt(gameObject.transform.position.x), Mathf.RoundToInt(gameObject.transform.position.z)));
@@ -97,8 +93,15 @@ public class GroupManager : MonoBehaviour
 				else if(currenttile.getBiom() == BIOM.Water)
 					{
 					gameObject.transform.position = oldposition;
+					resetTarget();
 					}
 				}
 			}
+		}
+
+	private void resetTarget()
+		{
+		targetmarker.transform.position = gameObject.transform.position;
+		targetmarker.SetActive(false);
 		}
 	}

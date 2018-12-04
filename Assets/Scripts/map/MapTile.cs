@@ -16,7 +16,7 @@ public class MapTile {
         this.biom = biom;
         this.subBiom = subBiom;
         this.tile = tile;
-       // Debug.Log(biom);
+        //Debug.Log(biom);
         //Debug.Log(subBiom);
     }
     public GameObject getTile() {

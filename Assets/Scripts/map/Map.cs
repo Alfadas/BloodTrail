@@ -663,4 +663,13 @@ public class Map {
         Vector2int orientation = Vector2Int(Vector2.down);
         position();*/
     }
+
+	public void printAllBiomAndSubBiom()
+    {
+        foreach (KeyValuePair<Vector2Int, MapTile> t in tiles) {
+            Debug.Log(t.Key);
+            Debug.Log("BIOM:" + t.Value.getBiom());
+            Debug.Log("SubBIOM:" + t.Value.getSubBiom());
+        }
+    }
 }
