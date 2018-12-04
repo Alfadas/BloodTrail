@@ -35,7 +35,7 @@ public class MapManager : MonoBehaviour {
     [SerializeField]
     private Dictionary<SUBBIOM, int> subBiomChance;
     // Use this for initialization
-    void Start () {
+    void Awake () {
         biomChance = new Dictionary<BIOM, int>();
         materials = new Dictionary<BIOM, Material>();
         subBiomChance = new Dictionary<SUBBIOM, int>();
