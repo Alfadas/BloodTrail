@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Character : MonoBehaviour
 	{
@@ -8,8 +9,9 @@ public class Character : MonoBehaviour
 	[SerializeField] GameObject marker;
 	[SerializeField] Material friendcolor;
 	[SerializeField] Material foecolor;
+    [SerializeField] Text healthText;
 
-	public const int STAT_ENDURANCE = 0;
+    public const int STAT_ENDURANCE = 0;
 	public const int STAT_STRENGTH = 1;
 	public const int STAT_AGILITY = 2;
 	public const int STAT_INTELLIGENCE = 3;
@@ -25,6 +27,7 @@ public class Character : MonoBehaviour
 
 	void Start()
 		{
+        StartCoroutine(UpdateHealthText());
 		reRollStats();
 
 		nutrition = Mathf.RoundToInt(getMaxNutrition() * 0.5f);
@@ -322,4 +325,13 @@ public class Character : MonoBehaviour
 		{
 		this.defensestance = defensestance;
 		}
+        
+    IEnumerator UpdateHealthText()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(1);
+            healthText.text = health + " HP";
+        }
+    }
 	}
