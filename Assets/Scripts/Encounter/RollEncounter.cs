@@ -6,8 +6,11 @@ public class RollEncounter : MonoBehaviour {
 
     [SerializeField] Transform cameraEncounterPos;
     [SerializeField] Transform cameraMapPos;
+    [SerializeField] DialogeManager dialogeManager;
     [SerializeField] CombatManager combatManager;
+    [SerializeField] CharacterManager characterManager;
     [SerializeField] BuildEncounter buildEncounter;
+
     [SerializeField] int noEnemyChance = 60;
     [Header("EncounterType")]
     [SerializeField] int eChanceFight = 10;
@@ -43,6 +46,7 @@ public class RollEncounter : MonoBehaviour {
     int encounterEnemyCount = 0;
     string[] encounterObj;
     bool started = false;
+    string dialoge;
 
     public void RollNewEncounter(MapTile mapTile)
     {
@@ -72,6 +76,7 @@ public class RollEncounter : MonoBehaviour {
             {
                 buildEncounter.CategorizeTile(mapTile, SpecializeEncounterDialoge(), encounterEnemyCount);
                 StartCoroutine(StartEncounter());
+                dialogeManager.StartDialoge(dialoge);
             }
             else if (roll <= eChanceFight + eChanceDialoge + eChanceObjects)
             {
@@ -162,7 +167,9 @@ public class RollEncounter : MonoBehaviour {
         roll = Random.Range(1, 101);
         if (roll <= eChanceRefugees)//Refugees
         {
-            return new string[] { };
+            dialoge = "refugee1";
+            encounterEnemyCount = 3;
+            return new string[] { "randomN", "randomN", "randomN" };
         }
         else if (roll <= eChanceRefugees + eChancePoor )//Poor
         {
@@ -174,11 +181,15 @@ public class RollEncounter : MonoBehaviour {
         }
         else if (roll <= eChanceRefugees + eChancePoor + eChanceRitch + eChanceFarmer)//Farmer
         {
-            return new string[] { };
+            dialoge = "farmer1";
+            encounterEnemyCount = 1;
+            return new string[] { "randomN" };
         }
         else//Doctor
         {
-            return new string[] { };
+            dialoge = "doctor1";
+            encounterEnemyCount = 1;
+            return new string[] { "randomN" };
         }
         
     }
@@ -195,11 +206,28 @@ public class RollEncounter : MonoBehaviour {
 
     IEnumerator StartEncounter()
     {
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(1);
         Camera.main.transform.position = cameraEncounterPos.position;
         Camera.main.transform.rotation = cameraEncounterPos.rotation;
         started = false;
+    }
 
+    public void EndEncounter(int proceed)
+    {
+        if (proceed == 0)
+        {
+            Camera.main.transform.position = cameraMapPos.position;
+            Camera.main.transform.rotation = cameraMapPos.rotation;
+            started = false;
+        }
+        else if (proceed == 1)
+        {
+            combatManager.StartFight();
+        }
+        /*else if (proceed == 2)
+        {
+            //characterManager.ad
+        }*/
     }
 }
 

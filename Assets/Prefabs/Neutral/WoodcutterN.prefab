@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 114740062643670970}
   - component: {fileID: 65976928269693924}
   - component: {fileID: 114963047043078864}
+  - component: {fileID: 114366230519292026}
   m_Layer: 0
   m_Name: WoodcutterN
   m_TagString: Untagged
@@ -217,7 +218,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1030432037571134}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -499.8, y: 200, z: -239.8}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4541839207695388}
@@ -404,6 +405,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 20, y: 44, z: 14}
   m_Center: {x: 0, y: 22, z: -60}
+--- !u!114 &114366230519292026
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1030432037571134}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13a4a0d286765b0419b26f628c1867f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  combatManager: {fileID: 0}
 --- !u!114 &114740062643670970
 MonoBehaviour:
   m_ObjectHideFlags: 1
