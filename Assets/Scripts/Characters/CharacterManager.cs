@@ -111,4 +111,18 @@ public class CharacterManager : MonoBehaviour
 		{
 		return characters;
 		}
+
+	public int getGroupSpeed()
+		{
+		int minspeed = characters[0].getStat(Character.STAT_AGILITY);
+		foreach(Character character in characters)
+			{
+			if(character.getStat(Character.STAT_AGILITY) < minspeed)
+				{
+				minspeed = character.getStat(Character.STAT_AGILITY);
+				}
+			}
+
+		return minspeed;
+		}
 	}
