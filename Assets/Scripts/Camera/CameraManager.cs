@@ -82,9 +82,9 @@ public class CameraManager : MonoBehaviour
             float y = transform.position.y;
             float z = transform.position.z;
 
-            y = Mathf.Clamp(y, 2, 60);
+            y = Mathf.Clamp(y, 2, 50);
             x = Mathf.Clamp(x, (-(100 - y) * 0.4f) + 25, ((100 - y) * 0.4f) + 25);
-            z = Mathf.Clamp(z, (-(60 - y) * 0.8f) + 25, ((60 - y) * 0.8f) + 25);
+            z = Mathf.Clamp(z, (-(50 - y) * 0.8f) + 25, ((50 - y) * 0.8f) + 25);
 
             transform.position = new Vector3(x, y, z);
         }
