@@ -9,6 +9,7 @@ public class GroupManager : MonoBehaviour
 	[SerializeField] CharacterManager charactermanager;
 	[SerializeField] RollEncounter encounterroller;
 	[SerializeField] float animationtime;
+	[SerializeField] GameObject victory;
 
 	private static System.Random random = new System.Random();
 	private Map map;
@@ -56,6 +57,12 @@ public class GroupManager : MonoBehaviour
 		else
 			{
 			MapTile currenttile = map.getTile(new Vector2Int(Mathf.RoundToInt(gameObject.transform.position.x), Mathf.RoundToInt(gameObject.transform.position.z)));
+
+			if(currenttile.getSubBiom() == SUBBIOM.Harbor)
+				{
+				victory.SetActive(true);
+				}
+
 			float tiletime = 100.0f / currenttile.getSpeed();
 			float grouptime = 50.0f / charactermanager.getGroupSpeed();
 

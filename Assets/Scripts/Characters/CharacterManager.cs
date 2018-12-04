@@ -14,6 +14,7 @@ public class CharacterManager : MonoBehaviour
 	[SerializeField] Button characterbutton;
 	[SerializeField] Button closebutton;
 	[SerializeField] CharacterActivationManager characteractivator;
+	[SerializeField] GameObject defeat;
 
 	private List<Character> characters;
 	private List<GameObject> characterbuttons;
@@ -103,6 +104,16 @@ public class CharacterManager : MonoBehaviour
 		if(characteractivator.isActive())
 			{
 			characteractivator.changeButtonStates();
+			}
+
+		defeat.SetActive(true);
+		}
+
+	public void killAll()
+		{
+		foreach(Character character in characters)
+			{
+			killCharacter(character);
 			}
 		}
 
