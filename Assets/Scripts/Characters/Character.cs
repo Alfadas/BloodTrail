@@ -38,7 +38,7 @@ public class Character : MonoBehaviour
 	// Makes the character lose nutrition and, if he is not starving, regenerate health based on passed time.
 	public void updateCharacter(int time)
 		{
-		hunger(time * 2);
+		// hunger(time * 2); // TODO: enable, while no inventory system is available
 		if(nutrition > 0)
 			{
 			heal(time * 2);

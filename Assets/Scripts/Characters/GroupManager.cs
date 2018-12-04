@@ -87,7 +87,11 @@ public class GroupManager : MonoBehaviour
 					}
 				// gameObject.transform.position = new Vector3(Mathf.RoundToInt(gameObject.transform.position.x + direction.x), 0, Mathf.RoundToInt(gameObject.transform.position.z + direction.y)); // Diagonal Movement
 
-				encounterroller.RollNewEncounter(currenttile);
+				if(encounterroller.RollNewEncounter(currenttile))
+					{
+					targetmarker.transform.position = gameObject.transform.position;
+					targetmarker.SetActive(false);
+					}
 				}
 			}
 		}
