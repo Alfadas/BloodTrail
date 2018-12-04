@@ -35,9 +35,25 @@ public class Map {
     private Material getRandomMat(BIOM bio)
     {
         Material ret=null;
+        int wat;
         switch (bio) {
             case BIOM.Woods:
-                ret = Resources.Load("Materials/Map/Lake", typeof(Material)) as Material;
+               wat = Random.Range(0, 11);
+           
+                ret = Resources.Load("Materials/Map/Trees/Tree"+wat, typeof(Material)) as Material;
+
+                break;
+            case BIOM.Mountain:
+                wat = Random.Range(2, 6);
+
+                ret = Resources.Load("Materials/Map/Mountain/Mountain" + wat, typeof(Material)) as Material;
+
+                break;
+            case BIOM.Water:
+                wat = Random.Range(1, 6);
+
+                ret = Resources.Load("Materials/Map/Sea/Sea" + wat, typeof(Material)) as Material;
+
                 break;
 
         }
@@ -151,13 +167,19 @@ public class Map {
                 }
                 GameObject tile = UnityEngine.Object.Instantiate(prefabTile, new Vector3(x, 0, z), Quaternion.identity);
 
-                tile.GetComponent<MeshRenderer>().material = materials[biom];
+                
                 if(subBiom==SUBBIOM.Shallow)
                     tile.GetComponent<MeshRenderer>().material = Resources.Load("Materials/Map/Lake", typeof(Material)) as Material;
-                if(subBiom==SUBBIOM.Farmhouse)
+                else if(subBiom==SUBBIOM.Farmhouse)
                     tile.GetComponent<MeshRenderer>().material = Resources.Load("Materials/Map/FarmHouse", typeof(Material)) as Material;
-                //if (biom == BIOM.Woods)
-                 //   tile.GetComponent<MeshRenderer>().material = getRandomMat(BIOM.Woods);
+                else if (biom == BIOM.Woods)
+                    tile.GetComponent<MeshRenderer>().material = getRandomMat(BIOM.Woods);
+                else if (biom == BIOM.Mountain)
+                    tile.GetComponent<MeshRenderer>().material = getRandomMat(BIOM.Mountain);
+                else if (biom == BIOM.Water)
+                    tile.GetComponent<MeshRenderer>().material = getRandomMat(BIOM.Water);
+                else
+                    tile.GetComponent<MeshRenderer>().material = materials[biom];
                 tile.transform.parent = map.transform;
                 tiles[new Vector2Int(x, z)] = new MapTile(tile, biom, subBiom);
 
