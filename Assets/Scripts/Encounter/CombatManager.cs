@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class CombatManager : MonoBehaviour {
+    [SerializeField] RollEncounter rollEncounter;
     [SerializeField] BuildEncounter buildEncounter;
-    [SerializeField] CaracterArrayHolder caracterArrayHolder;
+    [SerializeField] CharacterManager characterManager;
     List<Character> enemies;
     List<Character> playerGroup;
     List<Character> participants;
@@ -27,7 +28,7 @@ public class CombatManager : MonoBehaviour {
         participants = new List<Character>();
         deadParticipants = new List<Character>();
 
-        playerGroup.AddRange(caracterArrayHolder.playerGroup);
+        playerGroup = characterManager.getCharacters();
         enemies = buildEncounter.GetEnemies();
         participants.AddRange(enemies);
         participants.AddRange(playerGroup);
@@ -90,7 +91,7 @@ public class CombatManager : MonoBehaviour {
     }
     public void Attack()
     {
-        int damage = currentCharacter.getStat(1)/5;
+        int damage = currentCharacter.getStat(1)/4;
         if (selectedCharacter == null || (playerGroup.Contains(selectedCharacter) && !aiTurn))
         {
             SetSelected(enemies[0]);
@@ -128,11 +129,7 @@ public class CombatManager : MonoBehaviour {
     void EndFight()
     {
         int reward = 5; //TODO add reward
-    }
-
-    void GameLost()
-    {
-        Application.Quit();//TODO add bad ending
+        rollEncounter.EndEncounter(0);
     }
     void EnemyTurn()
     {

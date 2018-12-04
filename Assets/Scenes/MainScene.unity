@@ -2815,7 +2815,6 @@ GameObject:
   - component: {fileID: 808148706}
   - component: {fileID: 808148705}
   - component: {fileID: 808148704}
-  - component: {fileID: 808148703}
   - component: {fileID: 808148708}
   m_Layer: 0
   m_Name: Main Camera
@@ -2824,45 +2823,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &808148703
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 808148702}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: be76e5f14cfee674cb30b491fb72b09b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  boost: 3.5
-  positionLerpTime: 0.2
-  mouseSensitivityCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0.5
-      inSlope: 0
-      outSlope: 5
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 2.5
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  rotationLerpTime: 0.01
-  invertY: 0
 --- !u!114 &808148704
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2992,6 +2952,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22d4f850eb32fce4196428d2a105b392, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  active: 1
   speed: 1
   zoomspeed: 10
 --- !u!1001 &825926600
@@ -4121,7 +4082,6 @@ GameObject:
   - component: {fileID: 1112560353}
   - component: {fileID: 1112560352}
   - component: {fileID: 1112560351}
-  - component: {fileID: 1112560354}
   - component: {fileID: 1112560355}
   - component: {fileID: 1112560350}
   m_Layer: 0
@@ -4214,11 +4174,11 @@ MonoBehaviour:
   cameraMapPos: {fileID: 1502623100}
   dialogeManager: {fileID: 1112560350}
   combatManager: {fileID: 1112560355}
-  characterManager: {fileID: 0}
+  characterManager: {fileID: 34990188}
   buildEncounter: {fileID: 1112560352}
   noEnemyChance: 60
-  eChanceFight: 30
-  eChanceDialoge: 45
+  eChanceFight: 40
+  eChanceDialoge: 50
   eChanceTrader: 0
   eChanceObjects: 0
   eChanceRoadblock: 50
@@ -4250,7 +4210,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41ff2df77732097499034d4eb348991b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  caracterArrayHolder: {fileID: 1112560354}
+  characterManager: {fileID: 34990188}
   mapManager: {fileID: 1993514396}
   zLength: 250
   sideSwitchDivMin: 1.9
@@ -4390,21 +4350,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1112560354
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1112560349}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a64ca1b7cc9d7b34599a06100d98203a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerGroup:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
 --- !u!114 &1112560355
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4416,8 +4361,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 518ee8e05e3aca44aa9ed235ca90b71b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rollEncounter: {fileID: 1112560351}
   buildEncounter: {fileID: 1112560352}
-  caracterArrayHolder: {fileID: 1112560354}
+  characterManager: {fileID: 34990188}
   CombatButtons: {fileID: 56620186}
   aiTurn: 0
 --- !u!1001 &1114747780
@@ -5033,7 +4979,7 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1250803492}
-  m_LocalRotation: {x: -0.013708499, y: 0.97727734, z: -0.20071262, w: -0.0667493}
+  m_LocalRotation: {x: -0.0137085, y: 0.9772774, z: -0.20071264, w: -0.066749305}
   m_LocalPosition: {x: 25.855272, y: 148.77303, z: 136.95763}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []

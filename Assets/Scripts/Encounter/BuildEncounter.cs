@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BuildEncounter : MonoBehaviour
 {
-    [SerializeField] CaracterArrayHolder caracterArrayHolder;
+    [SerializeField] CharacterManager characterManager;
     [SerializeField] MapManager mapManager;
     [Header("TileProperties")]
     [SerializeField] int zLength = 25;
@@ -369,7 +369,7 @@ public class BuildEncounter : MonoBehaviour
             }
             backCounter++;
         }
-        playerGroup.AddRange(caracterArrayHolder.playerGroup);
+        playerGroup = characterManager.getCharacters();
         int frontCounter = 1;
         foreach (Character character in playerGroup)
         {
