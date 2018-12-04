@@ -51,7 +51,7 @@ public class RollEncounter : MonoBehaviour {
 
     public bool RollNewEncounter(MapTile mapTile)
     {
-        Debug.Log("encounter");
+        Debug.Log("encounter " + mapTile.getBiom());
         if (mapTile.getBiom() != BIOM.Mountain && !started)
         {
             started = true;
