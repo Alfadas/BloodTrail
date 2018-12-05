@@ -365,6 +365,7 @@ public class BuildEncounter : MonoBehaviour
             {
                 Character newEnemy = backObj.GetComponent<Character>();
                 newEnemy.reRollStats();
+                newEnemy.heal(1000);
                 enemies.Add(newEnemy);
             }
             backCounter++;

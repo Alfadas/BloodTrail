@@ -206,7 +206,7 @@ public class Character : MonoBehaviour
 			}
 		else
 			{
-			Destroy(gameObject, 0.5f);
+            gameObject.transform.localPosition = Vector3.zero;
 			}
 		}
 

@@ -56,24 +56,30 @@ public class CombatManager : MonoBehaviour {
         {
             EndFight();
         }
-
-		do
-		{
-			currentCharacter = participantsQueue.Dequeue();
-		}
-		while(currentCharacter == null);
-  
-        if (enemies.Contains(currentCharacter))
-        {
-            aiTurn = true;
-            currentCharacter.markCharacter(false);
-            EnemyTurn();
-        }
         else
         {
-            currentCharacter.markCharacter(false);
-            aiTurn = false;
-            CombatButtons.SetActive(true);
+            do
+            {
+                currentCharacter = participantsQueue.Dequeue();
+                if (!enemies.Contains(currentCharacter) && !playerGroup.Contains(currentCharacter))
+                {
+                    currentCharacter = null;
+                }
+            }
+            while (currentCharacter == null);
+
+            if (enemies.Contains(currentCharacter))
+            {
+                aiTurn = true;
+                currentCharacter.markCharacter(false);
+                EnemyTurn();
+            }
+            else
+            {
+                aiTurn = false;
+                currentCharacter.markCharacter(false);
+                CombatButtons.SetActive(true);
+            }
         }
     }
     public void Attack()
@@ -120,6 +126,7 @@ public class CombatManager : MonoBehaviour {
 
     void EndFight()
     {
+        CombatButtons.SetActive(false);
         int reward = 5; //TODO add reward // TODO: reward only if player is victorious, EndFight() is also called, when playerGroup is empty
         rollEncounter.EndEncounter(0);
     }

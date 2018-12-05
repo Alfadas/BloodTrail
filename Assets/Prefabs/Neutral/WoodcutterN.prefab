@@ -539,6 +539,7 @@ MonoBehaviour:
   friendcolor: {fileID: 2100000, guid: 441d2bccf9f8caa42a1669f5b849fce1, type: 2}
   foecolor: {fileID: 2100000, guid: 6d1fb2c02a558fe4fa1f7547c37e9ced, type: 2}
   healthText: {fileID: 114458287950452560}
+  isNPC: 1
 --- !u!114 &114963047043078864
 MonoBehaviour:
   m_ObjectHideFlags: 1
