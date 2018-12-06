@@ -1674,7 +1674,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4831696462246176, guid: cf3796b6511546147881a4e8fced1897, type: 2}
       propertyPath: m_RootOrder
-      value: 14
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 114366230519292026, guid: cf3796b6511546147881a4e8fced1897,
         type: 2}
@@ -1908,12 +1908,12 @@ Transform:
   - {fileID: 1571062183}
   - {fileID: 444484359}
   - {fileID: 1726538959}
-  - {fileID: 593563027}
-  - {fileID: 662441020}
-  - {fileID: 2040572253}
-  - {fileID: 1082177922}
   - {fileID: 2130660571}
   - {fileID: 1944798663}
+  - {fileID: 593563027}
+  - {fileID: 1082177922}
+  - {fileID: 662441020}
+  - {fileID: 2040572253}
   - {fileID: 1359081596}
   m_Father: {fileID: 0}
   m_RootOrder: 15
@@ -1955,7 +1955,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4024059843922548, guid: 05e5b71a84c9b5942859f40d5b4d06b6, type: 2}
       propertyPath: m_RootOrder
-      value: 15
+      value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 114966933383481796, guid: 05e5b71a84c9b5942859f40d5b4d06b6,
         type: 2}
@@ -3751,11 +3751,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4735147386270256, guid: c3b8f81b197299e4db2a2d87bb588efb,
     type: 2}
   m_PrefabInternal: {fileID: 1072377640}
---- !u!1 &1072377642 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1784499798252420, guid: c3b8f81b197299e4db2a2d87bb588efb,
-    type: 2}
-  m_PrefabInternal: {fileID: 1072377640}
 --- !u!1001 &1082177921
 Prefab:
   m_ObjectHideFlags: 0
@@ -3862,11 +3857,6 @@ Prefab:
 --- !u!4 &1087546303 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4446942590788262, guid: 4c99706f2e95b1542b128984fde44b1d,
-    type: 2}
-  m_PrefabInternal: {fileID: 1087546302}
---- !u!1 &1087546304 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1519520671912022, guid: 4c99706f2e95b1542b128984fde44b1d,
     type: 2}
   m_PrefabInternal: {fileID: 1087546302}
 --- !u!1001 &1122115488
@@ -5957,11 +5947,6 @@ Prefab:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2bb3d8591a5bc1147a082e64e8a8ea34, type: 2}
   m_IsPrefabAsset: 0
---- !u!1 &1706366961 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1627810678709690, guid: 2bb3d8591a5bc1147a082e64e8a8ea34,
-    type: 2}
-  m_PrefabInternal: {fileID: 1706366960}
 --- !u!4 &1706366962 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4221747562606450, guid: 2bb3d8591a5bc1147a082e64e8a8ea34,
@@ -7005,7 +6990,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4949119051848148, guid: 61da8bf586023d048a8cb78e54c85cee, type: 2}
       propertyPath: m_RootOrder
-      value: 19
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 1156043608556078, guid: 61da8bf586023d048a8cb78e54c85cee, type: 2}
       propertyPath: m_Name
@@ -7189,7 +7174,7 @@ MonoBehaviour:
   eChanceArmy: 15
   eChanceRefugees: 25
   eChancePoor: 0
-  eChanceRitch: 0
+  eChanceRich: 20
   eChanceFarmer: 20
   eChanceDoctor: 10
   eChanceEquipment: 40
@@ -7303,41 +7288,43 @@ MonoBehaviour:
   grassEdgeWidth: 120
   streetEdgeWidth: 30
   forestEdgeWidth: 60
-  middStreet:
-  - {fileID: 1087546304}
-  middTown:
-  - {fileID: 1072377642}
-  middTownWall:
-  - {fileID: 1706366961}
-  objName: []
-  backObj:
-  - {fileID: 1979845151}
-  - {fileID: 1571062184}
-  - {fileID: 444484360}
-  - {fileID: 1726538960}
+  midStreet: []
+  midTown: []
+  midTownWall: []
+  thieves:
   - {fileID: 2060493536}
   - {fileID: 2040087142}
   - {fileID: 1681222067}
   - {fileID: 984587448}
+  bandits:
   - {fileID: 493077806}
   - {fileID: 541572807}
   - {fileID: 1181943542}
   - {fileID: 1059260681}
   - {fileID: 1475174025}
-  - {fileID: 1359081597}
-  - {fileID: 593563028}
-  - {fileID: 1082177923}
-  - {fileID: 662441021}
-  - {fileID: 2040572254}
+  soldiers:
+  - {fileID: 1979845151}
+  - {fileID: 1571062184}
+  - {fileID: 444484360}
+  knights:
+  - {fileID: 1726538960}
+  soldiersN:
   - {fileID: 2130660572}
   - {fileID: 1944798662}
+  woodcuttersN:
+  - {fileID: 593563028}
+  - {fileID: 1082177923}
+  womansN:
+  - {fileID: 662441021}
+  - {fileID: 2040572254}
+  barricades:
+  - {fileID: 1359081597}
   enemyCount: 9
   heavyEnemyCount: 4
   neutralCount: 4
-  midd: []
+  mid: []
   edge: []
   back: []
-  encounterOb: []
 --- !u!4 &1977554650
 Transform:
   m_ObjectHideFlags: 0
@@ -7844,7 +7831,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4024059843922548, guid: 05e5b71a84c9b5942859f40d5b4d06b6, type: 2}
       propertyPath: m_RootOrder
-      value: 16
+      value: 19
       objectReference: {fileID: 0}
     - target: {fileID: 114966933383481796, guid: 05e5b71a84c9b5942859f40d5b4d06b6,
         type: 2}
@@ -8265,7 +8252,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4949119051848148, guid: 61da8bf586023d048a8cb78e54c85cee, type: 2}
       propertyPath: m_RootOrder
-      value: 18
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 114814041717798036, guid: 61da8bf586023d048a8cb78e54c85cee,
         type: 2}

@@ -2,250 +2,250 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RollEncounter : MonoBehaviour {
+public enum ENCOUNTER_TYPE
+	{
+	Fight,
+	Dialogue,
+	Trade,
+	Loot
+	}
 
-    [SerializeField] Transform cameraEncounterPos;
-    [SerializeField] Transform cameraMapPos;
-    [SerializeField] DialogeManager dialogeManager;
-    [SerializeField] CombatManager combatManager;
-    [SerializeField] CharacterManager characterManager;
-    [SerializeField] BuildEncounter buildEncounter;
+public class RollEncounter : MonoBehaviour
+	{
 
-    [SerializeField] int noEnemyChance = 60;
-    [Header("EncounterType")]
-    [SerializeField] int eChanceFight = 10;
-    [SerializeField] int eChanceDialoge = 35;
-    [SerializeField] int eChanceTrader = 10;
-    [SerializeField] int eChanceObjects = 20;
-    [Header("EncounterSubtypeFight")]
-    [SerializeField] int eChanceRoadblock = 50;
-    [SerializeField] int eChanceThiefs = 35;
-    [SerializeField] int eChanceArmy = 15;
-    [Header("EncounterSubtypeDialoge")]
-    [SerializeField] int eChanceRefugees = 25;
-    [SerializeField] int eChancePoor = 25;
-    [SerializeField] int eChanceRitch = 20;
-    [SerializeField] int eChanceFarmer = 20;
-    [SerializeField] int eChanceDoctor = 10;
-    [Header("EncounterSubtypeTrader")]
-    [SerializeField] int eChanceEquipment = 40;
-    [SerializeField] int eChanceAccident = 10;
-    [SerializeField] int eChanceFood = 50;
-    [Header("EncounterSubtypeObjects")]
-    [SerializeField] int eChanceChest = 10;
-    [SerializeField] int eChanceBerries = 25;
-    [SerializeField] int eChanceCart = 15;
-    [SerializeField] int eChanceHouse = 5;
-    [SerializeField] int eChanceCorpse = 5;
-    [SerializeField] int eChanceCamp = 20;
-    [SerializeField] int eChanceRuin = 20;
+	[SerializeField] Transform cameraEncounterPos;
+	[SerializeField] Transform cameraMapPos;
+	[SerializeField] DialogeManager dialogeManager;
+	[SerializeField] CombatManager combatManager;
+	[SerializeField] CharacterManager characterManager;
+	[SerializeField] BuildEncounter buildEncounter;
 
+	[SerializeField] int noEnemyChance = 60;
+	[Header("EncounterType")]
+	[SerializeField] int eChanceFight = 10;
+	[SerializeField] int eChanceDialoge = 35;
+	[SerializeField] int eChanceTrader = 10;
+	[SerializeField] int eChanceObjects = 20;
+	[Header("EncounterSubtypeFight")]
+	[SerializeField] int eChanceRoadblock = 50;
+	[SerializeField] int eChanceThiefs = 35;
+	[SerializeField] int eChanceArmy = 15;
+	[Header("EncounterSubtypeDialoge")]
+	[SerializeField] int eChanceRefugees = 25;
+	[SerializeField] int eChancePoor = 25;
+	[SerializeField] int eChanceRich = 20;
+	[SerializeField] int eChanceFarmer = 20;
+	[SerializeField] int eChanceDoctor = 10;
+	[Header("EncounterSubtypeTrader")]
+	[SerializeField] int eChanceEquipment = 40;
+	[SerializeField] int eChanceAccident = 10;
+	[SerializeField] int eChanceFood = 50;
+	[Header("EncounterSubtypeObjects")]
+	[SerializeField] int eChanceChest = 10;
+	[SerializeField] int eChanceBerries = 25;
+	[SerializeField] int eChanceCart = 15;
+	[SerializeField] int eChanceHouse = 5;
+	[SerializeField] int eChanceCorpse = 5;
+	[SerializeField] int eChanceCamp = 20;
+	[SerializeField] int eChanceRuin = 20;
 
-    int eChanceRoadblockModified = 0;
-    int eChanceThiefsModified = 0;
-    int encounterEnemyCount = 0;
-    string[] encounterObj;
-    string dialoge;
-    CameraManager cameraManager;
+	private static System.Random random = new System.Random(); // Generates ints, I like ints
+	int eChanceRoadblockModified = 0;
+	int eChanceThiefsModified = 0;
+	int encounterEnemyCount = 0;
+	string[] encounterObj;
+	string dialoge;
+	CameraManager cameraManager;
 
-    public bool RollNewEncounter(MapTile mapTile)
-    {
-        Debug.Log("encounter " + mapTile.getBiom());
-        if (mapTile.getBiom() != BIOM.Mountain)
-        {
-            encounterEnemyCount = 0;
-            int roll;
-            roll = Random.Range(1, 101);
-            Debug.Log("encounter+");
-            if (roll <= eChanceFight)
-            {
-                if (mapTile.getSubBiom() != SUBBIOM.Street)
-                {
-                    eChanceRoadblockModified = 0;
-                    eChanceThiefsModified = eChanceThiefs + eChanceRoadblock;
-                }
-                else
-                {
-                    eChanceRoadblockModified = eChanceRoadblock;
-                    eChanceThiefsModified = eChanceThiefs;
-                }
-                buildEncounter.CategorizeTile(mapTile, SpecializeEncounterFight(), encounterEnemyCount);
-                Debug.Log("fight");
-                StartCoroutine(StartEncounter());
-                combatManager.StartFight();
-                return true;
+	public bool RollNewEncounter(MapTile mapTile)
+		{
+		if(mapTile.getBiom() != BIOM.Mountain)
+			{
+			encounterEnemyCount = 0;
+			int roll;
+			roll = Random.Range(1, 101);
+			if(roll <= eChanceFight)
+				{
+				if(mapTile.getSubBiom() != SUBBIOM.Street)
+					{
+					eChanceRoadblockModified = 0;
+					eChanceThiefsModified = eChanceThiefs + eChanceRoadblock;
+					}
+				else
+					{
+					eChanceRoadblockModified = eChanceRoadblock;
+					eChanceThiefsModified = eChanceThiefs;
+					}
+				buildEncounter.CategorizeTile(mapTile, SpecializeEncounter(ENCOUNTER_TYPE.Fight), encounterEnemyCount);
+				StartCoroutine(StartEncounter());
+				combatManager.StartFight();
+				return true;
 
-            }
-            else if (roll <= eChanceFight + eChanceDialoge)
-            {
-                buildEncounter.CategorizeTile(mapTile, SpecializeEncounterDialoge(), encounterEnemyCount);
-                Debug.Log("dialog");
-                StartCoroutine(StartEncounter());
-                dialogeManager.StartDialoge(dialoge);
-                return true;
-            }
-            else if (roll <= eChanceFight + eChanceDialoge + eChanceObjects)
-            {
-                buildEncounter.CategorizeTile(mapTile, SpecializeEncounterObjects(), encounterEnemyCount);
-                StartCoroutine(StartEncounter());
-                return true;
-            }
-            else if (roll <= eChanceFight + eChanceDialoge + eChanceObjects + eChanceTrader)
-            {
-                buildEncounter.CategorizeTile(mapTile, SpecializeEncounterTrader(), encounterEnemyCount);
-                StartCoroutine(StartEncounter());
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-        else
-        {
-            return false;
-        }
-    }
+				}
+			else if(roll <= eChanceFight + eChanceDialoge)
+				{
+				buildEncounter.CategorizeTile(mapTile, SpecializeEncounter(ENCOUNTER_TYPE.Dialogue), encounterEnemyCount);
+				StartCoroutine(StartEncounter());
+				dialogeManager.StartDialoge(dialoge);
+				return true;
+				}
+			else if(roll <= eChanceFight + eChanceDialoge + eChanceObjects + eChanceTrader)
+				{
+				buildEncounter.CategorizeTile(mapTile, SpecializeEncounter(ENCOUNTER_TYPE.Trade), encounterEnemyCount);
+				StartCoroutine(StartEncounter());
+				return true;
+				}
+			else if(roll <= eChanceFight + eChanceDialoge + eChanceObjects)
+				{
+				buildEncounter.CategorizeTile(mapTile, SpecializeEncounter(ENCOUNTER_TYPE.Loot), encounterEnemyCount);
+				StartCoroutine(StartEncounter());
+				return true;
+				}
+			else
+				{
+				return false;
+				}
+			}
+		else
+			{
+			return false;
+			}
+		}
 
-    //NPCs first
-    string[] SpecializeEncounterFight()
-    {
-        int roll;
-        roll = Random.Range(1, 101);
-        if (roll <= eChanceRoadblockModified)//Roadblock
-        {
-            RandomEnemy(2);
-            encounterEnemyCount += 2;
-            if (encounterEnemyCount == 2)
-            {
-                return new string[] { "randomE", "randomE", "Barricade" };
-            }
-            else if (encounterEnemyCount == 3)
-            {
-                return new string[] { "randomE", "randomE", "randomE", "Barricade" };
-            }
-            else
-            {
-                return new string[] { "randomE", "randomE", "randomE", "randomE", "Barricade" };
-            } 
-        }
-        else if (roll <= eChanceRoadblock + eChanceThiefsModified)//Thiefs
-        {
-            RandomEnemy(3);
-            encounterEnemyCount += 1;
-            if (encounterEnemyCount == 1)
-            {
-                return new string[] { "randomE"};
-            }
-            else if (encounterEnemyCount == 2)
-            {
-                return new string[] { "randomE", "randomE"};
-            }
-            else if (encounterEnemyCount == 3)
-            {
-                return new string[] { "randomE", "randomE", "randomE" };
-            }
-            else
-            {
-                return new string[] { "randomE", "randomE", "randomE", "randomE" };
-            }
-        }
-        else//Army
-        {
-            RandomEnemy(1);
-            encounterEnemyCount += 3;
-            if (encounterEnemyCount == 3)
-            {
-                return new string[] { "randomHE", "randomHE", "randomE" };
-            }
-            else
-            {
-                return new string[] { "randomHE", "randomHE", "randomE", "randomE" };
-            }
-        }
-    }
+	//NPCs first
+	Dictionary<BACK_OBJECT_TYPE, int> SpecializeEncounter(ENCOUNTER_TYPE encounterType)
+		{
+		int[] backObjectTypeCounts = new int[System.Enum.GetValues(typeof(BACK_OBJECT_TYPE)).Length];
+		int roll = Random.Range(1, 101);
+		if(encounterType == ENCOUNTER_TYPE.Fight)
+			{
+			if(roll <= eChanceRoadblockModified)//Roadblock
+				{
+				RandomEnemy(2);
+				encounterEnemyCount += 2;
 
-    private void RandomEnemy(int count)
-    {
-        for (int i = 1; i<= count; i++)
-        {
-            int rollE = Random.Range(1, 101);
-            if (rollE > 60)
-            {
-                encounterEnemyCount++;
-            }
-        }
-    }
+				for(int I = 0; I < encounterEnemyCount; ++I)
+					{
+					++backObjectTypeCounts[random.Next(0, 2)];  // 0 = Thief, 1 = Bandit
+					}
+				++backObjectTypeCounts[7];                      // 7 = Barricade
+				}
+			else if(roll <= eChanceRoadblock + eChanceThiefsModified)//Thiefs
+				{
+				RandomEnemy(3);
+				encounterEnemyCount += 1;
 
-    string[] SpecializeEncounterDialoge()
-    {
-        int roll;
-        roll = Random.Range(1, 101);
-        if (roll <= eChanceRefugees)//Refugees
-        {
-            dialoge = "refugee1";
-            encounterEnemyCount = 3;
-            return new string[] { "randomN", "randomN", "randomN" };
-        }
-        else if (roll <= eChanceRefugees + eChancePoor )//Poor
-        {
-            return new string[] { };
-        }
-        else if (roll <= eChanceRefugees + eChancePoor + eChanceRitch )//Ritch
-        {
-            return new string[] { };
-        }
-        else if (roll <= eChanceRefugees + eChancePoor + eChanceRitch + eChanceFarmer)//Farmer
-        {
-            dialoge = "farmer1";
-            encounterEnemyCount = 1;
-            return new string[] { "randomN" };
-        }
-        else//Doctor
-        {
-            dialoge = "doctor1";
-            encounterEnemyCount = 1;
-            return new string[] { "randomN" };
-        }
-        
-    }
-    string[] SpecializeEncounterObjects()
-    {
+				for(int I = 0; I < encounterEnemyCount; ++I)
+					{
+					++backObjectTypeCounts[random.Next(0, 2)];  // 0 = Thief, 1 = Bandit
+					}
+				}
+			else//Army
+				{
+				RandomEnemy(1);
+				encounterEnemyCount += 3;
 
-        return new string[] { };
-    }
-    string[] SpecializeEncounterTrader()
-    {
+				for(int I = 0; I < 2; ++I)
+					{
+					++backObjectTypeCounts[random.Next(2, 4)];  // 2 = Soldier, 4 = Knight
+					}
+				for(int I = 2; I < encounterEnemyCount; ++I)
+					{
+					++backObjectTypeCounts[random.Next(0, 2)];  // 0 = Thief, 1 = Bandit
+					}
+				}
+			}
+		else if(encounterType == ENCOUNTER_TYPE.Dialogue)
+			{
+			if(roll <= eChanceRefugees)//Refugees
+				{
+				dialoge = "refugee1";
+				encounterEnemyCount = 3;
 
-        return new string[] { };
-    }
+				for(int I = 0; I < encounterEnemyCount; ++I)
+					{
+					++backObjectTypeCounts[random.Next(4, 7)];  // 4 = SoldierN, 5 = WoodcutterN, 6 = WomanN
+					}
+				}
+			else if(roll <= eChanceRefugees + eChancePoor)//Poor
+				{
+				// TODO: Implement
+				}
+			else if(roll <= eChanceRefugees + eChancePoor + eChanceRich)//Rich
+				{
+				// TODO: Implement
+				}
+			else if(roll <= eChanceRefugees + eChancePoor + eChanceRich + eChanceFarmer)//Farmer
+				{
+				dialoge = "farmer1";
+				encounterEnemyCount = 1;
+				
+				++backObjectTypeCounts[random.Next(4, 7)];  // 4 = SoldierN, 5 = WoodcutterN, 6 = WomanN
+				}
+			else//Doctor
+				{
+				dialoge = "doctor1";
+				encounterEnemyCount = 1;
+				
+				++backObjectTypeCounts[random.Next(4, 7)];  // 4 = SoldierN, 5 = WoodcutterN, 6 = WomanN
+				}
+			}
+		else if(encounterType == ENCOUNTER_TYPE.Trade)
+			{
+			// TODO: Implement
+			}
+		else if(encounterType == ENCOUNTER_TYPE.Loot)
+			{
+			// TODO: Implement
+			}
 
-    IEnumerator StartEncounter()
-    {
-        yield return new WaitForSeconds(1);
-        cameraManager = Camera.main.gameObject.GetComponent<CameraManager>();
-        cameraManager.active = false;
-        Camera.main.transform.position = cameraEncounterPos.position;
-        Camera.main.transform.rotation = cameraEncounterPos.rotation;
-    }
+		Dictionary<BACK_OBJECT_TYPE, int> backObjects = new Dictionary<BACK_OBJECT_TYPE, int>(4);
+		int U = 0;
+		foreach(BACK_OBJECT_TYPE objectType in System.Enum.GetValues(typeof(BACK_OBJECT_TYPE)))
+			{
+			backObjects.Add(objectType, backObjectTypeCounts[U++]);
+			}
+		return backObjects;
+		}
 
-    public void EndEncounter(int proceed)
-    {
-        if (proceed == 0)
-        {
-            Camera.main.transform.position = cameraMapPos.position;
-            Camera.main.transform.rotation = cameraMapPos.rotation;
-            cameraManager.active = true;
-        }
-        else if (proceed == 1)
-        {
-            combatManager.StartFight();
-        }
-        /*else if (proceed == 2)
-        {
+	private void RandomEnemy(int count)
+		{
+		for(int i = 1; i <= count; i++)
+			{
+			int rollE = Random.Range(1, 101);
+			if(rollE > 60)
+				{
+				encounterEnemyCount++;
+				}
+			}
+		}
+
+	IEnumerator StartEncounter()
+		{
+		yield return new WaitForSeconds(1);
+		cameraManager = Camera.main.gameObject.GetComponent<CameraManager>();
+		cameraManager.active = false;
+		Camera.main.transform.position = cameraEncounterPos.position;
+		Camera.main.transform.rotation = cameraEncounterPos.rotation;
+		}
+
+	public void EndEncounter(int proceed)
+		{
+		if(proceed == 0)
+			{
+			Camera.main.transform.position = cameraMapPos.position;
+			Camera.main.transform.rotation = cameraMapPos.rotation;
+			cameraManager.active = true;
+			}
+		else if(proceed == 1)
+			{
+			combatManager.StartFight();
+			}
+		/*else if (proceed == 2)
+			{
             //characterManager.ad
-        }*/
-    }
-}
+			}*/
+		}
+	}
 
 
