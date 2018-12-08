@@ -91,8 +91,7 @@ GameObject:
   - component: {fileID: 222886371306071868}
   - component: {fileID: 114081954699471866}
   - component: {fileID: 114834903808907392}
-  - component: {fileID: 114693601371958614}
-  - component: {fileID: 114233317156791504}
+  - component: {fileID: 114063683098072244}
   m_Layer: 5
   m_Name: Characterbutton
   m_TagString: Untagged
@@ -236,6 +235,19 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &114063683098072244
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1400417757106560}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: edfa124a5ceda0f47b3e43522f1e9d07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterPanel: {fileID: 1360917811263082}
+  buttonText: {fileID: 114954033869691756}
 --- !u!114 &114081954699471866
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -331,17 +343,6 @@ MonoBehaviour:
   m_Text: 'Stats
 
 '
---- !u!114 &114233317156791504
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1400417757106560}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 078496362fdba824692c9f6c85a3219e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114261054882944606
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -437,17 +438,6 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
---- !u!114 &114693601371958614
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1400417757106560}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d2eecd9e31fbe0c4eaee1cb639367134, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114744870671304376
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -520,8 +510,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 114693601371958614}
-        m_MethodName: forwardActivation
+      - m_Target: {fileID: 114063683098072244}
+        m_MethodName: FillPanel
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -737,7 +727,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 114693601371958614}
+      - m_Target: {fileID: 0}
         m_MethodName: sacrifice
         m_Mode: 1
         m_Arguments:

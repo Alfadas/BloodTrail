@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class GroupManager : MonoBehaviour
 	{
@@ -8,6 +9,7 @@ public class GroupManager : MonoBehaviour
 	[SerializeField] GameObject targetmarker;
 	[SerializeField] CharacterManager charactermanager;
 	[SerializeField] RollEncounter encounterroller;
+    [SerializeField] CharacterButtonManager characterButtonManager;
 	[SerializeField] float animationtime;
 	[SerializeField] GameObject victory;
 
@@ -27,8 +29,8 @@ public class GroupManager : MonoBehaviour
 
 	void Update()
 		{
-		// Get target when right mousebutton is released
-		if(Input.GetMouseButton(0))
+        // Get target when right mousebutton is released
+        if (Input.GetMouseButton(0) && !EventSystem.current.IsPointerOverGameObject())
 			{
 			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 			RaycastHit hit;
