@@ -19,20 +19,27 @@ public class CharacterButton : MonoBehaviour
     }
     public void FillPanel()
     {
-        characterButtonManager.ClosePanels();
-        characterPanel.SetActive(true);
-        Text[] textfields = characterPanel.GetComponentsInChildren<Text>();
+        if (characterPanel.activeSelf == true)
+        {
+            characterPanel.SetActive(false);
+        }
+        else
+        {
+            characterButtonManager.ClosePanels();
+            characterPanel.SetActive(true);
+            Text[] textfields = characterPanel.GetComponentsInChildren<Text>();
 
-        textfields[1].text = character.getName();
+            textfields[1].text = character.getName();
 
-        textfields[2].text = "Endurance: " + character.getStat(Character.STAT_ENDURANCE);
-        textfields[3].text = "Strength: " + character.getStat(Character.STAT_STRENGTH);
-        textfields[4].text = "Agility: " + character.getStat(Character.STAT_AGILITY);
-        textfields[5].text = "Intelligence: " + character.getStat(Character.STAT_INTELLIGENCE);
-        textfields[6].text = "Charisma: " + character.getStat(Character.STAT_CHARISMA);
+            textfields[2].text = "Endurance: " + character.getStat(Character.STAT_ENDURANCE);
+            textfields[3].text = "Strength: " + character.getStat(Character.STAT_STRENGTH);
+            textfields[4].text = "Agility: " + character.getStat(Character.STAT_AGILITY);
+            textfields[5].text = "Intelligence: " + character.getStat(Character.STAT_INTELLIGENCE);
+            textfields[6].text = "Charisma: " + character.getStat(Character.STAT_CHARISMA);
 
-        textfields[7].text = "Health: " + character.getHealth() + "/" + character.getMaxHealth() + "  Nutrition: " + character.getNutrition() + "/" + character.getMaxNutrition();
-        textfields[8].text = "Weapon: " + "none";
+            textfields[7].text = "Health: " + character.getHealth() + "/" + character.getMaxHealth() + "  Nutrition: " + character.getNutrition() + "/" + character.getMaxNutrition();
+            textfields[8].text = "Weapon: " + "none";
+        }
     }
 
     public void Sacrifice()

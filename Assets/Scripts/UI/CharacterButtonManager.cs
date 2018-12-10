@@ -17,45 +17,66 @@ public class CharacterButtonManager : MonoBehaviour {
         characterButtons = new List<CharacterButton>();
     }
 
-    public void OpenCharacterButtons()
+    public void OpenCharacterButtons(bool isFromButton)
     {
         List<Character> characters = characterManager.getCharacters();
-        int i;
-
-        for (i = 0; i<characters.Count; i++)
+        if (closeButton.gameObject.activeSelf == true && isFromButton)
         {
-            if (characterButtons.Count-1 < i)
-            {
-                CreateNewButton(characters, i);
-            }
-            else if (characterButtons[i].GetCharacter() != characters[i])
-            {
-                characterButtons.Remove(characterButtons[i]);
-                Object.Destroy(characterButtons[i].gameObject);
-                CreateNewButton(characters, i);
-            }
-            else
-            {
-                characterButtons[i].gameObject.SetActive(true);
-            }
+            CloseCharacterButtons();
         }
-        closeButton.gameObject.SetActive(true);
-        closeButton.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y + ((i+1) * height), 0);
+        else
+        {
+            List<CharacterButton> obsoleteButtons = new List<CharacterButton>();
+            int i;
+
+            for (i = 0; i < characters.Count; i++)
+            {
+                if (characterButtons.Count - 1 < i)
+                {
+                    CreateNewButton(characters, i);
+                }
+                else if (characterButtons[i].GetCharacter() != characters[i])
+                {
+                    obsoleteButtons.Add(characterButtons[i]);
+                    obsoleteButtons.Add(characterButtons[i+1]);
+                    CreateNewButton(characters, i);
+                }
+                else
+                {
+                    characterButtons[i].gameObject.SetActive(true);
+                    characterButtons[i].gameObject.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y + ((i + 1) * height), 0);
+                }
+            }
+            foreach (CharacterButton obsoleteButton in obsoleteButtons)
+            {
+                characterButtons.Remove(obsoleteButton);
+                Object.Destroy(obsoleteButton.gameObject);
+            }
+            if (characterButtons.Count > characters.Count)
+            {
+                for (int ii = characters.Count; i < characterButtons.Count; i++)
+                {
+                    if (!obsoleteButtons.Contains(characterButtons[i]))
+                    {
+                        obsoleteButtons.Add(characterButtons[i]);
+                    }
+                }
+            }
+            foreach (CharacterButton obsoleteButton in obsoleteButtons)
+            {
+                characterButtons.Remove(obsoleteButton);
+                Object.Destroy(obsoleteButton.gameObject);
+            }
+            closeButton.gameObject.SetActive(true);
+            closeButton.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y + ((characters.Count + 1) * height), 0);
+        }
     }
 
-    public void RelodeCharacterButtonsAfterKill(Character character)
+    public void ReloadCharacterButtonsAfterKill(Character character)
     {
-        foreach (CharacterButton characterButton in characterButtons)
-        {
-            if (characterButton.GetCharacter() == character)
-            {
-                characterButtons.Remove(characterButton);
-                Object.Destroy(characterButton.gameObject); ;
-            }
-        }
         if (closeButton.gameObject.activeSelf == true)
         {
-            OpenCharacterButtons();
+            OpenCharacterButtons(false);
         }
     }
 

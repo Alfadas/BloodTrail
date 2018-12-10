@@ -59,9 +59,9 @@ public class CharacterManager : MonoBehaviour
 		{
         if (characters.Contains(character))
         {
-            characterButtonManager.RelodeCharacterButtonsAfterKill(character);
+            characters.Remove(character);
+            characterButtonManager.ReloadCharacterButtonsAfterKill(character);
         }
-		characters.Remove(character);
 		Destroy(character.gameObject, 0.5f); // Delay, to give character some time to finish his business
 		if(characters.Count <= 0)
 			{
