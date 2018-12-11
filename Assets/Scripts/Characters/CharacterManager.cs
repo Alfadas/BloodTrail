@@ -75,12 +75,19 @@ public class CharacterManager : MonoBehaviour
 			}
 		}
 
+	// Returns, whether at least one groupmember is still alive
+	public bool isAlive()
+		{
+		return characters.Count > 0;
+		}
+
 	// Returns all current party characters
 	public List<Character> getCharacters()
 		{
 		return characters;
 		}
 
+	// Returns the speed of the currently slowest group member
 	public int getGroupSpeed()
 		{
 		// TODO: fix exception when group is dead

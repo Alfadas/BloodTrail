@@ -9,8 +9,9 @@ public class GroupManager : MonoBehaviour
 	[SerializeField] GameObject targetmarker;
 	[SerializeField] CharacterManager charactermanager;
 	[SerializeField] RollEncounter encounterroller;
-    [SerializeField] CharacterButtonManager characterButtonManager;
 	[SerializeField] float animationtime;
+	[SerializeField] float defaulttilespeed = 100.0f;
+	[SerializeField] float defaultgroupspeed = 50.0f;
 	[SerializeField] GameObject victory;
 
 	private static System.Random random = new System.Random();
@@ -29,7 +30,7 @@ public class GroupManager : MonoBehaviour
 
 	void Update()
 		{
-        // Get target when right mousebutton is released
+        // Get target when left mousebutton is released
         if (Input.GetMouseButton(0) && !EventSystem.current.IsPointerOverGameObject())
 			{
 			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -55,12 +56,28 @@ public class GroupManager : MonoBehaviour
 			{
 			resetTarget();
 			}
-		else
+		else if(charactermanager.isAlive())
 			{
 			Vector3 oldposition = gameObject.transform.position;
 			MapTile currenttile = map.getTile(new Vector2Int(Mathf.RoundToInt(gameObject.transform.position.x), Mathf.RoundToInt(gameObject.transform.position.z)));
-			float tiletime = 100.0f / currenttile.getSpeed();
-			float grouptime = 50.0f / charactermanager.getGroupSpeed();
+			float tiletime = currenttile.getSpeed();			// Set tiletime to tilespeed
+			float grouptime = charactermanager.getGroupSpeed();	// Set grouptime to groupspeed
+			if(tiletime > 0)									// Check if speed is > 0
+				{
+				tiletime = defaulttilespeed / tiletime;			// Get inverse to calculate time from speed
+				}
+			else
+				{
+				Debug.Log("Tile.getSpeed() returned a number <= 0, that should not happen.");
+				}
+			if(grouptime > 0)									// Check if speed is > 0
+				{
+				grouptime = defaultgroupspeed / grouptime;		// Get inverse to calculate time from speed
+				}
+			else
+				{
+				Debug.Log("CharacterManager.getGroupSpeed() returned a number <= 0, that should not happen.");
+				}
 
 			if(Time.time - starttime > animationtime * tiletime * grouptime)
 				{
@@ -72,7 +89,7 @@ public class GroupManager : MonoBehaviour
 				// Move party
 				Vector2 direction = new Vector2(targetmarker.transform.position.x - gameObject.transform.position.x, targetmarker.transform.position.z - gameObject.transform.position.z);
 				direction = direction / direction.magnitude;
-				if(Mathf.Abs(direction.x) > Mathf.Abs(direction.y))
+				if(Mathf.Abs(direction.x) > Mathf.Abs(direction.y)) // Prefer Y if both are equal, because the plague comes from below
 					{
 					gameObject.transform.Translate(direction.x / Mathf.Abs(direction.x), 0, 0); // Move 1 unit in either positive or negative x direction
 					}
@@ -86,8 +103,8 @@ public class GroupManager : MonoBehaviour
 					resetTarget();
 					}
 
+				// Check tile on which the round ends
 				currenttile = map.getTile(new Vector2Int(Mathf.RoundToInt(gameObject.transform.position.x), Mathf.RoundToInt(gameObject.transform.position.z)));
-
 				if(currenttile.getSubBiom() == SUBBIOM.Harbor)
 					{
 					victory.SetActive(true);
