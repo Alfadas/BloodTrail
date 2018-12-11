@@ -5,17 +5,15 @@ using UnityEngine.UI;
 
 public class CharacterManager : MonoBehaviour
 	{
-	[SerializeField] int maxcharacters = 10;
-	[SerializeField] int maxcombatcharacters = 5;
-	[SerializeField] int startcharacters = 5;
+	[SerializeField] int maxcharacters = 5;
+	[SerializeField] int startcharacters = 3;
 	[SerializeField] List<GameObject> characterprefabs;
 	[SerializeField] int maleprefabcount = 2;
-	[SerializeField] CharacterButtonManager characterButtonManager;
+	[SerializeField] CharacterButtonManager characterbuttonmanager;
 	[SerializeField] GameObject defeat;
 
 	private static System.Random random = new System.Random();
 	private List<Character> characters;
-	private List<GameObject> characterbuttons;
 
 	void Start()
 		{
@@ -60,7 +58,7 @@ public class CharacterManager : MonoBehaviour
 		if(characters.Contains(character))
 			{
 			characters.Remove(character);
-			characterButtonManager.ReloadCharacterButtonsAfterKill(character);
+			characterbuttonmanager.ReloadCharacterButtonsAfterKill(character);
 			}
 		Destroy(character.gameObject, 0.5f); // Delay, to give character some time to finish his business
 		if(characters.Count <= 0)
