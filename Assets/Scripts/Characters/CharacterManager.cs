@@ -10,7 +10,7 @@ public class CharacterManager : MonoBehaviour
 	[SerializeField] int startcharacters = 5;
 	[SerializeField] List<GameObject> characterprefabs;
 	[SerializeField] int maleprefabcount = 2;
-    [SerializeField] CharacterButtonManager characterButtonManager;
+	[SerializeField] CharacterButtonManager characterButtonManager;
 	[SerializeField] GameObject defeat;
 
 	private static System.Random random = new System.Random();
@@ -57,11 +57,11 @@ public class CharacterManager : MonoBehaviour
 
 	public void killCharacter(Character character)
 		{
-        if (characters.Contains(character))
-        {
-            characters.Remove(character);
-            characterButtonManager.ReloadCharacterButtonsAfterKill(character);
-        }
+		if(characters.Contains(character))
+			{
+			characters.Remove(character);
+			characterButtonManager.ReloadCharacterButtonsAfterKill(character);
+			}
 		Destroy(character.gameObject, 0.5f); // Delay, to give character some time to finish his business
 		if(characters.Count <= 0)
 			{
@@ -85,6 +85,7 @@ public class CharacterManager : MonoBehaviour
 
 	public int getGroupSpeed()
 		{
+		// TODO: fix exception when group is dead
 		int minspeed = characters[0].getStat(Character.STAT_AGILITY);
 		foreach(Character character in characters)
 			{
