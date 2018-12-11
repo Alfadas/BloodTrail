@@ -19,7 +19,7 @@ public class Character : MonoBehaviour
 
 	private static System.Random random = new System.Random();
 	private CharacterManager manager;
-	private string name;
+	private string charactername;
 	private int health;
 	private int nutrition;
 	private int[] stats;
@@ -56,7 +56,7 @@ public class Character : MonoBehaviour
 		string[] maleending = { "o", "u", "b", "c", "d", "f", "g", "k", "l", "m", "n", "p", "r", "s", "t", "v", "w", "x", "z" };
 		string[] femaleending = { "a", "e", "i", "y" };
 
-		name = capitals[random.Next(capitals.Length)];
+		charactername = capitals[random.Next(capitals.Length)];
 
 		int previous = CONSONANT;
 		bool consonantchain = false;
@@ -66,12 +66,12 @@ public class Character : MonoBehaviour
 				{
 				if(random.NextDouble() < 0.05)
 					{
-					name += vocals[random.Next(vocals.Length)];
+					charactername += vocals[random.Next(vocals.Length)];
 					previous = VOCAL;
 					}
 				else
 					{
-					name += consonants[random.Next(consonants.Length)];
+					charactername += consonants[random.Next(consonants.Length)];
 					previous = CONSONANT;
 					}
 				}
@@ -79,13 +79,13 @@ public class Character : MonoBehaviour
 				{
 				if(random.NextDouble() < 0.05 && !consonantchain)
 					{
-					name += consonants[random.Next(consonants.Length)];
+					charactername += consonants[random.Next(consonants.Length)];
 					previous = CONSONANT;
 					consonantchain = true;
 					}
 				else
 					{
-					name += vocals[random.Next(vocals.Length)];
+					charactername += vocals[random.Next(vocals.Length)];
 					previous = VOCAL;
 					consonantchain = false;
 					}
@@ -99,14 +99,14 @@ public class Character : MonoBehaviour
 
 		if(male)
 			{
-			name += maleending[random.Next(maleending.Length)];
+			charactername += maleending[random.Next(maleending.Length)];
 			}
 		else
 			{
-			name += femaleending[random.Next(femaleending.Length)];
+			charactername += femaleending[random.Next(femaleending.Length)];
 			}
 
-		return name;
+		return charactername;
 		}
 
 	// Generates new random stats for this character.
@@ -279,11 +279,11 @@ public class Character : MonoBehaviour
 		return 20 + Mathf.RoundToInt(getStat(STAT_ENDURANCE) * 0.2f);
 		}
 
-	public string getName()
+	public string getCharacterName()
 		{
-		if(name != null)
+		if(charactername != null)
 			{
-			return name;
+			return charactername;
 			}
 		else
 			{

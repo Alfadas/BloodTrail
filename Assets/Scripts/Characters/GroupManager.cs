@@ -40,9 +40,7 @@ public class GroupManager : MonoBehaviour
 				if(hit.point.x >= -0.5f && hit.point.x < map.getWidth() - 0.5f && hit.point.z >= -0.5f && hit.point.z < map.getHeight() - 0.5f)
 					{
 					Vector2Int targetposition = new Vector2Int(Mathf.RoundToInt(hit.point.x), Mathf.RoundToInt(hit.point.z));
-					MapTile target;
 
-					target = map.getTile(targetposition);
 					targetmarker.transform.position = new Vector3(targetposition.x, 0, targetposition.y);
 					targetmarker.SetActive(true);
 					}

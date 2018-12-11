@@ -15,7 +15,7 @@ public class CharacterButton : MonoBehaviour
 		{
 		characterButtonManager = newCharacterButtonManager;
 		character = buttonCharacter;
-		buttonText.text = character.getName();
+		buttonText.text = character.getCharacterName();
 		}
 
 	public void FillPanel()
@@ -30,7 +30,7 @@ public class CharacterButton : MonoBehaviour
 			characterPanel.SetActive(true);
 			Text[] textfields = characterPanel.GetComponentsInChildren<Text>();
 
-			textfields[1].text = character.getName();
+			textfields[1].text = character.getCharacterName();
 
 			textfields[2].text = "Endurance: " + character.getStat(Character.STAT_ENDURANCE);
 			textfields[3].text = "Strength: " + character.getStat(Character.STAT_STRENGTH);

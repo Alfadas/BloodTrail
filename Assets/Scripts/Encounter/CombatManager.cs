@@ -127,7 +127,7 @@ public class CombatManager : MonoBehaviour {
     void EndFight()
     {
         CombatButtons.SetActive(false);
-        int reward = 5; //TODO add reward // TODO: reward only if player is victorious, EndFight() is also called, when playerGroup is empty
+        // int reward = 5; //TODO add reward // TODO: reward only if player is victorious, EndFight() is also called, when playerGroup is empty
         rollEncounter.EndEncounter(0);
     }
     void EnemyTurn()

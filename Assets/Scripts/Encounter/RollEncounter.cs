@@ -20,7 +20,7 @@ public class RollEncounter : MonoBehaviour
 	[SerializeField] CharacterManager characterManager;
 	[SerializeField] BuildEncounter buildEncounter;
 
-	[SerializeField] int noEnemyChance = 60;
+	// [SerializeField] int noEnemyChance = 60;
 	[Header("EncounterType")]
 	[SerializeField] int eChanceFight = 10;
 	[SerializeField] int eChanceDialoge = 35;
@@ -29,25 +29,25 @@ public class RollEncounter : MonoBehaviour
 	[Header("EncounterSubtypeFight")]
 	[SerializeField] int eChanceRoadblock = 50;
 	[SerializeField] int eChanceThiefs = 35;
-	[SerializeField] int eChanceArmy = 15;
+	// [SerializeField] int eChanceArmy = 15;
 	[Header("EncounterSubtypeDialoge")]
 	[SerializeField] int eChanceRefugees = 25;
 	[SerializeField] int eChancePoor = 25;
 	[SerializeField] int eChanceRich = 20;
 	[SerializeField] int eChanceFarmer = 20;
-	[SerializeField] int eChanceDoctor = 10;
+	// [SerializeField] int eChanceDoctor = 10;
 	[Header("EncounterSubtypeTrader")]
-	[SerializeField] int eChanceEquipment = 40;
-	[SerializeField] int eChanceAccident = 10;
-	[SerializeField] int eChanceFood = 50;
+	// [SerializeField] int eChanceEquipment = 40;
+	// [SerializeField] int eChanceAccident = 10;
+	// [SerializeField] int eChanceFood = 50;
 	[Header("EncounterSubtypeObjects")]
-	[SerializeField] int eChanceChest = 10;
-	[SerializeField] int eChanceBerries = 25;
-	[SerializeField] int eChanceCart = 15;
-	[SerializeField] int eChanceHouse = 5;
-	[SerializeField] int eChanceCorpse = 5;
-	[SerializeField] int eChanceCamp = 20;
-	[SerializeField] int eChanceRuin = 20;
+	// [SerializeField] int eChanceChest = 10;
+	// [SerializeField] int eChanceBerries = 25;
+	// [SerializeField] int eChanceCart = 15;
+	// [SerializeField] int eChanceHouse = 5;
+	// [SerializeField] int eChanceCorpse = 5;
+	// [SerializeField] int eChanceCamp = 20;
+	// [SerializeField] int eChanceRuin = 20;
 
 	private static System.Random random = new System.Random(); // Generates ints, I like ints
 	int eChanceRoadblockModified = 0;
@@ -103,13 +103,14 @@ public class RollEncounter : MonoBehaviour
 				}
 			else
 				{
-				return false;
+				return false; // Could cut this
 				}
 			}
 		else
 			{
-			return false;
+			return false; // Could cut this
 			}
+		// Paste return false here -> -7 lines of code
 		}
 
 	//NPCs first
@@ -225,6 +226,8 @@ public class RollEncounter : MonoBehaviour
 		yield return new WaitForSeconds(1);
 		cameraManager = Camera.main.gameObject.GetComponent<CameraManager>();
 		cameraManager.active = false;
+		cameraMapPos.position = Camera.main.transform.position; // Sry für unangekuendigte Änderung, will dir aber nicht jedes Mal ne Nachricht schreiben, weil du gesagt hast, dass du das auch nicht magst.
+		cameraMapPos.rotation = Camera.main.transform.rotation; // Remembers the current map view to restore it after the encounter
 		Camera.main.transform.position = cameraEncounterPos.position;
 		Camera.main.transform.rotation = cameraEncounterPos.rotation;
 		}
@@ -235,7 +238,7 @@ public class RollEncounter : MonoBehaviour
 			{
 			Camera.main.transform.position = cameraMapPos.position;
 			Camera.main.transform.rotation = cameraMapPos.rotation;
-			cameraManager.active = true;
+			cameraManager.active = true; // TODO: NullReferenceException: Object reference not set to an instance of an object (at Assets/Scripts/Encounter/RollEncounter.cs:240)
 			}
 		else if(proceed == 1)
 			{

@@ -7,8 +7,8 @@ public class Map {
 
     private int width=100;
     private int height=100;
-    private GameObject prefabTile;
-    private Dictionary<BIOM, Material> materials;
+    // private GameObject prefabTile;					// Only needed in this method, therfore no need to be instance variable
+    // private Dictionary<BIOM, Material> materials;	// see above
     private Dictionary<Vector2Int, MapTile> tiles;
     private Dictionary<Vector2Int, MapTile> citySave;
     private float plageSpeed;
@@ -98,9 +98,9 @@ public class Map {
 
         this.width = width;
         this.height = height;
-        this.prefabTile = prefabTile;
+        // this.prefabTile = prefabTile;	// Only needed in this method, therfore no need to be instance variable
         this.seed = seed;
-        this.materials = materials;
+        // this.materials = materials;		// see above
         this.tiles = new Dictionary<Vector2Int, MapTile>();
 
         int sumBiomChance = 0;
@@ -263,16 +263,16 @@ public class Map {
         const int streetsPerCity = 1;
         const int weightWrong = 5;  
        
-        Random.seed = this.seed;
+        Random.InitState(this.seed);
         Dictionary<Vector2Int, Vector2Int> fromToCities = new Dictionary<Vector2Int, Vector2Int>();
         List<Vector2Int> keyList = new List<Vector2Int>(cities.Keys);
-       // int streetCounter = 0;
+        // int streetCounter = 0;
         //Debug.Log(maxCity);
         foreach (KeyValuePair < Vector2Int, MapTile> city in cities){ //jetzt durch while ersetzt
        // while(streetCounter < maxCity) { 
             for (int i=0; i < streetsPerCity; i++)
             {
-                int key = Random.Range(0, keyList.Count);
+                // int key = Random.Range(0, keyList.Count);
                 //MapTile city = cities[keyList[key]];
                 MapTile cityStart = city.Value;
                 Vector2Int cityStartPos = city.Key;
@@ -286,18 +286,18 @@ public class Map {
                 Vector2Int LastPosition = new Vector2Int(-1,-1);
                 int steps = 0;
                 bool stop=false;
-                bool stopNow = false;
-                bool nextToRoad = false;
+                // bool stopNow = false;
+                // bool nextToRoad = false;
                 if ((currentPos == cityEndPos)||
                     (fromToCities.ContainsKey(city.Key) && fromToCities[city.Key] == cityEndPos) ||
                     (fromToCities.ContainsKey(cityEndPos) && fromToCities[cityEndPos] == city.Key) ){
                         continue;
                 }
 
-               // streetCounter++;
+                // streetCounter++;
                 fromToCities[city.Key] = cityEndPos;
                 fromToCities[cityEndPos] = city.Key;
-                Debug.Log("start = " + city.Key + " End = " + cityEndPos);
+                // Debug.Log("start = " + city.Key + " End = " + cityEndPos);
                 List <Vector2Int> thisRoad = new List<Vector2Int>();
                 while (currentPos != cityEndPos) {
 
@@ -406,7 +406,7 @@ public class Map {
                         ) {
                         stop = true;
                         newPos = currentPos + Vector2Int.up;
-                        Debug.Log(" stopt at" + newPos);
+                        // Debug.Log(" stopt at" + newPos);
                     }
 
 
@@ -416,7 +416,7 @@ public class Map {
                     {
                         stop = true;
                         newPos = currentPos + Vector2Int.down;
-                        Debug.Log(" stopt at" + newPos);
+                        // Debug.Log(" stopt at" + newPos);
                     }
 
                     if ((cityConnectsToRoad[cityStartPos].Contains(currentPos + Vector2Int.left) ||
@@ -425,7 +425,7 @@ public class Map {
                         {
                             stop = true;
                             newPos = currentPos + Vector2Int.left;
-                        Debug.Log(" stopt at" + newPos);
+                        // Debug.Log(" stopt at" + newPos);
                     }
                     
 
@@ -435,7 +435,7 @@ public class Map {
                     {
                         stop = true;
                         newPos = currentPos + Vector2Int.right;
-                        Debug.Log(" stopt at" + newPos);
+                        // Debug.Log(" stopt at" + newPos);
                     }
                         
                    
