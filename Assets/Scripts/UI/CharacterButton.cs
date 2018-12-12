@@ -9,16 +9,16 @@ public class CharacterButton : MonoBehaviour
 	[SerializeField] Text buttonText;
 
 	private Character character;
-	private CharacterButtonManager characterButtonManager;
+	private CharacterButtonManager characterbuttonmanager;
 
-	public void FillButton(Character buttonCharacter, CharacterButtonManager newCharacterButtonManager)
+	public void fillButton(Character character, CharacterButtonManager characterbuttonmanager)
 		{
-		characterButtonManager = newCharacterButtonManager;
-		character = buttonCharacter;
-		buttonText.text = character.getCharacterName();
+		this.character = character;
+		this.characterbuttonmanager = characterbuttonmanager;
+		buttonText.text = this.character.getCharacterName();
 		}
 
-	public void FillPanel()
+	public void fillPanel()
 		{
 		if(characterPanel.activeSelf == true)
 			{
@@ -26,8 +26,9 @@ public class CharacterButton : MonoBehaviour
 			}
 		else
 			{
-			characterButtonManager.ClosePanels();
+			characterbuttonmanager.closePanels();
 			characterPanel.SetActive(true);
+
 			Text[] textfields = characterPanel.GetComponentsInChildren<Text>();
 
 			textfields[1].text = character.getCharacterName();
@@ -43,17 +44,17 @@ public class CharacterButton : MonoBehaviour
 			}
 		}
 
-	public void Sacrifice()
+	public void sacrifice()
 		{
-		characterButtonManager.Sacrifice(character);
+		characterbuttonmanager.sacrifice(character);
 		}
 
-	public void ClosePanel()
+	public void closePanel()
 		{
 		characterPanel.SetActive(false);
 		}
 
-	public Character GetCharacter()
+	public Character getCharacter()
 		{
 		return character;
 		}

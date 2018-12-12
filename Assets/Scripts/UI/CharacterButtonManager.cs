@@ -17,12 +17,12 @@ public class CharacterButtonManager : MonoBehaviour
 		characterButtons = new List<CharacterButton>();
 		}
 
-	public void OpenCharacterButtons(bool isFromButton)
+	public void openCharacterButtons(bool isFromButton)
 		{
 		List<Character> characters = characterManager.getCharacters();
 		if(closeButton.gameObject.activeSelf == true && isFromButton)
 			{
-			CloseCharacterButtons();
+			closeCharacterButtons();
 			}
 		else
 			{
@@ -33,13 +33,13 @@ public class CharacterButtonManager : MonoBehaviour
 				{
 				if(characterButtons.Count - 1 < i)
 					{
-					CreateNewButton(characters, i);
+					createNewButton(characters, i);
 					}
-				else if(characterButtons[i].GetCharacter() != characters[i])
+				else if(characterButtons[i].getCharacter() != characters[i])
 					{
 					obsoleteButtons.Add(characterButtons[i]);
 					obsoleteButtons.Add(characterButtons[i + 1]);
-					CreateNewButton(characters, i);
+					createNewButton(characters, i);
 					}
 				else
 					{
@@ -72,23 +72,23 @@ public class CharacterButtonManager : MonoBehaviour
 			}
 		}
 
-	public void ReloadCharacterButtonsAfterKill(Character character)
+	public void reloadCharacterButtonsAfterKill(Character character)
 		{
 		if(closeButton.gameObject.activeSelf == true)
 			{
-			OpenCharacterButtons(false);
+			openCharacterButtons(false);
 			}
 		}
 
-	public void ClosePanels()
+	public void closePanels()
 		{
 		foreach(CharacterButton characterButton in characterButtons)
 			{
-			characterButton.ClosePanel();
+			characterButton.closePanel();
 			}
 		}
 
-	public void CloseCharacterButtons()
+	public void closeCharacterButtons()
 		{
 		foreach(CharacterButton characterButton in characterButtons)
 			{
@@ -97,17 +97,17 @@ public class CharacterButtonManager : MonoBehaviour
 		closeButton.gameObject.SetActive(false);
 		}
 
-	public void Sacrifice(Character character)
+	public void sacrifice(Character character)
 		{
 		characterManager.killCharacter(character);
 		}
 
-	private void CreateNewButton(List<Character> characters, int i)
+	private void createNewButton(List<Character> characters, int i)
 		{
 		Button newButton = Instantiate(characterButton, new Vector3(gameObject.transform.position.x, gameObject.transform.position.y + ((i + 1) * height), 0), Quaternion.identity);
 		newButton.transform.SetParent(gameObject.transform, true);
 		CharacterButton newCharacterButton = newButton.GetComponent<CharacterButton>();
-		newCharacterButton.FillButton(characters[i], this);
+		newCharacterButton.fillButton(characters[i], this);
 		characterButtons.Add(newCharacterButton);
 		}
 	}

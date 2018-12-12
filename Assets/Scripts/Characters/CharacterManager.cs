@@ -58,7 +58,7 @@ public class CharacterManager : MonoBehaviour
 		if(characters.Contains(character))
 			{
 			characters.Remove(character);
-			characterbuttonmanager.ReloadCharacterButtonsAfterKill(character);
+			characterbuttonmanager.reloadCharacterButtonsAfterKill(character);  // TODO: do something similar when new characters join?
 			}
 		Destroy(character.gameObject, 0.5f); // Delay, to give character some time to finish his business
 		if(characters.Count <= 0)

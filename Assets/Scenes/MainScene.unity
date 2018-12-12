@@ -2380,7 +2380,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 728974321}
-        m_MethodName: OpenCharacterButtons
+        m_MethodName: openCharacterButtons
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3544,9 +3544,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22d4f850eb32fce4196428d2a105b392, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  active: 1
   speed: 1
   zoomspeed: 10
+  active: 1
 --- !u!114 &1035391215
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7340,29 +7340,16 @@ MonoBehaviour:
   combatManager: {fileID: 1977554651}
   characterManager: {fileID: 2123509120}
   buildEncounter: {fileID: 1977554649}
-  noEnemyChance: 60
   eChanceFight: 5
   eChanceDialoge: 10
   eChanceTrader: 0
   eChanceObjects: 0
   eChanceRoadblock: 50
   eChanceThiefs: 35
-  eChanceArmy: 15
   eChanceRefugees: 25
   eChancePoor: 0
   eChanceRich: 20
   eChanceFarmer: 20
-  eChanceDoctor: 10
-  eChanceEquipment: 40
-  eChanceAccident: 10
-  eChanceFood: 50
-  eChanceChest: 10
-  eChanceBerries: 25
-  eChanceCart: 15
-  eChanceHouse: 5
-  eChanceCorpse: 5
-  eChanceCamp: 20
-  eChanceRuin: 20
 --- !u!114 &1977554649
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7497,7 +7484,6 @@ MonoBehaviour:
   - {fileID: 1359081597}
   enemyCount: 9
   heavyEnemyCount: 4
-  neutralCount: 4
   mid: []
   edge: []
   back: []

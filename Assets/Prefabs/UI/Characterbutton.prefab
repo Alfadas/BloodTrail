@@ -511,7 +511,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 114063683098072244}
-        m_MethodName: FillPanel
+        m_MethodName: fillPanel
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -728,7 +728,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 114063683098072244}
-        m_MethodName: Sacrifice
+        m_MethodName: sacrifice
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
