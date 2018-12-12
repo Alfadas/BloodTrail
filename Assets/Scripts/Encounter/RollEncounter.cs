@@ -226,8 +226,9 @@ public class RollEncounter : MonoBehaviour
 		yield return new WaitForSeconds(1);
 		cameraManager = Camera.main.gameObject.GetComponent<CameraManager>();
 		cameraManager.active = false;
-		cameraMapPos.position = Camera.main.transform.position; // Sry für unangekuendigte Änderung, will dir aber nicht jedes Mal ne Nachricht schreiben, weil du gesagt hast, dass du das auch nicht magst.
-		cameraMapPos.rotation = Camera.main.transform.rotation; // Remembers the current map view to restore it after the encounter
+		// cameraMapPos.position = Camera.main.transform.position; // Sry für unangekuendigte Änderung, will dir aber nicht jedes Mal ne Nachricht schreiben, weil du gesagt hast, dass du das auch nicht magst.
+		// cameraMapPos.rotation = Camera.main.transform.rotation; // Remembers the current map view to restore it after the encounter
+		// nvm, caused bugs anyways, TODO: Maybe enable, fix and test later
 		Camera.main.transform.position = cameraEncounterPos.position;
 		Camera.main.transform.rotation = cameraEncounterPos.rotation;
 		}

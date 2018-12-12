@@ -156,7 +156,7 @@ public class BuildEncounter : MonoBehaviour
 				else if(mapTile.getSubBiom() == SUBBIOM.Street)
 					{
 					edgeObjectCount = Random.Range(streetMinEdgeObjects, streetMaxEdgeObjects + 1);
-					mid.Add(midStreet[Random.Range(0, midStreet.Length)]);
+					mid.Add(midStreet[Random.Range(0, midStreet.Length)]); // TODO: see below
 					edgeWidth = streetEdgeWidth;
 					isStreet = true;
 					}
@@ -189,7 +189,7 @@ public class BuildEncounter : MonoBehaviour
 					else if(mapTile.getSubBiom() == SUBBIOM.Street)
 						{
 						edgeObjectCount = Random.Range(streetMinEdgeObjects, streetMaxEdgeObjects + 1);
-						mid.Add(midStreet[Random.Range(0, midStreet.Length)]); // TODO: IndexOutOfRangeException: Array index is out of range. (at Assets/Scripts/Encounter/BuildEncounter.cs:192), probably Length was 0, see Range() Documentation
+						mid.Add(midStreet[Random.Range(0, midStreet.Length)]); // TODO: IndexOutOfRangeException: Array index is out of range. (at Assets/Scripts/Encounter/BuildEncounter.cs:192), probably midStreet.Length was 0, see Range() Documentation
 						isStreet = true;
 						}
 					else

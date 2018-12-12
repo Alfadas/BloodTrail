@@ -23,7 +23,7 @@ public class CombatManager : MonoBehaviour {
     public void StartFight()
     {
         participantsQueue = new Queue<Character>();
-        playerGroup = new List<Character>();
+        playerGroup = new List<Character>(); // Wasted processing power, See line 29
         participants = new List<Character>();
 
         playerGroup = characterManager.getCharacters();
@@ -32,10 +32,10 @@ public class CombatManager : MonoBehaviour {
         participants.AddRange(playerGroup);
         participantCount = participants.Count;
 
-        for(int i = 1; i <= participantCount; i++)
+        for(int i = 1; i <= participantCount; i++) // while(participants.Count > 0)? More readable and could cut participantCount variable
         {
-            int highestSpeed = 0;
-            Character fastestParticipant = null;
+            int highestSpeed = 0; // See below, same principle, set to first characters speed
+            Character fastestParticipant = null; // Stinks after NullPointerExceptions, could set it to first participant instead of null https://en.wikipedia.org/wiki/Defensive_programming
             foreach (Character participant in participants)
             {
                 if (participant.getStat(2) > highestSpeed)
@@ -79,6 +79,7 @@ public class CombatManager : MonoBehaviour {
                 aiTurn = false;
                 currentCharacter.markCharacter(false);
                 CombatButtons.SetActive(true);
+				Debug.Log("Combat Buttons enabled (friendly turn started): " + CombatButtons.activeSelf);
             }
         }
     }
@@ -127,6 +128,7 @@ public class CombatManager : MonoBehaviour {
     void EndFight()
     {
         CombatButtons.SetActive(false);
+		Debug.Log("Combat Buttons disabled (end of fight): " + CombatButtons.activeSelf);
         // int reward = 5; //TODO add reward // TODO: reward only if player is victorious, EndFight() is also called, when playerGroup is empty
         rollEncounter.EndEncounter(0);
     }
@@ -146,6 +148,7 @@ public class CombatManager : MonoBehaviour {
     IEnumerator AttackAnimation()
     {
         CombatButtons.SetActive(false);
+		Debug.Log("Combat Buttons disabled (end of turn): " + CombatButtons.activeSelf);
         yield return new WaitForSeconds(2);
         EndTurn();
     }
