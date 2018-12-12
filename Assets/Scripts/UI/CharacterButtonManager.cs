@@ -5,70 +5,60 @@ using UnityEngine.UI;
 
 public class CharacterButtonManager : MonoBehaviour
 	{
-	[SerializeField] Button characterButton;
-	[SerializeField] Button closeButton;
 	[SerializeField] CharacterManager characterManager;
-	[SerializeField] int height = 40;
+	[SerializeField] Button closeButton;
+	[SerializeField] Button characterButton;
 
-	private List<CharacterButton> characterButtons;
+	private List<CharacterButton> characterbuttons;
 
 	private void Start()
 		{
-		characterButtons = new List<CharacterButton>();
+		characterbuttons = new List<CharacterButton>();
 		}
 
 	public void openCharacterButtons(bool isFromButton)
 		{
-		List<Character> characters = characterManager.getCharacters();
 		if(closeButton.gameObject.activeSelf == true && isFromButton)
 			{
 			closeCharacterButtons();
 			}
 		else
 			{
-			List<CharacterButton> obsoleteButtons = new List<CharacterButton>();
-			int i;
-
-			for(i = 0; i < characters.Count; i++)
+			List<Character> characters = characterManager.getCharacters();
+			float height = closeButton.GetComponent<RectTransform>().rect.height;
+			for(int I = 0; I < characters.Count; ++I)
 				{
-				if(characterButtons.Count - 1 < i)
+				if(I >= characterbuttons.Count)
 					{
-					createNewButton(characters, i);
+					Button button = Instantiate(characterButton);
+					button.transform.SetParent(gameObject.transform, false);
+					button.transform.localPosition = new Vector3(0, (I + 1) * height, 0);
+
+					CharacterButton characterbutton = button.GetComponent<CharacterButton>();
+					characterbutton.fillButton(characters[I], this);
+					characterbuttons.Add(characterbutton);
 					}
-				else if(characterButtons[i].getCharacter() != characters[i])
+				else if(characters[I] != characterbuttons[I].getCharacter())
 					{
-					obsoleteButtons.Add(characterButtons[i]);
-					obsoleteButtons.Add(characterButtons[i + 1]);
-					createNewButton(characters, i);
+					characterbuttons[I].fillButton(characters[I], this);
+					characterbuttons[I].closePanel();
 					}
 				else
 					{
-					characterButtons[i].gameObject.SetActive(true);
-					characterButtons[i].gameObject.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y + ((i + 1) * height), 0);
+					characterbuttons[I].gameObject.SetActive(true);
+					characterbuttons[I].gameObject.transform.localPosition = new Vector3(0, (I + 1) * height, 0);
 					}
 				}
-			foreach(CharacterButton obsoleteButton in obsoleteButtons)
+
+			while(characterbuttons.Count > characters.Count)
 				{
-				characterButtons.Remove(obsoleteButton);
-				Object.Destroy(obsoleteButton.gameObject);
+				CharacterButton characterbutton = characterbuttons[characterbuttons.Count - 1];
+				characterbuttons.Remove(characterbutton);
+				Object.Destroy(characterbutton.gameObject);
 				}
-			if(characterButtons.Count > characters.Count)
-				{
-				for(int ii = characters.Count; i < characterButtons.Count; i++)
-					{
-					if(!obsoleteButtons.Contains(characterButtons[i]))
-						{
-						obsoleteButtons.Add(characterButtons[i]);
-						}
-					}
-				}
-			foreach(CharacterButton obsoleteButton in obsoleteButtons)
-				{
-				characterButtons.Remove(obsoleteButton);
-				Object.Destroy(obsoleteButton.gameObject);
-				}
+
 			closeButton.gameObject.SetActive(true);
-			closeButton.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y + ((characters.Count + 1) * height), 0);
+			closeButton.transform.localPosition = new Vector3(0, (characterbuttons.Count + 1) * height, 0);
 			}
 		}
 
@@ -82,7 +72,7 @@ public class CharacterButtonManager : MonoBehaviour
 
 	public void closePanels()
 		{
-		foreach(CharacterButton characterButton in characterButtons)
+		foreach(CharacterButton characterButton in characterbuttons)
 			{
 			characterButton.closePanel();
 			}
@@ -90,7 +80,7 @@ public class CharacterButtonManager : MonoBehaviour
 
 	public void closeCharacterButtons()
 		{
-		foreach(CharacterButton characterButton in characterButtons)
+		foreach(CharacterButton characterButton in characterbuttons)
 			{
 			characterButton.gameObject.SetActive(false);
 			}
@@ -100,14 +90,5 @@ public class CharacterButtonManager : MonoBehaviour
 	public void sacrifice(Character character)
 		{
 		characterManager.killCharacter(character);
-		}
-
-	private void createNewButton(List<Character> characters, int i)
-		{
-		Button newButton = Instantiate(characterButton, new Vector3(gameObject.transform.position.x, gameObject.transform.position.y + ((i + 1) * height), 0), Quaternion.identity);
-		newButton.transform.SetParent(gameObject.transform, true);
-		CharacterButton newCharacterButton = newButton.GetComponent<CharacterButton>();
-		newCharacterButton.fillButton(characters[i], this);
-		characterButtons.Add(newCharacterButton);
 		}
 	}
