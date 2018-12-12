@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
+// TODO: Either merge this class with CharacterManager or name both of them more distinct
 public class GroupManager : MonoBehaviour
 	{
 	[SerializeField] MapManager mapmanager;
@@ -31,7 +32,7 @@ public class GroupManager : MonoBehaviour
 	void Update()
 		{
         // Get target when left mousebutton is released
-        if (Input.GetMouseButton(0) && !EventSystem.current.IsPointerOverGameObject())
+        if (Input.GetMouseButton(0) && !EventSystem.current.IsPointerOverGameObject() && charactermanager.isAlive())
 			{
 			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 			RaycastHit hit;
