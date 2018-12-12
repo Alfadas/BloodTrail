@@ -168,14 +168,14 @@ public class RollEncounter : MonoBehaviour
 					++backObjectTypeCounts[random.Next(4, 7)];  // 4 = SoldierN, 5 = WoodcutterN, 6 = WomanN
 					}
 				}
-			else if(roll <= eChanceRefugees + eChancePoor)//Poor
+			/*else if(roll <= eChanceRefugees + eChancePoor)//Poor
 				{
 				// TODO: Implement
 				}
 			else if(roll <= eChanceRefugees + eChancePoor + eChanceRich)//Rich
 				{
 				// TODO: Implement
-				}
+				}*/
 			else if(roll <= eChanceRefugees + eChancePoor + eChanceRich + eChanceFarmer)//Farmer
 				{
 				dialoge = "farmer1";
@@ -191,14 +191,14 @@ public class RollEncounter : MonoBehaviour
 				++backObjectTypeCounts[random.Next(4, 7)];  // 4 = SoldierN, 5 = WoodcutterN, 6 = WomanN
 				}
 			}
-		else if(encounterType == ENCOUNTER_TYPE.Trade)
+		/*else if(encounterType == ENCOUNTER_TYPE.Trade)
 			{
 			// TODO: Implement
 			}
 		else if(encounterType == ENCOUNTER_TYPE.Loot)
 			{
 			// TODO: Implement
-			}
+			}*/
 
 		Dictionary<BACK_OBJECT_TYPE, int> backObjects = new Dictionary<BACK_OBJECT_TYPE, int>(4);
 		int U = 0;
@@ -225,7 +225,14 @@ public class RollEncounter : MonoBehaviour
 		{
 		yield return new WaitForSeconds(1);
 		cameraManager = Camera.main.gameObject.GetComponent<CameraManager>();
-		cameraManager.active = false;
+		if(cameraManager.mapactive)
+			{
+			cameraManager.mapactive = false;
+			}
+		else
+			{
+			Debug.Log("Bug confirmed, second encounter started :/"); // TODO: delete
+			}
 		// cameraMapPos.position = Camera.main.transform.position; // Sry für unangekuendigte Änderung, will dir aber nicht jedes Mal ne Nachricht schreiben, weil du gesagt hast, dass du das auch nicht magst.
 		// cameraMapPos.rotation = Camera.main.transform.rotation; // Remembers the current map view to restore it after the encounter
 		// nvm, caused bugs anyways, TODO: Maybe enable, fix and test later
@@ -237,9 +244,16 @@ public class RollEncounter : MonoBehaviour
 		{
 		if(proceed == 0)
 			{
-			Camera.main.transform.position = cameraMapPos.position;
-			Camera.main.transform.rotation = cameraMapPos.rotation;
-			cameraManager.active = true; // TODO: NullReferenceException: Object reference not set to an instance of an object (at Assets/Scripts/Encounter/RollEncounter.cs:240)
+			if(cameraManager != null)
+				{
+				Camera.main.transform.position = cameraMapPos.position;
+				Camera.main.transform.rotation = cameraMapPos.rotation;
+				cameraManager.mapactive = true; // TODO: NullReferenceException: Object reference not set to an instance of an object (at Assets/Scripts/Encounter/RollEncounter.cs:240)
+				}
+			else
+				{
+				Debug.Log("cameraManager is null :/ why tho?"); // TODO: delete
+				}
 			}
 		else if(proceed == 1)
 			{

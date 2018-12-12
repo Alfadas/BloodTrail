@@ -8,7 +8,7 @@ public class CameraManager : MonoBehaviour
 	[SerializeField] float speed = 1;
 	[SerializeField] float zoomspeed = 10;
 
-	public bool active = true; // TODO: Make private with Getter/Setter, maybe rename ("mapactive"?)
+	public bool mapactive = true; // TODO: Make private with Getter/Setter
 
 	private float currentspeed = 5;
 	private float currentzoomspeed = 5;
@@ -16,7 +16,7 @@ public class CameraManager : MonoBehaviour
 
 	void Update()
 		{
-		if(active)
+		if(mapactive)
 			{
 			// Boost on Shift
 			if(Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
