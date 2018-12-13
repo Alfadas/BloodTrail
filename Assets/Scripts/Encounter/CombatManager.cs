@@ -6,6 +6,7 @@ public class CombatManager : MonoBehaviour {
     [SerializeField] RollEncounter rollEncounter;
     [SerializeField] BuildEncounter buildEncounter;
     [SerializeField] CharacterManager characterManager;
+	[SerializeField] SoundManager soundManager;
     List<Character> enemies;
     List<Character> playerGroup;
     List<Character> participants;
@@ -76,6 +77,7 @@ public class CombatManager : MonoBehaviour {
             }
             else
             {
+				soundManager.playSFX("turn");
                 aiTurn = false;
                 currentCharacter.markCharacter(false);
                 CombatButtons.SetActive(true);
@@ -86,11 +88,18 @@ public class CombatManager : MonoBehaviour {
     {
 		currentCharacter.setDefenseStance(false);
 
+		soundManager.playSFX("attack");
         int damage = Mathf.RoundToInt(currentCharacter.getStat(1) * 0.5f);
         if (selectedCharacter == null || (playerGroup.Contains(selectedCharacter) && !aiTurn))
         {
             SetSelected(enemies[0]);
         }
+		else if(selectedCharacter.isDefenseStance()) // that was not implemented before? well, now I need it for SFX
+		{
+			soundManager.playSFX("parry");
+			damage = Mathf.RoundToInt(damage * 0.5f);
+		}
+
         if (selectedCharacter.hurt(damage))
         {
 			if(!enemies.Remove(selectedCharacter) && !playerGroup.Remove(selectedCharacter))

@@ -10,16 +10,19 @@ public class CharacterButton : MonoBehaviour
 
 	private Character character;
 	private CharacterButtonManager characterbuttonmanager;
+	private SoundManager soundmanager;
 
-	public void fillButton(Character character, CharacterButtonManager characterbuttonmanager)
+	public void fillButton(Character character, CharacterButtonManager characterbuttonmanager, SoundManager soundmanager)
 		{
 		this.character = character;
 		this.characterbuttonmanager = characterbuttonmanager;
+		this.soundmanager = soundmanager;
 		buttonText.text = this.character.getCharacterName();
 		}
 
 	public void fillPanel()
 		{
+		soundmanager.playSFX("button");
 		if(characterPanel.activeSelf == true)
 			{
 			characterPanel.SetActive(false);

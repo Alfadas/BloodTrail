@@ -5,12 +5,13 @@ using UnityEngine.UI;
 
 public class CharacterManager : MonoBehaviour
 	{
-	[SerializeField] int maxcharacters = 5;
-	[SerializeField] int startcharacters = 3;
+	[SerializeField] CharacterButtonManager characterbuttonmanager;
+	[SerializeField] SoundManager soundmanager;
+	[SerializeField] GameObject defeat;
 	[SerializeField] List<GameObject> characterprefabs;
 	[SerializeField] int maleprefabcount = 2;
-	[SerializeField] CharacterButtonManager characterbuttonmanager;
-	[SerializeField] GameObject defeat;
+	[SerializeField] int maxcharacters = 5;
+	[SerializeField] int startcharacters = 3;
 
 	private static System.Random random = new System.Random();
 	private List<Character> characters;
@@ -60,9 +61,11 @@ public class CharacterManager : MonoBehaviour
 			characters.Remove(character);
 			characterbuttonmanager.reloadCharacterButtonsAfterKill(character);  // TODO: do something similar when new characters join?
 			}
+		soundmanager.playSFX("death");
 		Destroy(character.gameObject, 0.5f); // Delay, to give character some time to finish his business
 		if(characters.Count <= 0)
 			{
+			soundmanager.playTitle("Consecrated Ground");
 			defeat.SetActive(true);
 			}
 		}

@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class CharacterButtonManager : MonoBehaviour
 	{
 	[SerializeField] CharacterManager characterManager;
+	[SerializeField] SoundManager soundmanager;
 	[SerializeField] Button closeButton;
 	[SerializeField] Button characterButton;
 
@@ -35,12 +36,12 @@ public class CharacterButtonManager : MonoBehaviour
 					button.transform.localPosition = new Vector3(0, (I + 1) * height, 0);
 
 					CharacterButton characterbutton = button.GetComponent<CharacterButton>();
-					characterbutton.fillButton(characters[I], this);
+					characterbutton.fillButton(characters[I], this, soundmanager);
 					characterbuttons.Add(characterbutton);
 					}
 				else if(characters[I] != characterbuttons[I].getCharacter())
 					{
-					characterbuttons[I].fillButton(characters[I], this);
+					characterbuttons[I].fillButton(characters[I], this, soundmanager);
 					characterbuttons[I].closePanel();
 					}
 				else
@@ -89,6 +90,7 @@ public class CharacterButtonManager : MonoBehaviour
 
 	public void sacrifice(Character character)
 		{
+		soundmanager.playSFX("sacrifice");
 		characterManager.killCharacter(character);
 		}
 	}

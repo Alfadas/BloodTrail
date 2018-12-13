@@ -10,19 +10,22 @@ public class GroupManager : MonoBehaviour
 	[SerializeField] GameObject targetmarker;
 	[SerializeField] CharacterManager charactermanager;
 	[SerializeField] RollEncounter encounterroller;
+	[SerializeField] SoundManager soundmanager;
+	[SerializeField] GameObject victory;
 	[SerializeField] float animationtime;
 	[SerializeField] float defaulttilespeed = 100.0f;
 	[SerializeField] float defaultgroupspeed = 50.0f;
-	[SerializeField] GameObject victory;
 
 	private static System.Random random = new System.Random();
 	private Map map;
 	private float starttime;
+	private bool moving;
 
 	void Start()
 		{
 		map = mapmanager.getMap();
 		starttime = Time.time;
+		moving = false;
 
 		// Spawn
 		gameObject.transform.position = new Vector3(random.Next(0, map.getWidth()), 0, map.getHeight() - 1);
@@ -40,8 +43,10 @@ public class GroupManager : MonoBehaviour
 				{
 				if(hit.point.x >= -0.5f && hit.point.x < map.getWidth() - 0.5f && hit.point.z >= -0.5f && hit.point.z < map.getHeight() - 0.5f)
 					{
-					Vector2Int targetposition = new Vector2Int(Mathf.RoundToInt(hit.point.x), Mathf.RoundToInt(hit.point.z));
+					soundmanager.playSFX("move");
+					moving = true;
 
+					Vector2Int targetposition = new Vector2Int(Mathf.RoundToInt(hit.point.x), Mathf.RoundToInt(hit.point.z));
 					targetmarker.transform.position = new Vector3(targetposition.x, 0, targetposition.y);
 					targetmarker.SetActive(true);
 					}
@@ -53,6 +58,11 @@ public class GroupManager : MonoBehaviour
 		{
 		if(gameObject.transform.position.Equals(targetmarker.transform.position))
 			{
+			if(moving)
+				{
+				soundmanager.playSFX("target");
+				moving = false;
+				}
 			resetTarget();
 			}
 		else if(charactermanager.isAlive())
@@ -106,6 +116,7 @@ public class GroupManager : MonoBehaviour
 				currenttile = map.getTile(new Vector2Int(Mathf.RoundToInt(gameObject.transform.position.x), Mathf.RoundToInt(gameObject.transform.position.z)));
 				if(currenttile.getSubBiom() == SUBBIOM.Harbor)
 					{
+					soundmanager.playTitle("Amazing Grace");
 					victory.SetActive(true);
 					}
 				else if(currenttile.getBiom() == BIOM.Water)

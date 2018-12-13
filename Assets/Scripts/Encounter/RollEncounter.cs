@@ -12,7 +12,7 @@ public enum ENCOUNTER_TYPE
 
 public class RollEncounter : MonoBehaviour
 	{
-
+	[SerializeField] SoundManager soundmanager;
 	[SerializeField] Transform cameraEncounterPos;
 	[SerializeField] Transform cameraMapPos;
 	[SerializeField] DialogeManager dialogeManager;
@@ -238,6 +238,8 @@ public class RollEncounter : MonoBehaviour
 		// nvm, caused bugs anyways, TODO: Maybe enable, fix and test later
 		Camera.main.transform.position = cameraEncounterPos.position;
 		Camera.main.transform.rotation = cameraEncounterPos.rotation;
+
+		soundmanager.playFightMusic(); // TODO: probably shouldnt start fight music on peaceful encounters
 		}
 
 	public void EndEncounter(int proceed)
@@ -249,6 +251,7 @@ public class RollEncounter : MonoBehaviour
 				Camera.main.transform.position = cameraMapPos.position;
 				Camera.main.transform.rotation = cameraMapPos.rotation;
 				cameraManager.mapactive = true; // TODO: NullReferenceException: Object reference not set to an instance of an object (at Assets/Scripts/Encounter/RollEncounter.cs:240)
+				soundmanager.playMapMusic();
 				}
 			else
 				{

@@ -5,11 +5,12 @@ using UnityEngine.UI;
 
 public class Character : MonoBehaviour
 	{
-	[SerializeField] int defaultstatboost = 2; // TODO: Secure, that this is always >= 0 and < number of stats
+	[SerializeField] SoundManager soundmanager;
 	[SerializeField] GameObject marker;
 	[SerializeField] Material friendcolor;
 	[SerializeField] Material foecolor;
     [SerializeField] Text healthText;
+	[SerializeField] int defaultstatboost = 2; // TODO: Secure, that this is always >= 0 and < number of stats
 
     public const int STAT_ENDURANCE = 0;
 	public const int STAT_STRENGTH = 1;
@@ -213,6 +214,7 @@ public class Character : MonoBehaviour
 	// Returns, whether the character is dead after the attack (does not imply that he was killed by the attack)
 	public bool hurt(int damage)
 		{
+		// TODO: hurt sound?
 		health -= damage;
 
 		if(health <= 0)
@@ -242,6 +244,7 @@ public class Character : MonoBehaviour
 	// Restores the given amount of health for the characters current health value
 	public int heal(int amount)
 		{
+		// TODO: healsound?
 		health += amount;
 
 		int maxhealth = getMaxHealth();
@@ -256,6 +259,7 @@ public class Character : MonoBehaviour
 	// Restores the given amount of calories for the characters nutrition value
 	public int eat(int amount)
 		{
+		// TODO: eatsound?
 		nutrition += amount;
 
 		int maxnutrition = getMaxNutrition();
