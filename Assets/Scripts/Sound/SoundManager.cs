@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SoundManager : MonoBehaviour
 	{
@@ -10,6 +11,8 @@ public class SoundManager : MonoBehaviour
 	[SerializeField] int minpause = 2;
 	[SerializeField] int maxpause = 20;
 	[SerializeField] AudioClip[] effectclips;
+	[SerializeField] Slider musicslider;
+	[SerializeField] Slider sfxslider;
 
 	public static System.Random random = new System.Random();
 
@@ -114,6 +117,17 @@ public class SoundManager : MonoBehaviour
 		prepareSecondaryPlayer();
 		secondaryplayer.clip = fightmusic[random.Next(fightmusic.Length)];
 		secondaryplayer.Play();
+		}
+
+	public void updateMusicVolume()
+		{
+		mapplayer.volume = Mathf.Clamp(musicslider.value, 0, 1.0f);
+		secondaryplayer.volume = Mathf.Clamp(musicslider.value, 0, 1.0f);
+		}
+
+	public void updateEffectVolume()
+		{
+		effectplayer.volume = Mathf.Clamp(sfxslider.value, 0, 1.0f);
 		}
 
 	private void prepareSecondaryPlayer()
