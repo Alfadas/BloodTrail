@@ -644,6 +644,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 683322145}
+        m_MethodName: playSFX
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: button
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &264609795
@@ -1924,6 +1935,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 683322145}
+        m_MethodName: playSFX
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: button
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &612189774
@@ -2125,10 +2147,17 @@ MonoBehaviour:
   othermusic:
   - {fileID: 8300000, guid: 270ff20df592d814e98e0a1a1d201b4d, type: 3}
   - {fileID: 8300000, guid: 7f4ede3583356604f9111f42e8bd22f1, type: 3}
-  victorymusic: {fileID: 8300000, guid: 270ff20df592d814e98e0a1a1d201b4d, type: 3}
-  defeatmusic: {fileID: 8300000, guid: 7f4ede3583356604f9111f42e8bd22f1, type: 3}
   minpause: 2
   maxpause: 20
+  effectclips:
+  - {fileID: 8300000, guid: 09b26fde34291a5499f730e033abc396, type: 3}
+  - {fileID: 8300000, guid: e61ef7ca5bd733e4eac8b21a2cd76165, type: 3}
+  - {fileID: 8300000, guid: 9c1734317079db74988fde4df1b85e81, type: 3}
+  - {fileID: 8300000, guid: c512e1ec7a76d6a428a3a53d8f428613, type: 3}
+  - {fileID: 8300000, guid: 7ad2bceda93cdd244a6b00df79125a51, type: 3}
+  - {fileID: 8300000, guid: 02d2b27107d3a6244a6cec46700de43e, type: 3}
+  - {fileID: 8300000, guid: a5649652a79262f4bb8b27142ee6c285, type: 3}
+  - {fileID: 8300000, guid: 50a6158ec98212e44a232a19b2eff4f4, type: 3}
 --- !u!4 &683322146
 Transform:
   m_ObjectHideFlags: 0
@@ -2141,6 +2170,7 @@ Transform:
   m_Children:
   - {fileID: 2094162636}
   - {fileID: 1033893366}
+  - {fileID: 1742457231}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2235,6 +2265,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 683322145}
+        m_MethodName: playSFX
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: button
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &708176623
@@ -2304,7 +2345,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60d9efb4c8fe49942a03d90161372c98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterManager: {fileID: 2123509120}
+  characterManager: {fileID: 1908375230}
+  soundmanager: {fileID: 683322145}
   closeButton: {fileID: 1632087976}
   characterButton: {fileID: 114834903808907392, guid: 7877cf4a4aba958438c693bb1cc44fe7,
     type: 2}
@@ -2390,6 +2432,17 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 683322145}
+        m_MethodName: playSFX
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: button
           m_BoolArgument: 1
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
@@ -3032,7 +3085,7 @@ Prefab:
     - target: {fileID: 114526387204971240, guid: 1f6d5db2c4f112343a2be24310443eff,
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 224953382677215886, guid: 1f6d5db2c4f112343a2be24310443eff,
         type: 2}
@@ -3163,6 +3216,31 @@ Prefab:
       value: 
       objectReference: {fileID: 21300000, guid: 5ab0326e936a6214981468f7663a584d,
         type: 3}
+    - target: {fileID: 114526387204971240, guid: 1f6d5db2c4f112343a2be24310443eff,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 683322145}
+    - target: {fileID: 114526387204971240, guid: 1f6d5db2c4f112343a2be24310443eff,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: playSFX
+      objectReference: {fileID: 0}
+    - target: {fileID: 114526387204971240, guid: 1f6d5db2c4f112343a2be24310443eff,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114526387204971240, guid: 1f6d5db2c4f112343a2be24310443eff,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 114526387204971240, guid: 1f6d5db2c4f112343a2be24310443eff,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_StringArgument
+      value: button
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1f6d5db2c4f112343a2be24310443eff, type: 2}
   m_IsPrefabAsset: 0
@@ -3254,6 +3332,17 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 683322145}
+        m_MethodName: playSFX
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: button
           m_BoolArgument: 0
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
@@ -3576,6 +3665,17 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 683322145}
+        m_MethodName: playSFX
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: button
           m_BoolArgument: 0
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
@@ -5820,6 +5920,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 683322145}
+        m_MethodName: playSFX
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: button
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!222 &1545889293
@@ -6172,6 +6283,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 683322145}
+        m_MethodName: playSFX
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: button
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1581310869
@@ -6274,6 +6396,17 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 683322145}
+        m_MethodName: playSFX
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: button
           m_BoolArgument: 0
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
@@ -6652,6 +6785,130 @@ Transform:
   m_Father: {fileID: 357096526}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 42.335003, y: 0, z: 0}
+--- !u!1 &1742457230
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1742457231}
+  - component: {fileID: 1742457232}
+  m_Layer: 0
+  m_Name: EffectPlayer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1742457231
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1742457230}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 683322146}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &1742457232
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1742457230}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 0.4
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &1747666213
 GameObject:
   m_ObjectHideFlags: 0
@@ -6913,6 +7170,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 683322145}
+        m_MethodName: playSFX
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: button
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1832995928
@@ -7172,6 +7440,7 @@ GameObject:
   - component: {fileID: 1908375228}
   - component: {fileID: 1908375227}
   - component: {fileID: 1908375226}
+  - component: {fileID: 1908375230}
   m_Layer: 0
   m_Name: Groupmarker
   m_TagString: Untagged
@@ -7192,12 +7461,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mapmanager: {fileID: 746437625}
   targetmarker: {fileID: 792105679}
-  charactermanager: {fileID: 2123509120}
+  charactermanager: {fileID: 1908375230}
   encounterroller: {fileID: 1977554648}
+  soundmanager: {fileID: 683322145}
+  victory: {fileID: 758200359}
   animationtime: 0.2
   defaulttilespeed: 100
   defaultgroupspeed: 50
-  victory: {fileID: 758200359}
 --- !u!23 &1908375227
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -7249,11 +7519,31 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 2123509121}
+  m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1908375230
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1908375225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5acabbdaf4caa2644ba61b81efbe5899, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterbuttonmanager: {fileID: 728974321}
+  soundmanager: {fileID: 683322145}
+  defeat: {fileID: 1213410336}
+  characterprefabs:
+  - {fileID: 1069983627785472, guid: ee66a6386d1128c43929131266016c4f, type: 2}
+  - {fileID: 1924714119854762, guid: 9a586f793c0ccc345b286306a1808c23, type: 2}
+  - {fileID: 1856176124075180, guid: 2f7658d7bfffd9243ac02e6e5520dd2e, type: 2}
+  maleprefabcount: 2
+  maxcharacters: 5
+  startcharacters: 5
 --- !u!1 &1913831960
 GameObject:
   m_ObjectHideFlags: 0
@@ -7364,6 +7654,17 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 683322145}
+        m_MethodName: playSFX
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: button
           m_BoolArgument: 0
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
@@ -7781,7 +8082,7 @@ MonoBehaviour:
   cameraMapPos: {fileID: 2096575620}
   dialogeManager: {fileID: 1977554647}
   combatManager: {fileID: 1977554651}
-  characterManager: {fileID: 2123509120}
+  characterManager: {fileID: 1908375230}
   buildEncounter: {fileID: 1977554649}
   eChanceFight: 5
   eChanceDialoge: 10
@@ -7804,7 +8105,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41ff2df77732097499034d4eb348991b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterManager: {fileID: 2123509120}
+  characterManager: {fileID: 1908375230}
   mapManager: {fileID: 746437625}
   zLength: 250
   sideSwitchDivMin: 1.9
@@ -7958,7 +8259,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rollEncounter: {fileID: 1977554648}
   buildEncounter: {fileID: 1977554649}
-  characterManager: {fileID: 2123509120}
+  characterManager: {fileID: 1908375230}
+  soundManager: {fileID: 683322145}
   CombatButtons: {fileID: 1406122721}
   aiTurn: 0
 --- !u!1001 &1979845149
@@ -8543,7 +8845,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 0.4
   m_Pitch: 1
   Loop: 0
@@ -8884,60 +9186,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1866371498230260, guid: 2681d58270236644a88fbaed2cff4d66,
     type: 2}
   m_PrefabInternal: {fileID: 2117338403}
---- !u!1 &2123509119
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2123509121}
-  - component: {fileID: 2123509120}
-  m_Layer: 5
-  m_Name: CharacterManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &2123509120
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2123509119}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5acabbdaf4caa2644ba61b81efbe5899, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxcharacters: 5
-  startcharacters: 5
-  characterprefabs:
-  - {fileID: 1069983627785472, guid: ee66a6386d1128c43929131266016c4f, type: 2}
-  - {fileID: 1924714119854762, guid: 9a586f793c0ccc345b286306a1808c23, type: 2}
-  - {fileID: 1856176124075180, guid: 2f7658d7bfffd9243ac02e6e5520dd2e, type: 2}
-  maleprefabcount: 2
-  characterbuttonmanager: {fileID: 728974321}
-  defeat: {fileID: 1213410336}
---- !u!224 &2123509121
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2123509119}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1908375229}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &2130660570
 Prefab:
   m_ObjectHideFlags: 0
