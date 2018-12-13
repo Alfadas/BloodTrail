@@ -79,7 +79,6 @@ public class CombatManager : MonoBehaviour {
                 aiTurn = false;
                 currentCharacter.markCharacter(false);
                 CombatButtons.SetActive(true);
-				Debug.Log("Combat Buttons enabled (friendly turn started): " + CombatButtons.activeSelf);
             }
         }
     }
@@ -128,7 +127,6 @@ public class CombatManager : MonoBehaviour {
     void EndFight()
     {
         CombatButtons.SetActive(false);
-		Debug.Log("Combat Buttons disabled (end of fight): " + CombatButtons.activeSelf);
         // int reward = 5; //TODO add reward // TODO: reward only if player is victorious, EndFight() is also called, when playerGroup is empty
         rollEncounter.EndEncounter(0);
     }
@@ -148,7 +146,6 @@ public class CombatManager : MonoBehaviour {
     IEnumerator AttackAnimation()
     {
         CombatButtons.SetActive(false);
-		Debug.Log("Combat Buttons disabled (end of turn): " + CombatButtons.activeSelf);
         yield return new WaitForSeconds(2);
         EndTurn();
     }
