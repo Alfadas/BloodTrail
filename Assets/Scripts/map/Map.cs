@@ -7,7 +7,7 @@ public class Map {
 
     private int width=100;
     private int height=100;
-    // private GameObject prefabTile;					// Only needed in this method, therfore no need to be instance variable
+    // private GameObject prefabTile;					// Only needed in this method, therefore no need to be instance variable
     // private Dictionary<BIOM, Material> materials;	// see above
     private Dictionary<Vector2Int, MapTile> tiles;
     private Dictionary<Vector2Int, MapTile> citySave;
@@ -93,12 +93,12 @@ public class Map {
         this.plageSpeed = 1;
         this.plagePosition = 0;
         Debug.Log("seed= "+seed);
-        if (seed < 0 && seed< 2147484) 
+        if (seed < 0 || seed > 2147484)	// Did you really mean "(seed < 0 && seed< 2147484)"?
             throw new System.Exception("Seed musst be between [0 - 2147484]");
 
         this.width = width;
         this.height = height;
-        // this.prefabTile = prefabTile;	// Only needed in this method, therfore no need to be instance variable
+        // this.prefabTile = prefabTile;	// Only needed in this method, therefore no need to be instance variable
         this.seed = seed;
         // this.materials = materials;		// see above
         this.tiles = new Dictionary<Vector2Int, MapTile>();
@@ -444,8 +444,10 @@ public class Map {
                     cityConnectsToRoad[cityEndPos].Add(newPos);
                    
 
-                    
-                      tiles[newPos].setSubBiom(SUBBIOM.Street);
+                    if(tiles[newPos].getSubBiom() != SUBBIOM.Harbor)	// Avoid overwriting harbors with streets to ensure victory condition in GroupManager
+						{
+						tiles[newPos].setSubBiom(SUBBIOM.Street);
+						}
                     // Debug.Log("pos street: " + newPos.x + "," + newPos.y +" -> "+tiles[newPos].getSubBiom());
                    
                        

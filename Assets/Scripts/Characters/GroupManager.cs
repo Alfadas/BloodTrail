@@ -111,7 +111,6 @@ public class GroupManager : MonoBehaviour
 
 				// Check tile on which the round ends
 				currenttile = map.getTile(new Vector2Int(Mathf.RoundToInt(gameObject.transform.position.x), Mathf.RoundToInt(gameObject.transform.position.z)));
-				Debug.Log(currenttile.getBiom() + " " + currenttile.getSubBiom());
 
 				if(encounterroller.RollNewEncounter(currenttile))
 					{
