@@ -10175,6 +10175,7 @@ MonoBehaviour:
   combatManager: {fileID: 1977554651}
   characterManager: {fileID: 1908375230}
   buildEncounter: {fileID: 1977554649}
+  groupManager: {fileID: 1908375226}
   eChanceFight: 5
   eChanceDialoge: 10
   eChanceTrader: 0
@@ -10286,9 +10287,12 @@ MonoBehaviour:
   grassEdgeWidth: 120
   streetEdgeWidth: 30
   forestEdgeWidth: 60
-  midStreet: []
-  midTown: []
-  midTownWall: []
+  midStreet:
+  - {fileID: 1519520671912022, guid: 4c99706f2e95b1542b128984fde44b1d, type: 2}
+  midTown:
+  - {fileID: 1784499798252420, guid: c3b8f81b197299e4db2a2d87bb588efb, type: 2}
+  midTownWall:
+  - {fileID: 1627810678709690, guid: 2bb3d8591a5bc1147a082e64e8a8ea34, type: 2}
   thieves:
   - {fileID: 2060493536}
   - {fileID: 2040087142}

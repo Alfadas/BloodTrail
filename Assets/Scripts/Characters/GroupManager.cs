@@ -20,12 +20,14 @@ public class GroupManager : MonoBehaviour
 	private Map map;
 	private float starttime;
 	private bool moving;
+	private bool encounter;
 
 	void Start()
 		{
 		map = mapmanager.getMap();
 		starttime = Time.time;
 		moving = false;
+		encounter = false;
 
 		// Spawn
 		gameObject.transform.position = new Vector3(random.Next(0, map.getWidth()), 0, map.getHeight() - 1);
@@ -35,7 +37,7 @@ public class GroupManager : MonoBehaviour
 	void Update()
 		{
         // Get target when left mousebutton is released
-        if (Input.GetMouseButton(0) && !EventSystem.current.IsPointerOverGameObject() && charactermanager.isAlive())
+        if (Input.GetMouseButton(0) && !EventSystem.current.IsPointerOverGameObject() && !encounter && charactermanager.isAlive())
 			{
 			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 			RaycastHit hit;
@@ -56,7 +58,7 @@ public class GroupManager : MonoBehaviour
 
 	void FixedUpdate()
 		{
-		if(gameObject.transform.position.Equals(targetmarker.transform.position))
+		if(targetmarker.activeSelf && gameObject.transform.position.Equals(targetmarker.transform.position))
 			{
 			if(moving)
 				{
@@ -65,7 +67,7 @@ public class GroupManager : MonoBehaviour
 				}
 			resetTarget();
 			}
-		else if(charactermanager.isAlive())
+		else if(targetmarker.activeSelf && charactermanager.isAlive())
 			{
 			Vector3 oldposition = gameObject.transform.position;
 			MapTile currenttile = map.getTile(new Vector2Int(Mathf.RoundToInt(gameObject.transform.position.x), Mathf.RoundToInt(gameObject.transform.position.z)));
@@ -107,13 +109,16 @@ public class GroupManager : MonoBehaviour
 					gameObject.transform.Translate(0, 0, direction.y / Mathf.Abs(direction.y)); // Move 1 unit in either positive or negative y direction
 					}
 
+				// Check tile on which the round ends
+				currenttile = map.getTile(new Vector2Int(Mathf.RoundToInt(gameObject.transform.position.x), Mathf.RoundToInt(gameObject.transform.position.z)));
+				Debug.Log(currenttile.getBiom() + " " + currenttile.getSubBiom());
+
 				if(encounterroller.RollNewEncounter(currenttile))
 					{
+					encounter = true;
 					resetTarget();
 					}
 
-				// Check tile on which the round ends
-				currenttile = map.getTile(new Vector2Int(Mathf.RoundToInt(gameObject.transform.position.x), Mathf.RoundToInt(gameObject.transform.position.z)));
 				if(currenttile.getSubBiom() == SUBBIOM.Harbor)
 					{
 					soundmanager.playTitle("Amazing Grace");
@@ -126,6 +131,11 @@ public class GroupManager : MonoBehaviour
 					}
 				}
 			}
+		}
+
+	public void endEncounter()
+		{
+		encounter = false;
 		}
 
 	private void resetTarget()

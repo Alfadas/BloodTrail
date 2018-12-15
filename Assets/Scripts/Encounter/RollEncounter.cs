@@ -19,6 +19,7 @@ public class RollEncounter : MonoBehaviour
 	[SerializeField] CombatManager combatManager;
 	[SerializeField] CharacterManager characterManager;
 	[SerializeField] BuildEncounter buildEncounter;
+	[SerializeField] GroupManager groupManager;
 
 	// [SerializeField] int noEnemyChance = 60;
 	[Header("EncounterType")]
@@ -252,6 +253,7 @@ public class RollEncounter : MonoBehaviour
 				Camera.main.transform.rotation = cameraMapPos.rotation;
 				cameraManager.mapactive = true; // TODO: NullReferenceException: Object reference not set to an instance of an object (at Assets/Scripts/Encounter/RollEncounter.cs:240)
 				soundmanager.playMapMusic();
+				groupManager.endEncounter();
 				}
 			else
 				{

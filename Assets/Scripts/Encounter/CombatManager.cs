@@ -102,6 +102,8 @@ public class CombatManager : MonoBehaviour {
 
         if (selectedCharacter.hurt(damage))
         {
+			// Debug.Log(enemies);
+			// Debug.Log("sel: " + selectedCharacter);
 			if(!enemies.Remove(selectedCharacter) && !playerGroup.Remove(selectedCharacter))
 				{
 				Debug.Log("Unknown casualty " + selectedCharacter);
