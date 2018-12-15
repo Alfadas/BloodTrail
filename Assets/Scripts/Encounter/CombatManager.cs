@@ -111,6 +111,33 @@ public class CombatManager : MonoBehaviour {
         }
         StartCoroutine(AttackAnimation());
     }
+	public void BrainAttack() // makeshift, rewrite without redundant code
+		{
+		currentCharacter.setDefenseStance(false);
+
+		soundManager.playSFX("attack");
+        int damage = Mathf.RoundToInt(currentCharacter.getStat(Character.STAT_STRENGTH) * 0.1f + currentCharacter.getStat(Character.STAT_INTELLIGENCE) * 0.3f) + currentCharacter.getWeaponDamage();
+        if (selectedCharacter == null || (playerGroup.Contains(selectedCharacter) && !aiTurn))
+        {
+            SetSelected(enemies[0]);
+        }
+		else if(selectedCharacter.isDefenseStance()) // that was not implemented before? well, now I need it for SFX
+		{
+			soundManager.playSFX("parry");
+			damage = Mathf.RoundToInt(damage * 0.5f);
+		}
+
+        if (selectedCharacter.hurt(damage))
+        {
+			// Debug.Log(enemies);
+			// Debug.Log("sel: " + selectedCharacter);
+			if(!enemies.Remove(selectedCharacter) && !playerGroup.Remove(selectedCharacter))
+				{
+				Debug.Log("Unknown casualty " + selectedCharacter);
+				}
+        }
+        StartCoroutine(AttackAnimation());
+		}
     public void Defens()
     {
         currentCharacter.setDefenseStance(true);
