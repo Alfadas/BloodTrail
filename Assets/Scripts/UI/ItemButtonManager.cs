@@ -91,6 +91,15 @@ public class ItemButtonManager : MonoBehaviour
 		closebutton.gameObject.SetActive(false);
 		}
 
+	public void reloadEquipSelects()
+		{
+		List<Character> characters = charactermanager.getCharacters();
+		foreach(ItemButton button in itembuttons)
+			{
+			button.reloadEquipSelect(characters);
+			}
+		}
+
 	public void destroyItem(Item item)
 		{
 		soundmanager.playSFX("sacrifice"); // TODO: Destroy-Sound here
@@ -101,5 +110,6 @@ public class ItemButtonManager : MonoBehaviour
 	public void equipItem(Item item, int characterindex)
 		{
 		inventorymanager.equipItem(item, characterindex);
+		reloadItemButtons();
 		}
 	}

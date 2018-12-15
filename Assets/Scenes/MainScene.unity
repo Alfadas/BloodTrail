@@ -3091,6 +3091,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterManager: {fileID: 1908375230}
+  itembuttonmanager: {fileID: 156224174}
   soundmanager: {fileID: 683322145}
   closeButton: {fileID: 1632087976}
   characterButton: {fileID: 114834903808907392, guid: 7877cf4a4aba958438c693bb1cc44fe7,

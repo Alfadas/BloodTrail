@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class CharacterButtonManager : MonoBehaviour
 	{
 	[SerializeField] CharacterManager characterManager;
+	[SerializeField] ItemButtonManager itembuttonmanager;
 	[SerializeField] SoundManager soundmanager;
 	[SerializeField] Button closeButton;
 	[SerializeField] Button characterButton;
@@ -60,6 +61,8 @@ public class CharacterButtonManager : MonoBehaviour
 
 			closeButton.gameObject.SetActive(true);
 			closeButton.transform.localPosition = new Vector3(0, (characterbuttons.Count + 1) * height, 0);
+
+			itembuttonmanager.reloadEquipSelects();
 			}
 		}
 

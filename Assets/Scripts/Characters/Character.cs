@@ -27,7 +27,7 @@ public class Character : MonoBehaviour
 	private bool defensestance;
 	private Weapon weapon;
 
-	void Start()
+	void Awake()
 		{
         StartCoroutine(UpdateHealthText());
 		reRollStats();

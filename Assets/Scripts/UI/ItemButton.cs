@@ -73,7 +73,7 @@ public class ItemButton : MonoBehaviour
 
 	public void updateEquipSelect()
 		{
-		equipselect.RefreshShownValue(); // This sadly doesnt help, maybe remove, if the issue is solved
+		equipselect.RefreshShownValue();		// Maybe not necessary, just keep9ing it to stay safe
 		}
 
 	public void destroyItem()
