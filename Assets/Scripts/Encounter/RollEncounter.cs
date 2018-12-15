@@ -264,6 +264,10 @@ public class RollEncounter : MonoBehaviour
 			{
 			combatManager.StartFight();
 			}
+		else if(proceed == 2)
+			{
+			characterManager.addCharacter();
+			}
 		else if (proceed == 3)
 			{
             List<Character> characters = characterManager.getCharacters();
