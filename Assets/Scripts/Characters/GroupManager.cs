@@ -11,6 +11,7 @@ public class GroupManager : MonoBehaviour
 	[SerializeField] CharacterManager charactermanager;
 	[SerializeField] RollEncounter encounterroller;
 	[SerializeField] SoundManager soundmanager;
+	[SerializeField] PlagueManager plague;
 	[SerializeField] GameObject victory;
 	[SerializeField] float animationtime;
 	[SerializeField] float defaulttilespeed = 100.0f;
@@ -109,6 +110,8 @@ public class GroupManager : MonoBehaviour
 					gameObject.transform.Translate(0, 0, direction.y / Mathf.Abs(direction.y)); // Move 1 unit in either positive or negative y direction
 					}
 
+				plague.spreadPlague(tiletime * grouptime);
+
 				// Check tile on which the round ends
 				currenttile = map.getTile(new Vector2Int(Mathf.RoundToInt(gameObject.transform.position.x), Mathf.RoundToInt(gameObject.transform.position.z)));
 
@@ -129,6 +132,14 @@ public class GroupManager : MonoBehaviour
 					resetTarget();
 					}
 				}
+			}
+		}
+
+	public void OnTriggerEnter(Collider other)
+		{
+		if(other.tag == "Plague")
+			{
+			charactermanager.killAll();
 			}
 		}
 

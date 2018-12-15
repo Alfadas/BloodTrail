@@ -13,7 +13,7 @@ public class EdgePositionControll : MonoBehaviour {
 
     private void OnTriggerStay(Collider other)
     {
-        if (isEdge)
+        if (isEdge && other.tag != "Plague") // Bitte nachbessern
         {
             encounter = GameObject.FindGameObjectWithTag("EncounterController");
             buildEncounter = encounter.GetComponent<BuildEncounter>();

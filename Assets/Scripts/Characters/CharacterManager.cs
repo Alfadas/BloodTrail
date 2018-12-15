@@ -74,9 +74,9 @@ public class CharacterManager : MonoBehaviour
 	// Kill all characters of the group
 	public void killAll()
 		{
-		foreach(Character character in characters)
+		while(characters.Count > 0)
 			{
-			killCharacter(character);
+			killCharacter(characters[characters.Count - 1]);
 			}
 		}
 
