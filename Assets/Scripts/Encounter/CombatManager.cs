@@ -89,7 +89,7 @@ public class CombatManager : MonoBehaviour {
 		currentCharacter.setDefenseStance(false);
 
 		soundManager.playSFX("attack");
-        int damage = Mathf.RoundToInt(currentCharacter.getStat(1) * 0.5f);
+        int damage = Mathf.RoundToInt(currentCharacter.getStat(1) * 0.4f) + currentCharacter.getWeaponDamage();
         if (selectedCharacter == null || (playerGroup.Contains(selectedCharacter) && !aiTurn))
         {
             SetSelected(enemies[0]);
