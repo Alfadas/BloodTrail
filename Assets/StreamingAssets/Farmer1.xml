@@ -1,0 +1,139 @@
+<Starts>
+	<Start1>
+		<Text>You look like you are hungry. Do you want to get some groceries?</Text>
+		<Chance>100</Chance>
+		<Outcome>0</Outcome>
+		<Questions>
+			<Question1>
+				<Text>No, thank you. We are fine.</Text>
+				<Answers>
+					<Answer1>
+						<Text>Have a nice journey!</Text>
+						<Chance>100</Chance>
+						<Outcome>1</Outcome>
+						<Questions></Questions>
+					</Answer1>
+				</Answers>
+			</Question1>
+			<Question2>
+				<Text>This would be nice. What do you have?</Text>
+				<Answers>
+					<Answer1>
+						<Text>I have to sell:</Text>
+						<Chance>100</Chance>
+						<Outcome>0</Outcome>
+						<Questions>
+							<Question1>
+								<Text>potato</Text>
+								<Answers>
+									<Answer1>
+										<Text>Thanks, have a nice journey!</Text>
+										<Chance>100</Chance>
+										<Outcome>1</Outcome>
+										<Questions></Questions>
+									</Answer1>
+								</Answers>
+							</Question1>
+							<Question2>
+								<Text>apple</Text>
+								<Answers>
+									<Answer1>
+										<Text>Thanks, have a nice journey!</Text>
+										<Chance>100</Chance>
+										<Outcome>1</Outcome>
+										<Questions></Questions>
+									</Answer1>
+								</Answers>
+							</Question2>
+							<Question3>
+								<Text>bread</Text>
+								<Answers>
+									<Answer1>
+										<Text>Thanks, have a nice journey!</Text>
+										<Chance>100</Chance>
+										<Outcome>1</Outcome>
+										<Questions></Questions>
+									</Answer1>
+								</Answers>
+							</Question3>
+							<Question4>
+								<Text>nothing</Text>
+								<Answers>
+									<Answer1>
+										<Text>Have a nice journey!</Text>
+										<Chance>100</Chance>
+										<Outcome>1</Outcome>
+										<Questions></Questions>
+									</Answer1>
+								</Answers>
+							</Question4>
+						</Questions>
+					</Answer1>
+				</Answers>	
+			</Question2>
+			<Question3>
+				<Text>From you? No thanks!</Text>
+				<Answers>
+					<Answer1>
+						<Text>You are little brats! I will show you people like you should be treaten!!</Text>
+						<Chance>100</Chance>
+						<Outcome>0</Outcome>
+						<Questions>
+							<Question1>
+								<Text>*Escape*</Text>
+								<Answers>
+									<Answer1>
+										<Text>*You Escape*</Text>
+										<Chance>100</Chance>
+										<Outcome>1</Outcome>
+										<Questions></Questions>
+									</Answer1>
+									<Answer2>
+										<Text>*You are to slow*</Text>
+										<Chance>100</Chance>
+										<Outcome>2</Outcome>
+										<Questions></Questions>
+									</Answer2>
+								</Answers>
+							</Question1>
+							<Question2>
+								<Text>*Stay*</Text>
+								<Answers>
+									<Answer1>
+										<Text>*So you have to fight*</Text>
+										<Chance>100</Chance>
+										<Outcome>2</Outcome>
+										<Questions></Questions>
+									</Answer1>
+								</Answers>
+							</Question2>
+						</Questions>
+					</Answer1>
+				</Answers>
+			</Question3>
+			<Question4>
+				<Text>No thanks. We only would like to tell you that we run away from a deadly plague. Maybe you should come with us.</Text>
+				<Answers>
+					<Answer1>
+						<Text>Thank you. I am going to talk to my wife, if we are also going on this journey.</Text>
+						<Chance>2</Chance>
+						<Outcome>3</Outcome>
+						<Questions></Questions>
+					</Answer1>
+					<Answer2>
+						<Text>You only want to get our valuables! Get away and don`t show yourselves around here another time. </Text>
+						<Chance>48</Chance>
+						<Outcome>2</Outcome>
+						<Questions></Questions>
+					</Answer2>
+					<Answer3>
+						<Text>We heard this already, but we can't leave. So we must stay!</Text>
+						<Chance>50</Chance>
+						<Outcome>2</Outcome>
+						<Questions></Questions>
+					</Answer3>
+				</Answers>
+			</Question4>
+		</Questions>
+	</Start1>
+</Starts>

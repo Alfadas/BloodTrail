@@ -1,12 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Xml;
+using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class DialogeManager : MonoBehaviour {
     [SerializeField] RollEncounter rollEncounter;
     [SerializeField] GameObject dialogeButtons;
-    [SerializeField] Text text;
+    [SerializeField] Text headText;
     [SerializeField] Button button1;
     [SerializeField] Text button1Text;
     [SerializeField] Button button2;
@@ -15,99 +17,23 @@ public class DialogeManager : MonoBehaviour {
     [SerializeField] Text button3Text;
     [SerializeField] Button button4;
     [SerializeField] Text button4Text;
+    [SerializeField] Text[] buttonTexts;
 
     [SerializeField] string ok;
     [SerializeField] string nok;
     [SerializeField] string join;
-    [SerializeField] string dialogeNewMemberAns1;
-    [SerializeField] string dialogeNewMemberAns2;
-    [SerializeField] string dialogeNewMemberAns3;
+    [SerializeField] string heal;
 
-
-    [SerializeField] string dialogeFarmer1Start;
-    [SerializeField] string dialogeFarmer1APos;
-    [SerializeField] string dialogeFarmer1BPos;
-    [SerializeField] string dialogeFarmer1CPos;
-    [SerializeField] string dialogeFarmer1DPos;
-    [SerializeField] string dialogeFarmer1AAns;
-    [SerializeField] string dialogeFarmer1BAns;
-    [SerializeField] string dialogeFarmer1CAns;
-
-    [SerializeField] string dialogeFarmer1BAnsAPos;
-    [SerializeField] string dialogeFarmer1BAnsBPos;
-    [SerializeField] string dialogeFarmer1BAnsCPos;
-    [SerializeField] string dialogeFarmer1BAnsDPos;
-    [SerializeField] string dialogeFarmer1CAnsAPos;
-    [SerializeField] string dialogeFarmer1CAnsBPos;
-    [SerializeField] string dialogeFarmer1BAnsAns;
-    [SerializeField] string dialogeFarmer1CAnsAAns1;
-    [SerializeField] string dialogeFarmer1CAnsAAns2;
-    [SerializeField] string dialogeFarmer1CAnsBAns;
-
-    [SerializeField] string dialogeDoctor1Start;
-    [SerializeField] string dialogeDoctor1APos;
-    [SerializeField] string dialogeDoctor1BPos;
-    [SerializeField] string dialogeDoctor1CPos;
-    [SerializeField] string dialogeDoctor1AAns;
-    [SerializeField] string dialogeDoctor1BAns1;
-    [SerializeField] string dialogeDoctor1BAns2;
-
-    [SerializeField] string dialogeRefugee1Start;
-    [SerializeField] string dialogeRefugee1APos;
-    [SerializeField] string dialogeRefugee1BPos;
-    [SerializeField] string dialogeRefugee1AAns;
-    [SerializeField] string dialogeRefugee1BAns;
-
+    List<XmlNode> answersNodes;
 
     public void StartDialoge(string dialoge)
     {
+        ImportXml(dialoge);
         dialogeButtons.SetActive(true);
-        if (dialoge == "farmer1")
-        {
-            text.text = dialogeFarmer1Start;
-            button1Text.text = dialogeFarmer1APos;
-            button2Text.text = dialogeFarmer1BPos;
-            button3Text.text = dialogeFarmer1CPos;
-            button4Text.text = dialogeFarmer1DPos;
-        }
-        else if(dialoge == "doctor1")
-        {
-            text.text = dialogeDoctor1Start;
-            button1Text.text = dialogeDoctor1APos;
-            button2Text.text = dialogeDoctor1BPos;
-            button3Text.text = dialogeDoctor1CPos;
-            button4Text.text = "";
-        }
-        else if (dialoge == "refugee1")
-        {
-            text.text = dialogeRefugee1Start;
-            button1Text.text = dialogeRefugee1APos;
-            button2Text.text = dialogeRefugee1BPos;
-            button3Text.text = "";
-            button4Text.text = "";
-        }
-        else
-        {
-            Debug.LogWarning("No Dialoge " + dialoge);
-            EndDialoge(0);
-        }
     }
     public void Button1()
     {
-        if (button1Text.text == dialogeFarmer1APos)
-        {
-            text.text = dialogeFarmer1AAns;
-            button1Text.text = ok;
-            button2Text.text = "";
-            button3Text.text = "";
-            button4Text.text = "";
-        }
-        else if (button1Text.text == dialogeFarmer1BAnsAPos)
-        {
-            text.text = dialogeFarmer1BAnsAns;
-            End(ok);
-        }
-        else if (button1Text.text == ok)
+        if (button1Text.text == ok)
         {
             EndDialoge(0);
         }
@@ -119,106 +45,34 @@ public class DialogeManager : MonoBehaviour {
         {
             EndDialoge(2);
         }
-        else if (button1Text.text == dialogeFarmer1CAnsAPos)
+        else if (button1Text.text == heal)
         {
-            int roll = Random.Range(1,100);
-            if (roll < 60)
-            {
-                text.text = dialogeFarmer1CAnsAAns1;
-                End(nok);
-            }
-            else
-            {
-                text.text = dialogeFarmer1CAnsAAns2;
-                button1Text.text = ok;
-                button2Text.text = "";
-                button3Text.text = "";
-                button4Text.text = "";
-            }
+            EndDialoge(3);
         }
-        else if (button1Text.text == dialogeDoctor1APos)
+        else if (button1Text.text != "")
         {
-            text.text = dialogeDoctor1AAns;
-            End(ok);
-        }
-        else if (button1Text.text == dialogeRefugee1APos)
-        {
-            text.text = dialogeRefugee1AAns;
-            End(nok);
+            ProcessDialogeStep(answersNodes[0]);
         }
     }
-
     public void Button2()
     {
-        if (button2Text.text == dialogeFarmer1BPos)
+        if (button2Text.text != "")
         {
-            text.text = dialogeFarmer1BAns;
-            button1Text.text = dialogeFarmer1BAnsAPos;
-            button2Text.text = dialogeFarmer1BAnsBPos;
-            button3Text.text = dialogeFarmer1BAnsCPos;
-            button4Text.text = dialogeFarmer1BAnsDPos;
-        }
-        else if (button2Text.text == dialogeFarmer1BAnsBPos)
-        {
-            text.text = dialogeFarmer1BAnsAns;
-            End(ok);
-        }
-        else if (button2Text.text == dialogeFarmer1CAnsBPos)
-        {
-            text.text = dialogeFarmer1CAnsAAns1;
-            End(nok);
-        }
-        else if (button2Text.text == dialogeDoctor1BPos)
-        {
-            int roll = Random.Range(1, 100);
-            if (roll < 60)
-            {
-                text.text = dialogeDoctor1BAns1;
-                End(nok);
-            }
-            else
-            {
-                text.text = dialogeDoctor1BAns2;
-                End(ok);
-            }
-        }
-        else if (button2Text.text == dialogeRefugee1BPos)
-        {
-            text.text = dialogeRefugee1BAns;
-            End(ok);
+            ProcessDialogeStep(answersNodes[1]);
         }
     }
     public void Button3()
     {
-        if (button3Text.text == dialogeFarmer1CPos)
+        if (button3Text.text != "")
         {
-            text.text = dialogeFarmer1CAns;
-            button1Text.text = dialogeFarmer1CAnsAPos;
-            button2Text.text = dialogeFarmer1CAnsBPos;
-            button3Text.text = "";
-            button4Text.text = "";
-        }
-        else if (button3Text.text == dialogeFarmer1BAnsCPos)
-        {
-            text.text = dialogeFarmer1BAnsAns;
-            End(ok);
-        }
-        else if (button3Text.text == dialogeDoctor1CPos)
-        {
-            NewMember();
+            ProcessDialogeStep(answersNodes[2]);
         }
     }
-
     public void Button4()
     {
-        if (button4Text.text == dialogeFarmer1DPos)
+        if (button4Text.text != "")
         {
-            NewMember();
-        }
-        else if (button4Text.text == dialogeFarmer1BAnsDPos)
-        {
-            text.text = dialogeFarmer1BAnsAns;
-            End(ok);
+            ProcessDialogeStep(answersNodes[3]);
         }
     }
 
@@ -228,35 +82,88 @@ public class DialogeManager : MonoBehaviour {
         rollEncounter.EndEncounter(proceed);
     }
 
-    private void NewMember()
+    private void ImportXml(string name)
     {
-        int roll = Random.Range(1, 100);
-         /*if (roll < 2)
-         {
-             text.text = dialogeNewMemberAns1;
-             End(join);
-         }*/
-         if (roll > 52)
-         {
-             text.text = dialogeNewMemberAns2;
-             End(nok);
-         }
-         else
-         {
-             text.text = dialogeNewMemberAns3;
-             End(ok);
-         }
+        XmlDocument xmldoc = new XmlDocument();
+        string path = Path.Combine(Application.streamingAssetsPath, name + ".xml").ToString();
+        xmldoc.Load(path);
+        XmlNode answersNode = xmldoc.FirstChild;
+        ProcessDialogeStep(answersNode);
     }
 
-    private void End(string isok)
+    private void ProcessDialogeStep(XmlNode answersNode)
     {
-        button1Text.text = isok;
-        button2Text.text = "";
-        button3Text.text = "";
-        button4Text.text = "";
+        List<Answer> answers = new List<Answer>();
+        if (answersNode.ChildNodes.Count > 1)
+        {
+            for (int i = 0; i < answersNode.ChildNodes.Count; i++)
+            {
+                Answer answer = new Answer(answersNode.ChildNodes[i].ChildNodes[0].InnerXml, int.Parse(answersNode.ChildNodes[i].ChildNodes[1].InnerXml), int.Parse(answersNode.ChildNodes[i].ChildNodes[2].InnerXml), answersNode.ChildNodes[i].ChildNodes[3]);
+                answers.Add(answer);
+            }
+        }
+        else
+        {
+            Answer answer = new Answer(answersNode.ChildNodes[0].ChildNodes[0].InnerXml, int.Parse(answersNode.ChildNodes[0].ChildNodes[1].InnerXml), int.Parse(answersNode.ChildNodes[0].ChildNodes[2].InnerXml), answersNode.ChildNodes[0].ChildNodes[3]);
+            answers.Add(answer);
+        }
+
+        Answer nextAnswer = answers[0];
+        if (answers.Count > 1)
+        {
+            int roll = Random.Range(1, 101);
+            int gesChance = 0;
+            foreach (Answer answer in answers)
+            {
+                if (roll <= answer.GetChance())
+                {
+                    nextAnswer = answer;
+                    break;
+                }
+                gesChance += answer.GetChance();
+            }
+        }
+
+        headText.text = nextAnswer.GetAnswer();
+        XmlNode questionsNode = nextAnswer.GetQuestionsNode();
+        foreach (Text buttonText in buttonTexts)
+        {
+            buttonText.text = "";
+        }
+        if (nextAnswer.GetOutcome() == 1)
+        {
+            buttonTexts[0].text = ok;
+            return;
+        }
+        else if (nextAnswer.GetOutcome() == 2)
+        {
+            buttonTexts[0].text = nok;
+            return;
+        }
+        else if (nextAnswer.GetOutcome() == 3)
+        {
+            buttonTexts[0].text = join;
+            return;
+        }
+        else if (nextAnswer.GetOutcome() == 4)
+        {
+            buttonTexts[0].text = heal;
+            return;
+        }
+
+        answersNodes = new List<XmlNode>();
+        if (questionsNode.ChildNodes.Count > 1 && questionsNode.ChildNodes.Count < 5)
+        {
+            for (int i = 0; i < questionsNode.ChildNodes.Count; i++)
+            {
+                buttonTexts[i].text = questionsNode.ChildNodes[i].ChildNodes[0].InnerXml;
+                answersNodes.Add(questionsNode.ChildNodes[i].ChildNodes[1]);
+            }
+        }
+        else
+        {
+            buttonTexts[0].text = questionsNode.ChildNodes[0].ChildNodes[0].InnerXml;
+            answersNodes.Add(questionsNode.ChildNodes[0].ChildNodes[1]);
+        }
     }
-
-
-
-
 }

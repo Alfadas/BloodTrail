@@ -161,7 +161,7 @@ public class RollEncounter : MonoBehaviour
 			{
 			if(roll <= eChanceRefugees)//Refugees
 				{
-				dialoge = "refugee1";
+				dialoge = "Refugee1";
 				encounterEnemyCount = 3;
 
 				for(int I = 0; I < encounterEnemyCount; ++I)
@@ -179,14 +179,14 @@ public class RollEncounter : MonoBehaviour
 				}*/
 			else if(roll <= eChanceRefugees + eChancePoor + eChanceRich + eChanceFarmer)//Farmer
 				{
-				dialoge = "farmer1";
+				dialoge = "Farmer1";
 				encounterEnemyCount = 1;
 				
 				++backObjectTypeCounts[random.Next(4, 7)];  // 4 = SoldierN, 5 = WoodcutterN, 6 = WomanN
 				}
 			else//Doctor
 				{
-				dialoge = "doctor1";
+				dialoge = "Doctor1";
 				encounterEnemyCount = 1;
 				
 				++backObjectTypeCounts[random.Next(4, 7)];  // 4 = SoldierN, 5 = WoodcutterN, 6 = WomanN
@@ -264,10 +264,15 @@ public class RollEncounter : MonoBehaviour
 			{
 			combatManager.StartFight();
 			}
-		/*else if (proceed == 2)
+		else if (proceed == 3)
 			{
-            //characterManager.ad
-			}*/
+            List<Character> characters = characterManager.getCharacters();
+            foreach(Character character in characters)
+                {
+                character.heal(character.getMaxHealth());
+                }
+            EndEncounter(0);
+            }
 		}
 	}
 

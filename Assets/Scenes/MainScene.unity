@@ -10102,7 +10102,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rollEncounter: {fileID: 1977554648}
   dialogeButtons: {fileID: 1129276738}
-  text: {fileID: 857265914}
+  headText: {fileID: 857265914}
   button1: {fileID: 1013087543}
   button1Text: {fileID: 512033616}
   button2: {fileID: 612189773}
@@ -10111,52 +10111,15 @@ MonoBehaviour:
   button3Text: {fileID: 1235123088}
   button4: {fileID: 1832995927}
   button4Text: {fileID: 1983336701}
+  buttonTexts:
+  - {fileID: 512033616}
+  - {fileID: 1136236939}
+  - {fileID: 1235123088}
+  - {fileID: 1983336701}
   ok: '*ok*'
   nok: '*fight!*'
   join: '*joins the group*'
-  dialogeNewMemberAns1: 'Thank you. I am going to talk to my wife, if we are also
-    going on this '
-  dialogeNewMemberAns2: You only want to get our valuables! Get away and don`t show
-    yourselves around here another time.
-  dialogeNewMemberAns3: We heard this already, but we can't leave. So we must stay!
-  dialogeFarmer1Start: 'Farmer: \n You look like you are hungry. Do you want to get
-    some groceries? '
-  dialogeFarmer1APos: No, thank you. We are fine.
-  dialogeFarmer1BPos: 'This would be nice. What do you have? '
-  dialogeFarmer1CPos: From you? No thanks!
-  dialogeFarmer1DPos: 'No thanks. We only would like to tell you that we run away
-    from a deadly plague.Maybe you should come with us. '
-  dialogeFarmer1AAns: Have a nice journey!
-  dialogeFarmer1BAns: 'I have to sell: '
-  dialogeFarmer1CAns: You are little brats! I will show you people like you should
-    be treaten!!
-  dialogeFarmer1BAnsAPos: potato
-  dialogeFarmer1BAnsBPos: apple
-  dialogeFarmer1BAnsCPos: bread
-  dialogeFarmer1BAnsDPos: nothing
-  dialogeFarmer1CAnsAPos: '*Escape*'
-  dialogeFarmer1CAnsBPos: '*Stay*'
-  dialogeFarmer1BAnsAns: 'Thanks, have a nice journey! '
-  dialogeFarmer1CAnsAAns1: '*You get away*'
-  dialogeFarmer1CAnsAAns2: You won't get away
-  dialogeFarmer1CAnsBAns: Come to me
-  dialogeDoctor1Start: 'Healer: \n Oh my lord! What happend to you? Come I will treat
-    you!! '
-  dialogeDoctor1APos: This would be nice.
-  dialogeDoctor1BPos: From you? No thanks!
-  dialogeDoctor1CPos: No thanks. We only would like to tell you that we run away from
-    a deadly plague. Maybe you should come with us.
-  dialogeDoctor1AAns: You will be fine in no time
-  dialogeDoctor1BAns1: You are little brats! I will show you people like you should
-    be treaten!!
-  dialogeDoctor1BAns2: You are so mean! Why do you have to be so mean?
-  dialogeRefugee1Start: '*You aproach a Refugee Camp*'
-  dialogeRefugee1APos: '*aproach slowly*'
-  dialogeRefugee1BPos: Hello?
-  dialogeRefugee1AAns: What do you want here? This is our place! Go away, we don't
-    know if you are infected!
-  dialogeRefugee1BAns: Come here! Let us talk about our journey and tell storys on
-    the campfire.
+  heal: '*everyone feels better*'
 --- !u!114 &1977554648
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10182,10 +10145,10 @@ MonoBehaviour:
   eChanceObjects: 0
   eChanceRoadblock: 50
   eChanceThiefs: 35
-  eChanceRefugees: 25
+  eChanceRefugees: 0
   eChancePoor: 0
-  eChanceRich: 20
-  eChanceFarmer: 20
+  eChanceRich: 0
+  eChanceFarmer: 100
 --- !u!114 &1977554649
 MonoBehaviour:
   m_ObjectHideFlags: 0
