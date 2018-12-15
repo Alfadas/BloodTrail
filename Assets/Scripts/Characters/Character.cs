@@ -25,6 +25,7 @@ public class Character : MonoBehaviour
 	private int nutrition;
 	private int[] stats;
 	private bool defensestance;
+	private Weapon weapon;
 
 	void Start()
 		{
@@ -314,7 +315,7 @@ public class Character : MonoBehaviour
 		if(nutrition <= 0)
 			{
 			// SCIENCE!!
-			factor = 1 - (0.002f * (Mathf.Abs(nutrition - 1) ^ 2));
+			factor = 1 - (0.002f * Mathf.Pow(Mathf.Abs(nutrition - 1), 2));
 			}
 		return Mathf.Max(Mathf.FloorToInt(stats[stat] * factor), 0);
 		}
@@ -322,6 +323,30 @@ public class Character : MonoBehaviour
 	public bool isDefenseStance()
 		{
 		return defensestance;
+		}
+
+	public string getWeaponName()
+		{
+		if(weapon != null)
+			{
+			return weapon.getItemName();
+			}
+		else
+			{
+			return "Fists";
+			}
+		}
+
+	public int getWeaponDamage()
+		{
+		if(weapon != null)
+			{
+			return weapon.getAttack();
+			}
+		else
+			{
+			return 1; // fist damage
+			}
 		}
 
 	public void setManager(CharacterManager manager)
@@ -332,6 +357,14 @@ public class Character : MonoBehaviour
 	public void setDefenseStance(bool defensestance)
 		{
 		this.defensestance = defensestance;
+		}
+
+	// Sets the current weapon of the character and returns his old one
+	public Weapon setWeapon(Weapon weapon)
+		{
+		Weapon oldweapon = this.weapon;
+		this.weapon = weapon;
+		return oldweapon;
 		}
         
     IEnumerator UpdateHealthText()

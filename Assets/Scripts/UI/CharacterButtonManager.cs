@@ -63,7 +63,7 @@ public class CharacterButtonManager : MonoBehaviour
 			}
 		}
 
-	public void reloadCharacterButtonsAfterKill(Character character)
+	public void reloadCharacterButtons()
 		{
 		if(closeButton.gameObject.activeSelf == true)
 			{

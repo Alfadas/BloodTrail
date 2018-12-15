@@ -54,12 +54,13 @@ public class CharacterManager : MonoBehaviour
 			}
 		}
 
+	// Destroys the given character, plays the death sound and ends the game if all group members are down
 	public void killCharacter(Character character)
 		{
 		if(characters.Contains(character))
 			{
 			characters.Remove(character);
-			characterbuttonmanager.reloadCharacterButtonsAfterKill(character);  // TODO: do something similar when new characters join?
+			characterbuttonmanager.reloadCharacterButtons();  // TODO: do something similar when new characters join?, move this to CharacterButtonManager?
 			}
 		soundmanager.playSFX("death");
 		Destroy(character.gameObject, 0.5f); // Delay, to give character some time to finish his business
@@ -70,11 +71,52 @@ public class CharacterManager : MonoBehaviour
 			}
 		}
 
+	// Kill all characters of the group
 	public void killAll()
 		{
 		foreach(Character character in characters)
 			{
 			killCharacter(character);
+			}
+		}
+
+	// Returns total weight the current group members could possibly carry
+	public int getGroupWeightLimit()
+		{
+		if(characters != null)
+			{
+			int weightlimit = 0;
+			foreach(Character character in characters)
+				{
+				weightlimit += character.getStat(Character.STAT_STRENGTH * 2);
+				}
+			return weightlimit;
+			}
+		else								// Game just started, characters not yet initialized
+			{
+			return startcharacters * 20;	// TODO: Magic Number
+			}
+
+		}
+
+	// Returns the speed of the currently slowest group member
+	public int getGroupSpeed()
+		{
+		if(characters != null)
+			{
+			int minspeed = 0;
+			foreach(Character character in characters)
+				{
+				if(character.getStat(Character.STAT_AGILITY) < minspeed || minspeed <= 0)
+					{
+					minspeed = character.getStat(Character.STAT_AGILITY);
+					}
+				}
+			return minspeed;
+			}
+		else								 // Game just started, characters not yet initialized
+			{
+			return 20;
 			}
 		}
 
@@ -84,25 +126,22 @@ public class CharacterManager : MonoBehaviour
 		return characters.Count > 0;
 		}
 
+	// Returns the current number of survivors in the group
+	public int getGroupCount()
+		{
+		if(characters != null)
+			{
+			return characters.Count;
+			}
+		else								 // Game just started, characters not yet initialized
+			{
+			return startcharacters;
+			}
+		}
+
 	// Returns all current party characters
 	public List<Character> getCharacters()
 		{
 		return characters;
-		}
-
-	// Returns the speed of the currently slowest group member
-	public int getGroupSpeed()
-		{
-		// TODO: fix exception when group is dead
-		int minspeed = characters[0].getStat(Character.STAT_AGILITY);
-		foreach(Character character in characters)
-			{
-			if(character.getStat(Character.STAT_AGILITY) < minspeed)
-				{
-				minspeed = character.getStat(Character.STAT_AGILITY);
-				}
-			}
-
-		return minspeed;
 		}
 	}

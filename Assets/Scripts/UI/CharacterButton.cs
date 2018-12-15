@@ -43,7 +43,7 @@ public class CharacterButton : MonoBehaviour
 			textfields[6].text = "Charisma: " + character.getStat(Character.STAT_CHARISMA);
 
 			textfields[7].text = "Health: " + character.getHealth() + "/" + character.getMaxHealth() + "  Nutrition: " + character.getNutrition() + "/" + character.getMaxNutrition();
-			textfields[8].text = "Weapon: " + "none";
+			textfields[8].text = "Weapon: " + character.getWeaponName();
 			}
 		}
 
