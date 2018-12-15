@@ -547,12 +547,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9286d668fd819e948b331a45d8af9d27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultstatboost: 3
   marker: {fileID: 1251082779439286}
   friendcolor: {fileID: 2100000, guid: 441d2bccf9f8caa42a1669f5b849fce1, type: 2}
   foecolor: {fileID: 2100000, guid: 6d1fb2c02a558fe4fa1f7547c37e9ced, type: 2}
   healthText: {fileID: 114452368389652964}
-  isNPC: 1
+  defaultstatboost: 3
+  male: 1
 --- !u!222 &222458197521131278
 CanvasRenderer:
   m_ObjectHideFlags: 1

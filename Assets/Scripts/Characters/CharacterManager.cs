@@ -9,7 +9,6 @@ public class CharacterManager : MonoBehaviour
 	[SerializeField] SoundManager soundmanager;
 	[SerializeField] GameObject defeat;
 	[SerializeField] List<GameObject> characterprefabs;
-	[SerializeField] int maleprefabcount = 2;
 	[SerializeField] int maxcharacters = 5;
 	[SerializeField] int startcharacters = 3;
 
@@ -37,20 +36,21 @@ public class CharacterManager : MonoBehaviour
 		{
 		if(characters.Count < maxcharacters)
 			{
-			int prefabindex = random.Next(characterprefabs.Count);
-			Character character = Instantiate(characterprefabs[prefabindex]).GetComponent<Character>();  // TODO: New characters spawn at (0, 0, 0), would there be a better place?
+			Character character = Instantiate(characterprefabs[random.Next(characterprefabs.Count)]).GetComponent<Character>();  // TODO: New characters spawn at (0, 0, 0), would there be a better place?
 
 			characters.Add(character);
-			if(prefabindex < maleprefabcount)
-				{
-				character.rollName(true);
-				}
-			else
-				{
-				character.rollName(false);
-				}
-
 			character.setManager(this);
+			}
+		}
+
+	public void addCharacter(Character character)
+		{
+		if(characters.Count < maxcharacters)
+			{
+			Character clone = Instantiate(character).GetComponent<Character>();  // TODO: New characters spawn at (0, 0, 0), would there be a better place?
+
+			characters.Add(clone);
+			clone.setManager(this);
 			}
 		}
 

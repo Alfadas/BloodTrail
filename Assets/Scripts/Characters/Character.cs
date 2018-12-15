@@ -5,12 +5,12 @@ using UnityEngine.UI;
 
 public class Character : MonoBehaviour
 	{
-	[SerializeField] SoundManager soundmanager;
 	[SerializeField] GameObject marker;
 	[SerializeField] Material friendcolor;
 	[SerializeField] Material foecolor;
     [SerializeField] Text healthText;
 	[SerializeField] int defaultstatboost = 2; // TODO: Secure, that this is always >= 0 and < number of stats
+	[SerializeField] bool male;
 
     public const int STAT_ENDURANCE = 0;
 	public const int STAT_STRENGTH = 1;
@@ -31,6 +31,7 @@ public class Character : MonoBehaviour
 		{
         StartCoroutine(UpdateHealthText());
 		reRollStats();
+		rollName();
 
 		nutrition = Mathf.RoundToInt(getMaxNutrition() * 0.5f);
 		health = getMaxHealth();
@@ -47,7 +48,7 @@ public class Character : MonoBehaviour
 			}
 		}
 
-	public string rollName(bool male)
+	public string rollName()
 		{
 		const int VOCAL = 0;
 		const int CONSONANT = 1;
