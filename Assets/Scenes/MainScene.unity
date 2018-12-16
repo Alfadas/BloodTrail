@@ -11336,7 +11336,7 @@ MonoBehaviour:
   rollEncounter: {fileID: 1977554648}
   buildEncounter: {fileID: 1977554649}
   characterManager: {fileID: 1908375230}
-  characterButtonManager: {fileID: 0}
+  characterButtonManager: {fileID: 728974321}
   soundManager: {fileID: 683322145}
   fightTutorial: {fileID: 45901942}
   CombatButtons: {fileID: 1406122721}
