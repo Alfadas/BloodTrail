@@ -1,0 +1,245 @@
+<Starts>
+	<Start1>
+		<Text>What do you want here? This is our place! Go away, we don't know if you are infected!</Text>
+		<Chance>50</Chance>
+		<Outcome>0</Outcome>
+		<Questions>
+			<Question1>
+				<Text>We didn't want to intrude. Can't we rest this night together?</Text>
+				<Answers>
+					<Answer1>
+						<Text>As if go away!</Text>
+						<Chance>100</Chance>
+						<Outcome>0</Outcome>
+						<Questions>
+							<Question1>
+								<Text>*Stay*</Text>
+								<Answers>
+									<Answer1>
+										<Text>We have warned you! We only want to protect ourselves!</Text>
+										<Chance>50</Chance>
+										<Outcome>2</Outcome>
+										<Questions></Questions>
+									</Answer1>
+									<Answer2>
+										<Text>The stronger one wins. You cound't leave us alone, could you? *Pack their things together and run away in fear*</Text>
+										<Chance>50</Chance>
+										<Outcome>1</Outcome>
+										<Questions></Questions>
+									</Answer2>
+								</Answers>
+							</Question1>
+							<Question2>
+								<Text>*Escape*</Text>
+								<Answers>
+									<Answer1>
+										<Text>*You escape*</Text>
+										<Chance>25</Chance>
+										<Outcome>1</Outcome>
+										<Question></Question>
+									</Answer1>
+									<Answer2>
+										<Text>*You are to slow*</Text>
+										<Chance>75</Chance>
+										<Outcome>2</Outcome>
+										<Questions></Questions>
+									</Answer2>
+								</Answers>
+							</Question2>
+						</Questions>
+					</Answer1>
+				</Answers>
+			</Question1>
+			<Question2>
+				<Text>We will leave you alone!</Text>
+				<Answers>
+					<Answer1>
+						<Text>Don't come back here!</Text>
+						<Chance>100</Chance>
+						<Outcome>1</Outcome>
+						<Questions></Questions>
+					</Answer1>
+				</Answers>	
+			</Question2>
+		</Questions>
+	</Start1>
+	<Start2>
+		<Text>Come here! Let us talk about our journey and tell storys on the campfire.</Text>
+		<Chance>50</Chance>
+		<Outcome>0</Outcome>
+		<Questions>
+			<Question1>
+				<Text>You are very kind. We will join you.</Text>
+				<Answers>
+					<Answer1>
+						<Text>Do you want to eat with us?</Text>
+						<Chance>50</Chance>
+						<Outcome>0</Outcome>
+						<Questions>
+							<Question1>
+								<Text>Thank you this would be very nice.</Text>
+								<Answers>
+									<Answer1>
+										<Text>We have:</Text>
+										<Chance>100</Chance>
+										<Outcome>0</Outcome>
+										<Questions>
+											<Question1>
+												<Text>potato</Text>
+												<Answers>
+													<Answer1>
+													<Text>Let us have a nice evening!</Text>
+													<Chance>100</Chance>
+													<Outcome>1</Outcome>
+													<Questions></Questions>
+													</Answer1>
+												</Answers>
+											</Question1>
+											<Question2>
+												<Text>apple</Text>
+												<Answers>
+													<Answer1>
+													<Text>Let us have a nice evening!</Text>
+													<Chance>100</Chance>
+													<Outcome>1</Outcome>
+													<Questions></Questions>
+													</Answer1>
+												</Answers>
+											</Question2>
+											<Question3>
+												<Text>bread</Text>
+												<Answers>
+													<Answer1>
+													<Text>Let us have a nice evening!</Text>
+													<Chance>100</Chance>
+													<Outcome>1</Outcome>
+													<Questions></Questions>
+													</Answer1>
+												</Answers>
+											</Question3>
+											<Question4>
+												<Text>nothing</Text>
+												<Answers>
+													<Answer1>
+														<Text>Let us have a nice evening!</Text>
+														<Chance>100</Chance>
+														<Outcome>1</Outcome>
+														<Questions></Questions>
+													</Answer1>
+												</Answers>
+											</Question4>
+										</Questions>
+									</Answer1>
+								</Answers>
+							</Question1>
+							<Question2>
+								<Text>No, but we would like to know why you are travelling?</Text>
+								<Answers>
+									<Answer1>
+										<Text>We want to visit some of our relatives in the south.</Text>
+										<Chance>50</Chance>
+										<Outcome>0</Outcome>
+										<Questions>
+											<Question1>
+												<Text>We wish you a safe journey.</Text>
+												<Answers>
+													<Answer1>
+														<Text>Thank you very much.</Text>
+														<Chance>100</Chance>
+														<Outcome>1</Outcome>
+														<Questions></Questions>
+													</Answer1>
+												</Answers>
+											</Question1>
+											<Question2>
+												<Text>You shouldn't go there. We are running from a deadly plague. Maybe you should change your plans.</Text>
+												<Answers>
+													<Answer1>
+														<Text>We will consider it.</Text>
+														<Chance>100</Chance>
+														<Outcome>1</Outcome>
+														<Questions></Questions>
+													</Answer1>
+												</Answers>
+											</Question2>
+										</Questions>
+									</Answer1>
+									<Answer2>
+										<Text>We heard about a deadly plague and want to escape.</Text>
+										<Chance>50</Chance>
+										<Outcome>0</Outcome>
+										<Questions>
+											<Question1>
+												<Text>We wish you a safe trip.</Text>
+												<Answers>
+													<Answer1>
+														<Text>Thank you very much. You too.</Text>
+														<Chance>100</Chance>
+														<Outcome>1</Outcome>
+														<Questions></Questions>
+													</Answer1>
+												</Answers>
+											</Question1>
+										</Questions>
+									</Answer2>
+								</Answers>
+							</Question2>
+						</Questions>
+					</Answer1>
+				</Answers>
+			</Question1>
+			<Question2>
+				<Text>We are really sorry. But we want to continue our journey!</Text>
+				<Answers>
+					<Answer1>
+						<Text>Ok, have a nice one.
+						<Chance>75</Chance>
+						<Outcome>1</Outcome>
+						<Questions></Questions>
+					</Answer1>
+					<Answer2>
+						<Text>Are we not good enough for you?</Text>
+						<Chance>25</Chance>
+						<Outcome>0</Outcome>
+						<Questions>
+							<Question1>
+								<Text>Of course not, but we have a long way in front of us so we want to go!</Text>
+								<Answers>
+									<Answer1>
+										<Text>We are all equal, you know?</Text>
+										<Chance>10</Chance>
+										<Outcome>2</Outcome>
+										<Questions></Questions>
+									</Answer1>
+									<Answer2>
+										<Text>We are sorry. We overreacted. Have a safe journey!</Text>
+										<Chance>90</Chance>
+										<Outcome>1</Outcome>
+										<Questions></Questions>
+									</Answer2>
+								</Answers>
+							</Question1>
+						</Questions>
+					</Answer2>
+				</Answers>
+			</Question2>
+			<Question3>
+				<Text>No thanks. We only would like to tell you that we run away from a deadly plague. Maybe you should come with us.</Text>
+				<Answers>
+					<Answer1>
+						<Text>Thank you. We will consider it.</Text>
+						<Chance>50</Chance>
+						<Outcome>1</Outcome>
+						<Questions></Questions>
+					</Answer1>
+					<Answer2>
+						<Text>We heard this already, but we don´t belive it. Leave us alone.</Text>
+						<Chance>50</Chance>
+						<Outcome>1</Outcome>
+						<Questions></Questions>
+					</Answer2>
+				</Answers>
+			</Question3>
+		</Questions>
+	</Start2>
+</Starts>

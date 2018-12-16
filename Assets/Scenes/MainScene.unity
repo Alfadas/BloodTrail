@@ -8596,7 +8596,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1729005134}
   m_LocalRotation: {x: -0.0137085, y: 0.9772774, z: -0.20071264, w: -0.066749305}
-  m_LocalPosition: {x: 25.855272, y: 148.77303, z: 136.95763}
+  m_LocalPosition: {x: 25.855272, y: 398.773, z: 136.95763}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 357096526}
@@ -10400,16 +10400,16 @@ MonoBehaviour:
   characterManager: {fileID: 1908375230}
   buildEncounter: {fileID: 1977554649}
   groupManager: {fileID: 1908375226}
-  eChanceFight: 5
-  eChanceDialoge: 10
+  eChanceFight: 6
+  eChanceDialoge: 14
   eChanceTrader: 0
   eChanceObjects: 0
   eChanceRoadblock: 50
   eChanceThiefs: 35
-  eChanceRefugees: 0
+  eChanceRefugees: 35
   eChancePoor: 0
   eChanceRich: 0
-  eChanceFarmer: 100
+  eChanceFarmer: 45
 --- !u!114 &1977554649
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10557,7 +10557,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1977554646}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 50, z: 0}
+  m_LocalPosition: {x: 0, y: 300, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 556293504}
