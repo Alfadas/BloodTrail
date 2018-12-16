@@ -13,6 +13,7 @@ public class GroupManager : MonoBehaviour
 	[SerializeField] SoundManager soundmanager;
 	[SerializeField] PlagueManager plague;
 	[SerializeField] GameObject victory;
+	[SerializeField] GameObject mapTutorial;
 	[SerializeField] float animationtime;
 	[SerializeField] float defaulttilespeed = 100.0f;
 	[SerializeField] float defaultgroupspeed = 50.0f;
@@ -22,9 +23,16 @@ public class GroupManager : MonoBehaviour
 	private float starttime;
 	private bool moving;
 	private bool encounter;
+	private bool tutorialShown = false;
 
 	void Start()
 		{
+		if(!tutorialShown)
+			{
+			mapTutorial.SetActive(true);
+			tutorialShown = true;
+			}
+
 		map = mapmanager.getMap();
 		starttime = Time.time;
 		moving = false;

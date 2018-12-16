@@ -61,4 +61,9 @@ public class CharacterButton : MonoBehaviour
 		{
 		return character;
 		}
+
+	public Text getText()
+		{
+		return buttonText;
+		}
 	}

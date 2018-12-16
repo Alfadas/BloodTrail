@@ -96,4 +96,19 @@ public class CharacterButtonManager : MonoBehaviour
 		soundmanager.playSFX("sacrifice");
 		characterManager.killCharacter(character);
 		}
+
+	public void highlightCharacter(Character character)
+		{
+		foreach(CharacterButton button in characterbuttons)
+			{
+			if(button.getCharacter() == character)
+				{
+				button.getText().fontStyle = FontStyle.Bold;
+				}
+			else
+				{
+				button.getText().fontStyle = FontStyle.Normal;
+				}
+			}
+		}
 	}

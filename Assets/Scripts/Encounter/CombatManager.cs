@@ -6,7 +6,9 @@ public class CombatManager : MonoBehaviour {
     [SerializeField] RollEncounter rollEncounter;
     [SerializeField] BuildEncounter buildEncounter;
     [SerializeField] CharacterManager characterManager;
+	[SerializeField] CharacterButtonManager characterButtonManager;
 	[SerializeField] SoundManager soundManager;
+	[SerializeField] GameObject fightTutorial;
     List<Character> enemies;
     List<Character> playerGroup;
     List<Character> participants;
@@ -20,9 +22,16 @@ public class CombatManager : MonoBehaviour {
 
     int combatActionCount = 1;
     public bool aiTurn = false;
+	private bool tutorialShown = false;
 
     public void StartFight()
     {
+		if(!tutorialShown)
+			{
+			fightTutorial.SetActive(true);
+			tutorialShown = true;
+			}
+
         participantsQueue = new Queue<Character>();
         playerGroup = new List<Character>(); // Wasted processing power, See line 29
         participants = new List<Character>();
@@ -71,6 +80,7 @@ public class CombatManager : MonoBehaviour {
 
             if (enemies.Contains(currentCharacter))
             {
+				characterButtonManager.highlightCharacter(null);
                 aiTurn = true;
                 currentCharacter.markCharacter(false);
                 EnemyTurn();
@@ -78,6 +88,7 @@ public class CombatManager : MonoBehaviour {
             else
             {
 				soundManager.playSFX("turn");
+				characterButtonManager.highlightCharacter(currentCharacter);
                 aiTurn = false;
                 currentCharacter.markCharacter(false);
                 CombatButtons.SetActive(true);
@@ -146,6 +157,7 @@ public class CombatManager : MonoBehaviour {
 
     void EndTurn()
     {
+		characterButtonManager.highlightCharacter(null);
         currentCharacter.unmarkCharacter();
         participantsQueue.Enqueue(currentCharacter);
         currentCharacter = null;
