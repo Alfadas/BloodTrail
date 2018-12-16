@@ -1,4 +1,4 @@
-<Starts>
+﻿<Starts>
 	<Start1>
 		<Text>What do you want here? This is our place! Go away, we don't know if you are infected!</Text>
 		<Chance>50</Chance>
@@ -192,7 +192,7 @@
 				<Text>We are really sorry. But we want to continue our journey!</Text>
 				<Answers>
 					<Answer1>
-						<Text>Ok, have a nice one.
+						<Text>Ok, have a nice one.</Text>
 						<Chance>75</Chance>
 						<Outcome>1</Outcome>
 						<Questions></Questions>
