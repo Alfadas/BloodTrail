@@ -202,8 +202,37 @@
 									<Answer1>
 										<Text> Of course. You will be fine in a few seconds.</Text>
 										<Chance>100</Chance>
-										<Outcome>4</Outcome>
-										<Questions></Questions>
+										<Outcome>0</Outcome>
+										<Questions>
+											<Question1>
+												<Text>Are you a real healer? This is not a time for jokes!</Text>
+												<Answers>
+													<Answer1>
+														<Text>You should bite your tongue. There is no better healer in the area!</Text>
+														<Chance>100</Chance>
+														<Outcome>2</Outcome>
+														<Questions></Questions>
+													</Answer1>
+												</Answers>
+											</Question1>
+											<Question2>
+												<Text>This can happen to everybody. Could you try it again?</Text>
+												<Answers>
+													<Answer1>
+														<Text> I don't think i could help you. I am really sorry.</Text>
+														<Chance>20</Chance>
+														<Outcome>1</Outcome>
+														<Questions></Questions>
+													</Answer1>
+													<Answer2>
+														<Text> Yes, of course. Thank you for the second chance.</Text>
+														<Chance>80</Chance>
+														<Outcome>4</Outcome>
+														<Questions></Questions>
+													</Answer2>
+												</Answers>
+											</Question2>
+										</Questions>
 									</Answer1>
 								</Answers>
 							</Question2>

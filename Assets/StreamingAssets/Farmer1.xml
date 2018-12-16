@@ -129,7 +129,7 @@
 					<Answer3>
 						<Text>We heard this already, but we can't leave. So we must stay!</Text>
 						<Chance>50</Chance>
-						<Outcome>2</Outcome>
+						<Outcome>1</Outcome>
 						<Questions></Questions>
 					</Answer3>
 				</Answers>
@@ -147,7 +147,7 @@
 					<Answer1>
 						<Text>I am really sorry. But there had been so many thiefs. I need to be careful. Do you need some groceries?</Text>
 						<Chance>100</Chance>
-						<Outcome>1</Outcome>
+						<Outcome>0</Outcome>
 						<Questions>
 							<Question1>
 								<Text> This would be nice. What do you have?</Text>
@@ -172,10 +172,10 @@
 												<Text>apple</Text>
 												<Answers>
 													<Answer1>
-													<Text>Thanks, have a nice journey!</Text>
-													<Chance>100</Chance>
-													<Outcome>1</Outcome>
-													<Questions></Questions>
+														<Text>Thanks, have a nice journey!</Text>
+														<Chance>100</Chance>
+														<Outcome>1</Outcome>
+														<Questions></Questions>
 													</Answer1>
 												</Answers>
 											</Question2>
@@ -205,6 +205,17 @@
 									</Answer1>
 								</Answers>
 							</Question1>
+							<Question2>
+								<Text>No thank you, we need to go on.</Text>
+								<Answers>
+									<Answer1>
+										<Text>Have a save journey!</Text>
+										<Chance>100</Chance>
+										<Outcome>1</Outcome>
+										<Questions></Questions>
+									</Answer1>
+								</Answers>
+							</Question2>
 						</Questions>
 					</Answer1>
 				</Answers>
@@ -245,8 +256,31 @@
 									<Answer1>
 										<Text>No get away.</Text>
 										<Chance>50</Chance>
-										<Outcome>1</Outcome>
-										<Questions></Questions>
+										<Outcome>0</Outcome>
+										<Questions>
+											<Question1>
+												<Text>*Escape*</Text>
+												<Answers>
+													<Answer1>
+														<Text>I don't want to see you around again.</Text>
+														<Chance>100</Chance>
+														<Outcome>1</Outcome>
+														<Questions></Questions>
+													</Answer1>
+												</Answers>
+											</Question1>
+											<Question2>
+												<Text>*Stay*</Text>
+												<Answers>
+													<Answer1>
+														<Text>You will regret this!</Text>
+														<Chance>100</Chance>
+														<Outcome>2</Outcome>
+														<Questions></Questions>
+													</Answer1>
+												</Answers>
+											</Question2>
+										</Questions>
 									</Answer1>
 									<Answer2>
 										<Text>But don`t stay to long</Text>
