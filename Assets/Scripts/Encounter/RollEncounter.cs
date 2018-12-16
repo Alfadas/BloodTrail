@@ -266,7 +266,7 @@ public class RollEncounter : MonoBehaviour
 			}
 		else if(proceed == 2)
 			{
-			characterManager.addCharacter();
+			characterManager.addCharacter(buildEncounter.GetEnemies()[0]);
 			}
 		else if (proceed == 3)
 			{
