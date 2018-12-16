@@ -1,0 +1,251 @@
+<Starts>
+	<Start1>
+		<Text>HEALER: Oh my lord! What happend to you? Come in I will treat you!!</Text>
+		<Chance>100</Chance>
+		<Outcome>0</Outcome>
+		<Questions>
+			<Question1>
+				<Text>This would be nice.</Text>
+				<Answers>
+					<Answer1>
+						<Text>You will be fine in no time.</Text>
+						<Chance>75</Chance>
+						<Outcome>4</Outcome>
+						<Questions></Questions>
+					</Answer1>
+					<Answer2>
+						<Text>Oh, I messed up.</Text>
+						<Chance>25</Chance>
+						<Outcome>0</Outcome>
+						<Questions>
+							<Question1>
+								<Text>Are you a real healer? This is not a time for jokes!</Text>
+								<Answers>
+									<Answer1>
+										<Text>You should bite your tongue. There is no better healer in the area!</Text>
+										<Chance>100</Chance>
+										<Outcome>2</Outcome>
+										<Questions></Questions>
+									</Answer1>
+								</Answers>
+							</Question1>
+							<Question2>
+								<Text>This can happen to everybody. Could you try it again?</Text>
+								<Answers>
+									<Answer1>
+										<Text> I don't think i could help you. I am really sorry.</Text>
+										<Chance>10</Chance>
+										<Outcome>1</Outcome>
+										<Questions></Questions>
+									</Answer1>
+									<Answer2>
+										<Text> Yes, of course. Thank you for the second chance.</Text>
+										<Chance>90</Chance>
+										<Outcome>4</Outcome>
+										<Questions></Questions>
+									</Answer2>
+								</Answers>
+							</Question2>
+						</Questions>
+					</Answer2>
+				</Answers>
+			</Question1>
+			<Question2>
+				<Text>From you? No thanks!</Text>
+				<Answers>
+					<Answer1>
+						<Text>You are little brats! I will show you people like you should be treaten!!</Text>
+						<Chance>60</Chance>
+						<Outcome>2</Outcome>
+						<Questions></Questions>
+					</Answer1>
+					<Answer2>
+						<Text>You are so mean! Why do you have to be so mean? *Healer cries and runs away*</Text>
+						<Chance>40</Chance>
+						<Outcome>1</Outcome>
+						<Questions></Questions>
+					</Answer2>
+				</Answers>	
+			</Question2>
+			<Question3>
+				<Text>No thanks. We only would like to tell you that we run away from a deadly plague. Maybe you should come with us.</Text>
+				<Answers>
+					<Answer1>
+						<Text>Thank you. I will come with you.</Text>
+						<Chance>2</Chance>
+						<Outcome>3</Outcome>
+						<Questions></Questions>
+					</Answer1>
+					<Answer2>
+						<Text>You only want to get our valuables!</Text>
+						<Chance>48</Chance>
+						<Outcome>0</Outcome>
+						<Questions>
+							<Question1>
+								<Text>We are sorry if you got the feeling. We will continue our journey.</Text>
+								<Answers>
+									<Answer1>
+										<Text>Don`t show yourselves around here another time.</Text>
+										<Chance>100</Chance>
+										<Outcome>1</Outcome>
+										<Questions></Questions>
+									</Answer1>
+								</Answers>
+							</Question1>
+							<Question2>
+								<Text>As if! We have enough with our own stuff to carry around.</Text>
+								<Answers>
+									<Answer1>
+										<Text>You little thieves. Leave immediatly.</Text>
+										<Chance>100</Chance>
+										<Outcome>0</Outcome>
+										<Questions>
+											<Question1>
+												<Text>*Escape*</Text>
+												<Answers>
+													<Answer1>
+														<Text>Only after the easy money. There is a doomsday for everybody! *You escape*</Text>
+														<Chance>50</Chance>
+														<Outcome>1</Outcome>
+														<Questions></Questions>
+													</Answer1>
+													<Answer2>
+														<Text> *You are to slow*</Text>
+														<Chance>50</Chance>
+														<Outcome>2</Outcome>
+														<Questions></Questions>
+													</Answer2>
+												</Answers>
+											</Question1>
+											<Question2>
+												<Text>*Stay*</Text>
+												<Answers>
+													<Answer1>
+														<Text>You will regret this!</Text>
+														<Chance>100</Chance>
+														<Outcome>2</Outcome>
+														<Question></Question>
+													</Answer1>
+												</Answers>
+											</Question2>
+										</Questions>
+									</Answer1>
+								</Answers>
+							</Question2>
+						</Questions>
+					</Answer2>
+					<Answer3>
+						<Text>We heard this already, but we can't leave. So we must stay! But thank you for the warning.</Text>
+						<Chance>25</Chance>
+						<Outcome>1</Outcome>
+						<Questions></Questions>
+					</Answer3>
+					<Answer4>
+						<Text>I already heard this. So I am on my way to the next harbour.</Text>
+						<Chance>25</Chance>
+						<Outcome>1</Outcome>
+						<Questions></Questions>
+					</Answer4>
+				</Answers>
+			</Question3>
+			<Question4>
+				<Text>We are just passing by. We are sorry that we disturbed you.</Text>
+				<Answers>
+					<Answer1>
+						<Text>How could you say this? You are clearly hurt!</Text>
+						<Chance>25</Chance>
+						<Outcome>0</Outcome>
+						<Questions>
+							<Question1>
+								<Text>We are fine, let us pass!</Text>
+								<Answers>
+									<Answer1>
+										<Text>If you think so. But you will be sorry.</Text>
+										<Chance>100<Chance>
+										<Outcome>1</Outcome>
+										<Questions></Questions>
+									</Answer1>
+								</Answers>
+							</Question1>
+							<Question2>
+								<Text>You are really meddlesome. Leave us alone.</Text>
+								<Answers>
+									<Answer1>
+										<Text>Ok, but at your risk!</Text>
+										<Chance>100</Chance>
+										<Outcome>1</Outcome>
+										<Questions></Questions>
+									</Answer1>
+								</Answers>
+							</Question2>
+						</Questions>
+					</Answer1>
+					<Answer2>
+						<Text>As if! I can see the blood! Let me treat you!</Text>
+						<Chance>25</Chance>
+						<Outcome>0</Outcome>
+						<Questions>
+							<Question1>
+								<Text> You are hallucinating. Leave us alone!</Text>
+								<Answers>
+									<Answer1>
+										<Text>I only wanted to help. But so... *Walks away*</Text>
+										<Chance>100</Chance>
+										<Outcome>1</Outcome>
+										<Questions></Questions>
+									</Answer1>
+								</Answers>
+							</Question1>
+							<Question2>
+								<Text> Ok. Yes you are right! We are hurt. Would you help us?</Text>
+								<Answers>
+									<Answer1>
+										<Text> Of course. You will be fine in a few seconds.</Text>
+										<Chance>100</Chance>
+										<Outcome>0</Outcome>
+										<Questions>
+											<Question1>
+												<Text>Are you a real healer? This is not a time for jokes!</Text>
+												<Answers>
+													<Answer1>
+														<Text>You should bite your tongue. There is no better healer in the area!</Text>
+														<Chance>100</Chance>
+														<Outcome>2</Outcome>
+														<Questions></Questions>
+													</Answer1>
+												</Answers>
+											</Question1>
+											<Question2>
+												<Text>This can happen to everybody. Could you try it again?</Text>
+												<Answers>
+													<Answer1>
+														<Text> I don't think i could help you. I am really sorry.</Text>
+														<Chance>20</Chance>
+														<Outcome>1</Outcome>
+														<Questions></Questions>
+													</Answer1>
+													<Answer2>
+														<Text> Yes, of course. Thank you for the second chance.</Text>
+														<Chance>80</Chance>
+														<Outcome>4</Outcome>
+														<Questions></Questions>
+													</Answer2>
+												</Answers>
+											</Question2>
+										</Questions>
+									</Answer1>
+								</Answers>
+							</Question2>
+						</Questions>
+					</Answer2>
+					<Answer3>
+						<Text> Ok, have a nice day!</Text>
+						<Chance>50</Chance>
+						<Outcome>1</Outcome>
+						<Questions></Questions>
+					</Answer3>
+				</Answers>
+			</Question4>
+		</Questions>
+	</Start1>
+</Starts>
