@@ -2,18 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum BACK_OBJECT_TYPE // After 4h of coding Im not sure anymore, whether this is really better than a string[], cleaner and more error resistant for sure, but way more complicated in handling
-	{
-	Thief,
-	Bandit,
-	Soldier,
-	Knight,
-	SoldierN,
-	WoodcutterN,
-	WomanN,
-	Barricade
-	}
-
 public class BuildEncounter : MonoBehaviour
 	{
 	[SerializeField] CharacterManager characterManager;

@@ -2,14 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum ENCOUNTER_TYPE
-	{
-	Fight,
-	Dialogue,
-	Trade,
-	Loot
-	}
-
 public class RollEncounter : MonoBehaviour
 	{
 	[SerializeField] SoundManager soundmanager;
@@ -243,9 +235,9 @@ public class RollEncounter : MonoBehaviour
 		soundmanager.playFightMusic(); // TODO: probably shouldnt start fight music on peaceful encounters
 		}
 
-	public void EndEncounter(int proceed)
+	public void EndEncounter(ENCOUNTER_OUTCOME proceed)
 		{
-		if(proceed == 0)
+		if(proceed == ENCOUNTER_OUTCOME.End)
 			{
 			if(cameraManager != null)
 				{
@@ -260,15 +252,15 @@ public class RollEncounter : MonoBehaviour
 				Debug.Log("cameraManager is null :/ why tho?"); // TODO: delete
 				}
 			}
-		else if(proceed == 1)
+		else if(proceed == ENCOUNTER_OUTCOME.Fight)
 			{
 			combatManager.StartFight();
 			}
-		else if(proceed == 2)
+		else if(proceed == ENCOUNTER_OUTCOME.Join)
 			{
 			characterManager.addCharacter(buildEncounter.GetEnemies()[0]);
 			}
-		else if (proceed == 3)
+		else if (proceed == ENCOUNTER_OUTCOME.Heal)
 			{
             List<Character> characters = characterManager.getCharacters();
             foreach(Character character in characters)

@@ -35,19 +35,19 @@ public class DialogeManager : MonoBehaviour {
     {
         if (button1Text.text == ok)
         {
-            EndDialoge(0);
+            EndDialoge(ENCOUNTER_OUTCOME.End);
         }
         else if (button1Text.text == nok)
         {
-            EndDialoge(1);
+            EndDialoge(ENCOUNTER_OUTCOME.Fight);
         }
         else if (button1Text.text == join)
         {
-            EndDialoge(2);
+            EndDialoge(ENCOUNTER_OUTCOME.Join);
         }
         else if (button1Text.text == heal)
         {
-            EndDialoge(3);
+            EndDialoge(ENCOUNTER_OUTCOME.Heal);
         }
         else if (button1Text.text != "")
         {
@@ -76,7 +76,7 @@ public class DialogeManager : MonoBehaviour {
         }
     }
 
-    void EndDialoge(int proceed)
+    void EndDialoge(ENCOUNTER_OUTCOME proceed)
     {
         dialogeButtons.SetActive(false);
         rollEncounter.EndEncounter(proceed);
