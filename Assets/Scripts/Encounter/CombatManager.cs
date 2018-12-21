@@ -8,6 +8,7 @@ public class CombatManager : MonoBehaviour {
     [SerializeField] CharacterManager characterManager;
 	[SerializeField] CharacterButtonManager characterButtonManager;
 	[SerializeField] SoundManager soundManager;
+    [SerializeField] CombatActions combatActions;
 	[SerializeField] GameObject fightTutorial;
     List<Character> enemies;
     List<Character> playerGroup;
@@ -95,65 +96,6 @@ public class CombatManager : MonoBehaviour {
             }
         }
     }
-    public void Attack()
-    {
-		currentCharacter.setDefenseStance(false);
-
-		soundManager.playSFX("attack");
-        int damage = Mathf.RoundToInt(currentCharacter.getStat(1) * 0.4f) + currentCharacter.getWeaponDamage();
-        if (selectedCharacter == null || (playerGroup.Contains(selectedCharacter) && !aiTurn))
-        {
-            SetSelected(enemies[0]);
-        }
-		else if(selectedCharacter.isDefenseStance()) // that was not implemented before? well, now I need it for SFX
-		{
-			soundManager.playSFX("parry");
-			damage = Mathf.RoundToInt(damage * 0.5f);
-		}
-
-        if (selectedCharacter.hurt(damage))
-        {
-			// Debug.Log(enemies);
-			// Debug.Log("sel: " + selectedCharacter);
-			if(!enemies.Remove(selectedCharacter) && !playerGroup.Remove(selectedCharacter))
-				{
-				Debug.Log("Unknown casualty " + selectedCharacter);
-				}
-        }
-        StartCoroutine(AttackAnimation());
-    }
-	public void BrainAttack() // makeshift, rewrite without redundant code
-		{
-		currentCharacter.setDefenseStance(false);
-
-		soundManager.playSFX("attack");
-        int damage = Mathf.RoundToInt(currentCharacter.getStat(Character.STAT_STRENGTH) * 0.1f + currentCharacter.getStat(Character.STAT_INTELLIGENCE) * 0.3f) + currentCharacter.getWeaponDamage();
-        if (selectedCharacter == null || (playerGroup.Contains(selectedCharacter) && !aiTurn))
-        {
-            SetSelected(enemies[0]);
-        }
-		else if(selectedCharacter.isDefenseStance()) // that was not implemented before? well, now I need it for SFX
-		{
-			soundManager.playSFX("parry");
-			damage = Mathf.RoundToInt(damage * 0.5f);
-		}
-
-        if (selectedCharacter.hurt(damage))
-        {
-			// Debug.Log(enemies);
-			// Debug.Log("sel: " + selectedCharacter);
-			if(!enemies.Remove(selectedCharacter) && !playerGroup.Remove(selectedCharacter))
-				{
-				Debug.Log("Unknown casualty " + selectedCharacter);
-				}
-        }
-        StartCoroutine(AttackAnimation());
-		}
-    public void Defens()
-    {
-        currentCharacter.setDefenseStance(true);
-        StartCoroutine(AttackAnimation());
-    }
 
     void EndTurn()
     {
@@ -164,6 +106,16 @@ public class CombatManager : MonoBehaviour {
         NextTurn();
     }
 
+    public Character GetCurrentCharecter()
+    {
+        return currentCharacter;
+    }
+
+    public Character GetSelectedCharecter()
+    {
+        return selectedCharacter;
+    }
+
     public void SetSelected(Character selected)
     {
         if (selectedCharacter != null)
@@ -172,6 +124,46 @@ public class CombatManager : MonoBehaviour {
         }
         selectedCharacter = selected;
         selectedCharacter.markCharacter(true);
+    }
+
+    public void SetSelected(int selected)
+    {
+        if (selectedCharacter != null)
+        {
+            selectedCharacter.unmarkCharacter();
+        }
+        selectedCharacter = enemies[selected];
+        selectedCharacter.markCharacter(true);
+    }
+
+    public void Attack(int damage, int defensModifier)
+    {
+        soundManager.playSFX("attack");
+        if (selectedCharacter == null || (playerGroup.Contains(selectedCharacter) && !aiTurn))
+        {
+            SetSelected(0);
+        }
+        else if (selectedCharacter.isDefenseStance()) // that was not implemented before? well, now I need it for SFX
+        {
+            soundManager.playSFX("parry");
+            damage = Mathf.RoundToInt(damage * 0.5f);
+        }
+
+        if (selectedCharacter.hurt(damage))
+        {
+            // Debug.Log(enemies);
+            // Debug.Log("sel: " + selectedCharacter);
+            if (!enemies.Remove(selectedCharacter) && !playerGroup.Remove(selectedCharacter))
+            {
+                Debug.Log("Unknown casualty " + selectedCharacter);
+            }
+        }
+        StartCoroutine(AttackAnimation()); // TODO: move to CombatActions
+    }
+
+    public void SCoroutine() //temp
+    {
+        StartCoroutine(AttackAnimation());
     }
 
     void EndFight()
@@ -189,11 +181,11 @@ public class CombatManager : MonoBehaviour {
         SetSelected(playerGroup[rollCharacter]);
         if (rollAction == 1)
         {
-            Attack();
+            combatActions.StrengthAttack();
         }
     }
 
-    IEnumerator AttackAnimation()
+    IEnumerator AttackAnimation() // TODO: move to CombatAnimator
     {
         CombatButtons.SetActive(false);
         yield return new WaitForSeconds(2);
