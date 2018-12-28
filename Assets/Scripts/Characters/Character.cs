@@ -24,8 +24,16 @@ public class Character : MonoBehaviour
 	private int health;
 	private int nutrition;
 	private int[] stats;
-	private bool defensestance;
-	private Weapon weapon;
+    private int encourage;
+    private float damageReduction;
+    private bool encouraging;
+    private bool stuned;
+    private bool dodging;
+    private bool counterAttacking;
+    private bool provoking;
+    private bool distracting;
+    private Weapon weapon;
+    private List<Button> combatActionButtons;
 
 	void Awake()
 		{
@@ -35,8 +43,10 @@ public class Character : MonoBehaviour
 
 		nutrition = Mathf.RoundToInt(getMaxNutrition() * 0.5f);
 		health = getMaxHealth();
-		defensestance = false;
-		}
+        combatActionButtons = new List<Button>();
+        stuned = false;
+        ResetActiveActions();
+    }
 
 	// Makes the character lose nutrition and, if he is not starving, regenerate health based on passed time.
 	public void updateCharacter(int time)
@@ -48,7 +58,28 @@ public class Character : MonoBehaviour
 			}
 		}
 
-	public string rollName()
+    public void ReRollCharacter()
+    {
+        reRollStats();
+
+        nutrition = getMaxNutrition();
+        health = getMaxHealth();
+        combatActionButtons = new List<Button>();
+        stuned = false;
+        ResetActiveActions();
+    }
+
+    public void ResetActiveActions()
+    {
+        damageReduction = 0;
+        encouraging = false;
+        dodging = false;
+        counterAttacking = false;
+        provoking = false;
+        distracting = false;
+    }
+
+    public string rollName()
 		{
 		const int VOCAL = 0;
 		const int CONSONANT = 1;
@@ -113,7 +144,7 @@ public class Character : MonoBehaviour
 		}
 
 	// Generates new random stats for this character.
-	public void reRollStats()
+	private void reRollStats()
 		{
 		int maxstatboost = 5 - defaultstatboost;
 		int statboostmodifier = 0;
@@ -321,12 +352,47 @@ public class Character : MonoBehaviour
 		return Mathf.Max(Mathf.FloorToInt(stats[stat] * factor), 0);
 		}
 
-	public bool isDefenseStance()
+    public int GetEncourage()
+    {
+        return encourage;
+    }
+
+    public float GetDamageReduction()
 		{
-		return defensestance;
+		return damageReduction;
 		}
 
-	public string getWeaponName()
+    public bool IsEncouraging()
+    {
+        return encouraging;
+    }
+
+    public bool IsStuned()
+    {
+        return stuned;
+    }
+
+    public bool IsDodging()
+    {
+        return dodging;
+    }
+
+    public bool IscounterAttacking()
+    {
+        return counterAttacking;
+    }
+
+    public bool IsProvoking()
+    {
+        return provoking;
+    }
+
+    public bool IsDistracting()
+    {
+        return distracting;
+    }
+
+    public string getWeaponName()
 		{
 		if(weapon != null)
 			{
@@ -350,18 +416,63 @@ public class Character : MonoBehaviour
 			}
 		}
 
+    public List<Button> GetCombatActionButtons()
+    {
+        return combatActionButtons;
+    }
+
 	public void setManager(CharacterManager manager)
 		{
 		this.manager = manager;
 		}
 
-	public void setDefenseStance(bool defensestance)
+    public void SetEncourage(int encourage)
+    {
+        this.encourage = encourage;
+    }
+
+    public void SetDamageReduction(float damageReduction)
 		{
-		this.defensestance = defensestance;
+		this.damageReduction = damageReduction;
 		}
 
-	// Sets the current weapon of the character and returns his old one
-	public Weapon setWeapon(Weapon weapon)
+    public void SetEncouraging(bool encouraging)
+    {
+        this.encouraging = encouraging;
+    }
+
+    public void SetStuned(bool stuned)
+    {
+        this.stuned = stuned;
+    }
+
+    public void SetDodging(bool dodging)
+    {
+        this.dodging = dodging;
+    }
+
+    public void SetCounterAttacking(bool counterAttacking)
+    {
+        this.counterAttacking = counterAttacking;
+    }
+
+    public void SetProvoking(bool provoking)
+    {
+        this.provoking = provoking;
+    }
+
+    public void SetDistracting(bool distracting)
+    {
+        this.distracting = distracting;
+    }
+
+    public void SetCombatActionButtons(List<Button> combatActionButtons)
+    {
+        this.combatActionButtons = combatActionButtons;
+    }
+
+    // Sets the current weapon of the character and returns his old one
+    public Weapon setWeapon(Weapon weapon)
 		{
 		Weapon oldweapon = this.weapon;
 		this.weapon = weapon;

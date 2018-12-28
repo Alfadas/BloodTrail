@@ -161,7 +161,7 @@
 								<Answers>
 									<Answer1>
 										<Text>If you think so. But you will be sorry.</Text>
-										<Chance>100<Chance>
+										<Chance>100</Chance>
 										<Outcome>1</Outcome>
 										<Questions></Questions>
 									</Answer1>

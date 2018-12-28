@@ -280,8 +280,7 @@ public class BuildEncounter : MonoBehaviour
 			if(backCounter <= encounterEnemyCount)
 				{
 				Character newEnemy = backObj.GetComponent<Character>();
-				newEnemy.reRollStats();
-				newEnemy.heal(1000);
+                newEnemy.ReRollCharacter();
 				enemies.Add(newEnemy);
 				}
 			backCounter++;

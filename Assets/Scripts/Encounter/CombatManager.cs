@@ -7,6 +7,7 @@ public class CombatManager : MonoBehaviour {
     [SerializeField] BuildEncounter buildEncounter;
     [SerializeField] CharacterManager characterManager;
 	[SerializeField] CharacterButtonManager characterButtonManager;
+    [SerializeField] CombatButtonManager combatButtonManager;
 	[SerializeField] SoundManager soundManager;
     [SerializeField] CombatActions combatActions;
 	[SerializeField] GameObject fightTutorial;
@@ -24,6 +25,10 @@ public class CombatManager : MonoBehaviour {
     int combatActionCount = 1;
     public bool aiTurn = false;
 	private bool tutorialShown = false;
+    List<Character> enemiesDistracting;
+    List<Character> playerDistracting;
+    List<Character> enemiesProvoking;
+    List<Character> playerProvoking;
 
     public void StartFight()
     {
@@ -36,6 +41,10 @@ public class CombatManager : MonoBehaviour {
         participantsQueue = new Queue<Character>();
         playerGroup = new List<Character>(); // Wasted processing power, See line 29
         participants = new List<Character>();
+        enemiesDistracting = new List<Character>();
+        playerDistracting = new List<Character>();
+        enemiesProvoking = new List<Character>();
+        playerProvoking = new List<Character>();
 
         playerGroup = characterManager.getCharacters();
         enemies = buildEncounter.GetEnemies();
@@ -93,6 +102,7 @@ public class CombatManager : MonoBehaviour {
                 aiTurn = false;
                 currentCharacter.markCharacter(false);
                 CombatButtons.SetActive(true);
+                combatButtonManager.ActivateButtons(currentCharacter);
             }
         }
     }
@@ -116,49 +126,201 @@ public class CombatManager : MonoBehaviour {
         return selectedCharacter;
     }
 
-    public void SetSelected(Character selected)
+    public void SetSelected(Character selected, bool fromPlayer)
     {
         if (selectedCharacter != null)
         {
             selectedCharacter.unmarkCharacter();
         }
-        selectedCharacter = selected;
-        selectedCharacter.markCharacter(true);
-    }
-
-    public void SetSelected(int selected)
-    {
-        if (selectedCharacter != null)
+        if (playerProvoking.Count>0 && !fromPlayer)
         {
-            selectedCharacter.unmarkCharacter();
+            selectedCharacter = playerProvoking[Random.Range(0, playerProvoking.Count)];
         }
-        selectedCharacter = enemies[selected];
+        else if (enemiesProvoking.Count > 0 && fromPlayer)
+        {
+            selectedCharacter = enemiesProvoking[Random.Range(0, enemiesProvoking.Count)];
+        }
+        else
+        {
+            selectedCharacter = selected;
+        }
         selectedCharacter.markCharacter(true);
     }
 
-    public void Attack(int damage, int defensModifier)
+    public void Attack(int damage, float defensModifier, COMBAT_ACTION action)
     {
+        bool denied = false;
+        bool countered = false;
+        bool reflected = false;
         soundManager.playSFX("attack");
         if (selectedCharacter == null || (playerGroup.Contains(selectedCharacter) && !aiTurn))
         {
-            SetSelected(0);
-        }
-        else if (selectedCharacter.isDefenseStance()) // that was not implemented before? well, now I need it for SFX
-        {
-            soundManager.playSFX("parry");
-            damage = Mathf.RoundToInt(damage * 0.5f);
+            SetSelected(enemies[0],true);
         }
 
-        if (selectedCharacter.hurt(damage))
+        if (aiTurn)
         {
-            // Debug.Log(enemies);
-            // Debug.Log("sel: " + selectedCharacter);
-            if (!enemies.Remove(selectedCharacter) && !playerGroup.Remove(selectedCharacter))
+            foreach (Character playerCharacter in playerDistracting)
+            {
+                if (playerCharacter.getStat(Character.STAT_INTELLIGENCE) > currentCharacter.getStat(Character.STAT_INTELLIGENCE))
+                {
+                    if (playerCharacter.getStat(Character.STAT_INTELLIGENCE) > currentCharacter.getStat(Character.STAT_INTELLIGENCE) * 2)
+                    {
+                        reflected = true;
+                    }
+                    denied = true;
+                }
+            }
+        }
+        else if (!aiTurn)
+        {
+            foreach (Character enemy in enemiesDistracting)
+            {
+                if (enemy.getStat(Character.STAT_INTELLIGENCE) > currentCharacter.getStat(Character.STAT_INTELLIGENCE))
+                {
+                    denied = true;
+                    if (enemy.getStat(Character.STAT_INTELLIGENCE) > currentCharacter.getStat(Character.STAT_INTELLIGENCE) * 2)
+                    {
+                        reflected = true;
+                    }
+                }
+            }
+        }
+        if ((selectedCharacter.IsDodging() || selectedCharacter.IscounterAttacking())&& action != COMBAT_ACTION.SwiftAttack)
+        {
+            if (currentCharacter.getStat(Character.STAT_AGILITY) > selectedCharacter.getStat(Character.STAT_AGILITY))
+            {
+                denied = true;
+                if (selectedCharacter.IscounterAttacking())
+                {
+                    countered = true;
+                }
+            }
+        }
+
+        if (reflected)
+        {
+            if (currentCharacter.hurt(damage))
+            {
+                if (!enemies.Remove(currentCharacter) && !playerGroup.Remove(selectedCharacter))
+                {
+                    Debug.Log("Unknown casualty " + selectedCharacter);
+                }
+            }
+        }
+        else if (countered)
+        {
+            if (action == COMBAT_ACTION.HeavyAttack)
+            {
+                combatActions.CounterAttack(2);
+            }
+            else
+            {
+                combatActions.CounterAttack(1);
+            }
+        }
+        else if (!denied)
+        {
+            if (selectedCharacter.GetDamageReduction() > 0) // that was not implemented before? well, now I need it for SFX
+            {
+                soundManager.playSFX("parry");
+                damage = Mathf.RoundToInt(damage * selectedCharacter.GetDamageReduction());
+            }
+            if (selectedCharacter.hurt(damage))
+            {
+                if (!enemies.Remove(selectedCharacter) && !playerGroup.Remove(selectedCharacter))
+                {
+                    Debug.Log("Unknown casualty " + selectedCharacter);
+                }
+            }
+        }
+        else
+        {
+            Debug.LogWarning("Missing Attack condition");
+        }
+
+        if (!countered)
+        {
+            StartCoroutine(AttackAnimation()); // TODO: move to CombatActions
+        }
+    }
+    public void CounterAttack(int damage, float defensModifier)
+    {
+        if (currentCharacter.hurt(damage))
+        {
+            if (!enemies.Remove(currentCharacter) && !playerGroup.Remove(selectedCharacter))
             {
                 Debug.Log("Unknown casualty " + selectedCharacter);
             }
         }
         StartCoroutine(AttackAnimation()); // TODO: move to CombatActions
+    }
+    public void EncourageTeam(int damageBuff)
+    {
+        if (enemies.Contains(currentCharacter))
+        {
+            foreach (Character enemy in enemies)
+            {
+                enemy.SetEncourage(damageBuff);
+            }
+        }
+        else if (playerGroup.Contains(currentCharacter))
+        {
+            foreach (Character playerCharacter in playerGroup)
+            {
+                playerCharacter.SetEncourage(damageBuff);
+            }
+        }
+    }
+    public void ProvokingTeam(bool active)
+    {
+        if (enemies.Contains(currentCharacter))
+        {
+            if (active)
+            {
+                enemiesProvoking.Remove(currentCharacter);
+            }
+            else
+            {
+                enemiesProvoking.Add(currentCharacter);
+            }
+        }
+        else if (playerGroup.Contains(currentCharacter))
+        {
+            if (active)
+            {
+                playerProvoking.Remove(currentCharacter);
+            }
+            else
+            {
+                playerProvoking.Add(currentCharacter);
+            }
+        }
+    }
+    public void DistractingTeam(bool active)
+    {
+        if (enemies.Contains(currentCharacter))
+        {
+            if (active)
+            {
+                enemiesDistracting.Remove(currentCharacter);
+            }
+            else
+            {
+                enemiesDistracting.Add(currentCharacter);
+            }
+        }
+        else if (playerGroup.Contains(currentCharacter))
+        {
+            if (active)
+            {
+                playerDistracting.Remove(currentCharacter);
+            }
+            else
+            {
+                playerDistracting.Add(currentCharacter);
+            }
+        }
     }
 
     public void SCoroutine() //temp
@@ -178,10 +340,10 @@ public class CombatManager : MonoBehaviour {
         int rollCharacter;
         rollAction = Random.Range(1, combatActionCount + 1);
         rollCharacter = Random.Range(0, playerGroup.Count);
-        SetSelected(playerGroup[rollCharacter]);
+        SetSelected(playerGroup[rollCharacter],false);
         if (rollAction == 1)
         {
-            combatActions.StrengthAttack();
+            combatActions.SimpleAttack();
         }
     }
 
