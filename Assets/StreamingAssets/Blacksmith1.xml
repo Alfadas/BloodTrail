@@ -1,0 +1,1649 @@
+<Starts>
+	<Start1>
+		<Text> BLACKSMITH: Welcome, welcome. What can I do for you?</Text>
+		<Chance>50</Chance>
+		<Outcome>0</Outcome>
+		<Questions>
+			<Question1>
+				<Text>We would like to have some weapons. What do you have to offer?</Text>
+					<Answers>
+						<Answer1>
+              <Text>I have to offer:</Text>
+							<Chance>100</Chance>
+							<Outcome>0</Outcome>
+							<Questions>
+								<Question1>
+									<Text>a dagger</Text>
+										<Answers>
+											<Answer1>
+												<Text> Here you are. Have a nice journey!</Text>
+												<Chance>75</Chance>
+												<Outcome>1</Outcome>
+												<Questions></Questions>
+											</Answer1>
+											<Answer2>
+												<Text> I am very sorry. I missed that I sold it already</Text>
+												<Chance>25</Chance>
+												<Outcome>0</Outcome>
+												<Questions>
+													<Question1>
+														<Text>We are sorry. This was the only thing we needed.</Text>
+															<Answers>
+																<Answer1>
+																	<Text>I am really sorry. Have a nice journey!</Text>
+																	<Chance>100</Chance>
+																	<Outcome>1</Outcome>
+																	<Questions></Questions>
+																</Answer1>
+															</Answers>
+													</Question1>
+													<Question2>
+														<Text>We also need a battle axe.</Text>
+																<Answers>
+																	<Answer1>
+																		<Text>Here you are! Stay safe.</Text>
+																		<Chance>100</Chance>
+																		<Outcome>1</Outcome>
+																		<Questions></Questions>
+																	</Answer1>
+																</Answers>
+													</Question2>
+													<Question3>
+														<Text>We are searching for a sword.</Text>
+																<Answers>
+																	<Answer1>
+																		<Text>This is the best I can give you. Bye.</Text>
+																		<Chance>100</Chance>
+																		<Outcome>1</Outcome>
+																		<Questions></Questions>
+																	</Answer1>
+																</Answers>
+													</Question3>
+													<Question4>
+														<Text>Do you still have your small sword?</Text>
+																<Answers>
+																	<Answer1>
+																		<Text>Let me look... Here it is. Come again if you need something.</Text>
+																		<Chance>100</Chance>
+																		<Outcome>1</Outcome>
+																		<Questions></Questions>
+																	</Answer1>
+																</Answers>
+													</Question4>
+												</Questions>
+											</Answer2>
+										</Answers>
+								</Question1>
+								<Question2>
+									<Text>a small sword</Text>
+										<Answers>
+											<Answer1>
+												<Text> Here you are. Have a nice journey!</Text>
+												<Chance>75</Chance>
+												<Outcome>1</Outcome>
+												<Questions></Questions>
+											</Answer1>
+											<Answer2>
+												<Text> I am very sorry. I missed that I sold it already</Text>
+												<Chance>25</Chance>
+												<Outcome>0</Outcome>
+												<Questions>
+													<Question1>
+														<Text>We are sorry. This was the only thing we needed.</Text>
+															<Answers>
+																<Answer1>
+																	<Text>I am really sorry. Have a nice journey!</Text>
+																	<Chance>100</Chance>
+																	<Outcome>1</Outcome>
+																	<Questions></Questions>
+																</Answer1>
+															</Answers>
+													</Question1>
+													<Question2>
+														<Text>We also need a dagger.</Text>
+																<Answers>
+																	<Answer1>
+																		<Text>Here you are! Stay safe.</Text>
+																		<Chance>100</Chance>
+																		<Outcome>1</Outcome>
+																		<Questions></Questions>
+																	</Answer1>
+																</Answers>
+													</Question2>
+													<Question3>
+														<Text>We are searching for a sword.</Text>
+																<Answers>
+																	<Answer1>
+																		<Text>This is the best I can give you. Bye.</Text>
+																		<Chance>100</Chance>
+																		<Outcome>1</Outcome>
+																		<Questions></Questions>
+																	</Answer1>
+																</Answers>
+													</Question3>
+													<Question4>
+														<Text>Do you still have a battle axe?</Text>
+																<Answers>
+																	<Answer1>
+																		<Text>Let me look... Here it is. Come again if you need something.</Text>
+																		<Chance>100</Chance>
+																		<Outcome>1</Outcome>
+																		<Questions></Questions>
+																	</Answer1>
+																</Answers>
+													</Question4>
+												</Questions>
+											</Answer2>
+										</Answers>
+								</Question2>
+								<Question3>
+									<Text>a sword</Text>
+										<Answers>
+											<Answer1>
+												<Text> Here you are. Have a nice journey!</Text>
+												<Chance>75</Chance>
+												<Outcome>1</Outcome>
+												<Questions></Questions>
+											</Answer1>
+											<Answer2>
+												<Text> I am very sorry. I missed that I sold it already</Text>
+												<Chance>25</Chance>
+												<Outcome>0</Outcome>
+												<Questions>
+													<Question1>
+														<Text>We are sorry. This was the only thing we needed.</Text>
+															<Answers>
+																<Answer1>
+																	<Text>I am really sorry. Have a nice journey!</Text>
+																	<Chance>100</Chance>
+																	<Outcome>1</Outcome>
+																	<Questions></Questions>
+																</Answer1>
+															</Answers>
+													</Question1>
+													<Question2>
+														<Text>We also need a dagger.</Text>
+																<Answers>
+																	<Answer1>
+																		<Text>Here you are! Stay safe.</Text>
+																		<Chance>100</Chance>
+																		<Outcome>1</Outcome>
+																		<Questions></Questions>
+																	</Answer1>
+																</Answers>
+													</Question2>
+													<Question3>
+														<Text>We are searching for a battle axe.</Text>
+																<Answers>
+																	<Answer1>
+																		<Text>This is the best I can give you. Bye.</Text>
+																		<Chance>100</Chance>
+																		<Outcome>1</Outcome>
+																		<Questions></Questions>
+																	</Answer1>
+																</Answers>
+													</Question3>
+													<Question4>
+														<Text>Do you still have your small sword?</Text>
+																<Answers>
+																	<Answer1>
+																		<Text>Let me look... Here it is. Come again if you need something.</Text>
+																		<Chance>100</Chance>
+																		<Outcome>1</Outcome>
+																		<Questions></Questions>
+																	</Answer1>
+																</Answers>
+													</Question4>
+												</Questions>
+											</Answer2>
+										</Answers>
+								</Question3>
+								<Question4>
+									<Text>a battle axe</Text>
+										<Answers>
+											<Answer1>
+												<Text> Here you are. Have a nice journey!</Text>
+												<Chance>75</Chance>
+												<Outcome>1</Outcome>
+												<Questions></Questions>
+											</Answer1>
+											<Answer2>
+												<Text> I am very sorry. I missed that I sold it already</Text>
+												<Chance>25</Chance>
+												<Outcome>0</Outcome>
+												<Questions>
+													<Question1>
+														<Text>We are sorry. This was the only thing we needed.</Text>
+															<Answers>
+																<Answer1>
+																	<Text>I am really sorry. Have a nice journey!</Text>
+																	<Chance>100</Chance>
+																	<Outcome>1</Outcome>
+																	<Questions></Questions>
+																</Answer1>
+															</Answers>
+													</Question1>
+													<Question2>
+														<Text>We also need a dagger.</Text>
+																<Answers>
+																	<Answer1>
+																		<Text>Here you are! Stay safe.</Text>
+																		<Chance>100</Chance>
+																		<Outcome>1</Outcome>
+																		<Questions></Questions>
+																	</Answer1>
+																</Answers>
+													</Question2>
+													<Question3>
+														<Text>We are searching for a sword.</Text>
+																<Answers>
+																	<Answer1>
+																		<Text>This is the best I can give you. Bye.</Text>
+																		<Chance>100</Chance>
+																		<Outcome>1</Outcome>
+																		<Questions></Questions>
+																	</Answer1>
+																</Answers>
+													</Question3>
+													<Question4>
+														<Text>Do you still have your small sword?</Text>
+																<Answers>
+																	<Answer1>
+																		<Text>Let me look... Here it is. Come again if you need something.</Text>
+																		<Chance>100</Chance>
+																		<Outcome>1</Outcome>
+																		<Questions></Questions>
+																	</Answer1>
+																</Answers>
+													</Question4>
+												</Questions>
+											</Answer2>
+										</Answers>
+								</Question4>
+							</Questions>
+						</Answer1>
+					</Answers>
+			</Question1>
+			<Question2>
+				<Text> We would like to have armor. Do you sell them?</Text>
+				<Answers>
+					<Answer1>
+						<Text> I am very sorry but I only make weapons.</Text>
+						<Chance>25</Chance>
+						<Outcome>0</Outcome>
+						<Questions>
+							<Question1>
+								<Text> Which weapons do you have?</Text>
+									<Answers>
+										<Answer1>
+											<Text>I have to offer:</Text>
+											<Chance>100</Chance>
+											<Outcome>0</Outcome>
+											<Questions>
+												<Question1>
+													<Text>a dagger</Text>
+														<Answers>
+															<Answer1>
+																<Text> Here you are. Have a nice journey!</Text>
+																<Chance>75</Chance>
+																<Outcome>1</Outcome>
+																<Questions></Questions>
+															</Answer1>
+															<Answer2>
+																<Text> I am very sorry. I missed that I sold it already</Text>
+																<Chance>25</Chance>
+																<Outcome>0</Outcome>
+																<Questions>
+																	<Question1>
+																		<Text>We are sorry. This was the only thing we needed.</Text>
+																			<Answers>
+																				<Answer1>
+																					<Text>I am really sorry. Have a nice journey!</Text>
+																					<Chance>100</Chance>
+																					<Outcome>1</Outcome>
+																					<Questions></Questions>
+																				</Answer1>
+																			</Answers>
+																	</Question1>
+																	<Question2>
+																		<Text>We also need a battle axe.</Text>
+																				<Answers>
+																					<Answer1>
+																						<Text>Here you are! Stay safe.</Text>
+																						<Chance>100</Chance>
+																						<Outcome>1</Outcome>
+																						<Questions></Questions>
+																					</Answer1>
+																				</Answers>
+																	</Question2>
+																	<Question3>
+																		<Text>We are searching for a sword.</Text>
+																				<Answers>
+																					<Answer1>
+																						<Text>This is the best I can give you. Bye.</Text>
+																						<Chance>100</Chance>
+																						<Outcome>1</Outcome>
+																						<Questions></Questions>
+																					</Answer1>
+																				</Answers>
+																	</Question3>
+																	<Question4>
+																		<Text>Do you still have your small sword?</Text>
+																				<Answers>
+																					<Answer1>
+																						<Text>Let me look... Here it is. Come again if you need something.</Text>
+																						<Chance>100</Chance>
+																						<Outcome>1</Outcome>
+																						<Questions></Questions>
+																					</Answer1>
+																				</Answers>
+																	</Question4>
+																</Questions>
+															</Answer2>
+														</Answers>
+												</Question1>
+												<Question2>
+													<Text>a small sword</Text>
+														<Answers>
+															<Answer1>
+																<Text> Here you are. Have a nice journey!</Text>
+																<Chance>75</Chance>
+																<Outcome>1</Outcome>
+																<Questions></Questions>
+															</Answer1>
+															<Answer2>
+																<Text> I am very sorry. I missed that I sold it already</Text>
+																<Chance>25</Chance>
+																<Outcome>0</Outcome>
+																<Questions>
+																	<Question1>
+																		<Text>We are sorry. This was the only thing we needed.</Text>
+																			<Answers>
+																				<Answer1>
+																					<Text>I am really sorry. Have a nice journey!</Text>
+																					<Chance>100</Chance>
+																					<Outcome>1</Outcome>
+																					<Questions></Questions>
+																				</Answer1>
+																			</Answers>
+																	</Question1>
+																	<Question2>
+																		<Text>We also need a dagger.</Text>
+																				<Answers>
+																					<Answer1>
+																						<Text>Here you are! Stay safe.</Text>
+																						<Chance>100</Chance>
+																						<Outcome>1</Outcome>
+																						<Questions></Questions>
+																					</Answer1>
+																				</Answers>
+																	</Question2>
+																	<Question3>
+																		<Text>We are searching for a sword.</Text>
+																				<Answers>
+																					<Answer1>
+																						<Text>This is the best I can give you. Bye.</Text>
+																						<Chance>100</Chance>
+																						<Outcome>1</Outcome>
+																						<Questions></Questions>
+																					</Answer1>
+																				</Answers>
+																	</Question3>
+																	<Question4>
+																		<Text>Do you still have a battle axe?</Text>
+																				<Answers>
+																					<Answer1>
+																						<Text>Let me look... Here it is. Come again if you need something.</Text>
+																						<Chance>100</Chance>
+																						<Outcome>1</Outcome>
+																						<Questions></Questions>
+																					</Answer1>
+																				</Answers>
+																	</Question4>
+																</Questions>
+															</Answer2>
+														</Answers>
+												</Question2>
+												<Question3>
+													<Text>a sword</Text>
+														<Answers>
+															<Answer1>
+																<Text> Here you are. Have a nice journey!</Text>
+																<Chance>75</Chance>
+																<Outcome>1</Outcome>
+																<Questions></Questions>
+															</Answer1>
+															<Answer2>
+																<Text> I am very sorry. I missed that I sold it already</Text>
+																<Chance>25</Chance>
+																<Outcome>0</Outcome>
+																<Questions>
+																	<Question1>
+																		<Text>We are sorry. This was the only thing we needed.</Text>
+																			<Answers>
+																				<Answer1>
+																					<Text>I am really sorry. Have a nice journey!</Text>
+																					<Chance>100</Chance>
+																					<Outcome>1</Outcome>
+																					<Questions></Questions>
+																				</Answer1>
+																			</Answers>
+																	</Question1>
+																	<Question2>
+																		<Text>We also need a dagger.</Text>
+																				<Answers>
+																					<Answer1>
+																						<Text>Here you are! Stay safe.</Text>
+																						<Chance>100</Chance>
+																						<Outcome>1</Outcome>
+																						<Questions></Questions>
+																					</Answer1>
+																				</Answers>
+																	</Question2>
+																	<Question3>
+																		<Text>We are searching for a battle axe.</Text>
+																				<Answers>
+																					<Answer1>
+																						<Text>This is the best I can give you. Bye.</Text>
+																						<Chance>100</Chance>
+																						<Outcome>1</Outcome>
+																						<Questions></Questions>
+																					</Answer1>
+																				</Answers>
+																	</Question3>
+																	<Question4>
+																		<Text>Do you still have your small sword?</Text>
+																				<Answers>
+																					<Answer1>
+																						<Text>Let me look... Here it is. Come again if you need something.</Text>
+																						<Chance>100</Chance>
+																						<Outcome>1</Outcome>
+																						<Questions></Questions>
+																					</Answer1>
+																				</Answers>
+																	</Question4>
+																</Questions>
+															</Answer2>
+														</Answers>
+												</Question3>
+												<Question4>
+													<Text>a battle axe</Text>
+														<Answers>
+															<Answer1>
+																<Text> Here you are. Have a nice journey!</Text>
+																<Chance>75</Chance>
+																<Outcome>1</Outcome>
+																<Questions></Questions>
+															</Answer1>
+															<Answer2>
+																<Text> I am very sorry. I missed that I sold it already</Text>
+																<Chance>25</Chance>
+																<Outcome>0</Outcome>
+																<Questions>
+																	<Question1>
+																		<Text>We are sorry. This was the only thing we needed.</Text>
+																			<Answers>
+																				<Answer1>
+																					<Text>I am really sorry. Have a nice journey!</Text>
+																					<Chance>100</Chance>
+																					<Outcome>1</Outcome>
+																					<Questions></Questions>
+																				</Answer1>
+																			</Answers>
+																	</Question1>
+																	<Question2>
+																		<Text>We also need a dagger.</Text>
+																				<Answers>
+																					<Answer1>
+																						<Text>Here you are! Stay safe.</Text>
+																						<Chance>100</Chance>
+																						<Outcome>1</Outcome>
+																						<Questions></Questions>
+																					</Answer1>
+																				</Answers>
+																	</Question2>
+																	<Question3>
+																		<Text>We are searching for a sword.</Text>
+																				<Answers>
+																					<Answer1>
+																						<Text>This is the best I can give you. Bye.</Text>
+																						<Chance>100</Chance>
+																						<Outcome>1</Outcome>
+																						<Questions></Questions>
+																					</Answer1>
+																				</Answers>
+																	</Question3>
+																	<Question4>
+																		<Text>Do you still have your small sword?</Text>
+																				<Answers>
+																					<Answer1>
+																						<Text>Let me look... Here it is. Come again if you need something.</Text>
+																						<Chance>100</Chance>
+																						<Outcome>1</Outcome>
+																						<Questions></Questions>
+																					</Answer1>
+																				</Answers>
+																	</Question4>
+																</Questions>
+															</Answer2>
+														</Answers>
+												</Question4>
+											</Questions>
+										</Answer1>
+									</Answers>
+							</Question1>
+						</Questions>
+					</Answer1>
+					<Answer2>
+						<Text>I have to offer:</Text>
+						<Chance>75</Chance>
+						<Outcome>0</Outcome>
+						<Questions>
+							<Question1>
+								<Text> cloth armor</Text>
+								<Answers>
+									<Answer1>
+										<Text> This will fit. Now you will be protected. Have a nice day.</Text>
+										<Chance> 100</Chance>
+										<Outcome>1</Outcome>
+										<Questions></Questions>
+									</Answer1>
+								</Answers>
+							</Question1>
+							<Question2>
+								<Text> plate armor</Text>
+									<Answers>
+										<Answer1>
+											<Text> This will fit. Now you will be protected. Have a nice day.</Text>
+											<Chance> 100</Chance>
+											<Outcome>1</Outcome>
+											<Questions></Questions>
+										</Answer1>
+									</Answers>
+							</Question2>
+						</Questions>
+					</Answer2>
+				</Answers>
+			</Question2>
+      <Question3>
+        <Text>Thank you very much, but we have everything we need.</Text>
+        <Answers>
+          <Answer1>
+            <Text>Oh... Have a nice day.</Text>
+            <Chance>100</Chance>
+            <Outcome>1</Outcome>
+            <Questions></Questions>
+          </Answer1>
+        </Answers>
+      </Question3>
+		</Questions>
+	</Start1>
+	<Start2>
+		<Text> BLACKSMITH: Welcome! We have some special offers! Get your equipment before we close!</Text>
+		<Chance>25</Chance>
+		<Outcome>0</Outcome>
+		<Questions>
+			<Question1>
+				<Text>Are you closing your shop because of the plague?</Text>
+					<Answers>
+						<Answer1>
+							<Text>Yes! We need the money for our journey.</Text>
+							<Chance>65</Chance>
+							<Outcome>0</Outcome>
+							<Questions>
+								<Question1>
+									<Text> What to you have to offer?</Text>
+											<Answers>
+												<Answer1>
+													<Text>I have to offer:</Text>
+													<Chance>100</Chance>
+													<Outcome>0</Outcome>
+													<Questions>
+														<Question1>
+															<Text>a dagger</Text>
+																<Answers>
+																	<Answer1>
+																		<Text> Here you are. Have a nice journey!</Text>
+																		<Chance>75</Chance>
+																		<Outcome>1</Outcome>
+																		<Questions></Questions>
+																	</Answer1>
+																	<Answer2>
+																		<Text> I am very sorry. I missed that I sold it already</Text>
+																		<Chance>25</Chance>
+																		<Outcome>0</Outcome>
+																		<Questions>
+																			<Question1>
+																				<Text>We are sorry. This was the only thing we needed.</Text>
+																					<Answers>
+																						<Answer1>
+																							<Text>I am really sorry. Have a nice journey!</Text>
+																							<Chance>100</Chance>
+																							<Outcome>1</Outcome>
+																							<Questions></Questions>
+																						</Answer1>
+																					</Answers>
+																			</Question1>
+																			<Question2>
+																				<Text>We also need a battle axe.</Text>
+																						<Answers>
+																							<Answer1>
+																								<Text>Here you are! Stay safe.</Text>
+																								<Chance>100</Chance>
+																								<Outcome>1</Outcome>
+																								<Questions></Questions>
+																							</Answer1>
+																						</Answers>
+																			</Question2>
+																			<Question3>
+																				<Text>We are searching for a sword.</Text>
+																						<Answers>
+																							<Answer1>
+																								<Text>This is the best I can give you. Bye.</Text>
+																								<Chance>100</Chance>
+																								<Outcome>1</Outcome>
+																								<Questions></Questions>
+																							</Answer1>
+																						</Answers>
+																			</Question3>
+																			<Question4>
+																				<Text>Do you still have your small sword?</Text>
+																						<Answers>
+																							<Answer1>
+																								<Text>Let me look... Here it is. Come again if you need something.</Text>
+																								<Chance>100</Chance>
+																								<Outcome>1</Outcome>
+																								<Questions></Questions>
+																							</Answer1>
+																						</Answers>
+																			</Question4>
+																		</Questions>
+																	</Answer2>
+																</Answers>
+														</Question1>
+														<Question2>
+															<Text>a small sword</Text>
+																<Answers>
+																	<Answer1>
+																		<Text> Here you are. Have a nice journey!</Text>
+																		<Chance>75</Chance>
+																		<Outcome>1</Outcome>
+																		<Questions></Questions>
+																	</Answer1>
+																	<Answer2>
+																		<Text> I am very sorry. I missed that I sold it already</Text>
+																		<Chance>25</Chance>
+																		<Outcome>0</Outcome>
+																		<Questions>
+																			<Question1>
+																				<Text>We are sorry. This was the only thing we needed.</Text>
+																					<Answers>
+																						<Answer1>
+																							<Text>I am really sorry. Have a nice journey!</Text>
+																							<Chance>100</Chance>
+																							<Outcome>1</Outcome>
+																							<Questions></Questions>
+																						</Answer1>
+																					</Answers>
+																			</Question1>
+																			<Question2>
+																				<Text>We also need a dagger.</Text>
+																						<Answers>
+																							<Answer1>
+																								<Text>Here you are! Stay safe.</Text>
+																								<Chance>100</Chance>
+																								<Outcome>1</Outcome>
+																								<Questions></Questions>
+																							</Answer1>
+																						</Answers>
+																			</Question2>
+																			<Question3>
+																				<Text>We are searching for a sword.</Text>
+																						<Answers>
+																							<Answer1>
+																								<Text>This is the best I can give you. Bye.</Text>
+																								<Chance>100</Chance>
+																								<Outcome>1</Outcome>
+																								<Questions></Questions>
+																							</Answer1>
+																						</Answers>
+																			</Question3>
+																			<Question4>
+																				<Text>Do you still have a battle axe?</Text>
+																						<Answers>
+																							<Answer1>
+																								<Text>Let me look... Here it is. Come again if you need something.</Text>
+																								<Chance>100</Chance>
+																								<Outcome>1</Outcome>
+																								<Questions></Questions>
+																							</Answer1>
+																						</Answers>
+																			</Question4>
+																		</Questions>
+																	</Answer2>
+																</Answers>
+														</Question2>
+														<Question3>
+															<Text>a sword</Text>
+																<Answers>
+																	<Answer1>
+																		<Text> Here you are. Have a nice journey!</Text>
+																		<Chance>75</Chance>
+																		<Outcome>1</Outcome>
+																		<Questions></Questions>
+																	</Answer1>
+																	<Answer2>
+																		<Text> I am very sorry. I missed that I sold it already</Text>
+																		<Chance>25</Chance>
+																		<Outcome>0</Outcome>
+																		<Questions>
+																			<Question1>
+																				<Text>We are sorry. This was the only thing we needed.</Text>
+																					<Answers>
+																						<Answer1>
+																							<Text>I am really sorry. Have a nice journey!</Text>
+																							<Chance>100</Chance>
+																							<Outcome>1</Outcome>
+																							<Questions></Questions>
+																						</Answer1>
+																					</Answers>
+																			</Question1>
+																			<Question2>
+																				<Text>We also need a dagger.</Text>
+																						<Answers>
+																							<Answer1>
+																								<Text>Here you are! Stay safe.</Text>
+																								<Chance>100</Chance>
+																								<Outcome>1</Outcome>
+																								<Questions></Questions>
+																							</Answer1>
+																						</Answers>
+																			</Question2>
+																			<Question3>
+																				<Text>We are searching for a battle axe.</Text>
+																						<Answers>
+																							<Answer1>
+																								<Text>This is the best I can give you. Bye.</Text>
+																								<Chance>100</Chance>
+																								<Outcome>1</Outcome>
+																								<Questions></Questions>
+																							</Answer1>
+																						</Answers>
+																			</Question3>
+																			<Question4>
+																				<Text>Do you still have your small sword?</Text>
+																						<Answers>
+																							<Answer1>
+																								<Text>Let me look... Here it is. Come again if you need something.</Text>
+																								<Chance>100</Chance>
+																								<Outcome>1</Outcome>
+																								<Questions></Questions>
+																							</Answer1>
+																						</Answers>
+																			</Question4>
+																		</Questions>
+																	</Answer2>
+																</Answers>
+														</Question3>
+														<Question4>
+															<Text>a battle axe</Text>
+																<Answers>
+																	<Answer1>
+																		<Text> Here you are. Have a nice journey!</Text>
+																		<Chance>75</Chance>
+																		<Outcome>1</Outcome>
+																		<Questions></Questions>
+																	</Answer1>
+																	<Answer2>
+																		<Text> I am very sorry. I missed that I sold it already</Text>
+																		<Chance>25</Chance>
+																		<Outcome>0</Outcome>
+																		<Questions>
+																			<Question1>
+																				<Text>We are sorry. This was the only thing we needed.</Text>
+																					<Answers>
+																						<Answer1>
+																							<Text>I am really sorry. Have a nice journey!</Text>
+																							<Chance>100</Chance>
+																							<Outcome>1</Outcome>
+																							<Questions></Questions>
+																						</Answer1>
+																					</Answers>
+																			</Question1>
+																			<Question2>
+																				<Text>We also need a dagger.</Text>
+																						<Answers>
+																							<Answer1>
+																								<Text>Here you are! Stay safe.</Text>
+																								<Chance>100</Chance>
+																								<Outcome>1</Outcome>
+																								<Questions></Questions>
+																							</Answer1>
+																						</Answers>
+																			</Question2>
+																			<Question3>
+																				<Text>We are searching for a sword.</Text>
+																						<Answers>
+																							<Answer1>
+																								<Text>This is the best I can give you. Bye.</Text>
+																								<Chance>100</Chance>
+																								<Outcome>1</Outcome>
+																								<Questions></Questions>
+																							</Answer1>
+																						</Answers>
+																			</Question3>
+																			<Question4>
+																				<Text>Do you still have your small sword?</Text>
+																						<Answers>
+																							<Answer1>
+																								<Text>Let me look... Here it is. Come again if you need something.</Text>
+																								<Chance>100</Chance>
+																								<Outcome>1</Outcome>
+																								<Questions></Questions>
+																							</Answer1>
+																						</Answers>
+																			</Question4>
+																		</Questions>
+																	</Answer2>
+																</Answers>
+														</Question4>
+													</Questions>
+												</Answer1>
+											</Answers>
+								</Question1>
+								<Question2>
+									<Text>So you also believe this lie! There is no plague!</Text>
+										<Answers>
+											<Answer1>
+												<Text>You bastarts. You want to sacrifice us!</Text>
+												<Chance>50</Chance>
+												<Outcome>2</Outcome>
+												<Questions></Questions>
+											</Answer1>
+											<Answer2>
+												<Text>Oh really? Thank you for your honesty. So I don't have to close my shop. Here, have a dagger  as a gift.</Text>
+												<Chance>50</Chance>
+												<Outcome>5;1</Outcome>
+												<Questions></Questions>
+											</Answer2>
+										</Answers>
+								</Question2>
+								<Question3>
+									<Text>You cowart! A real man would stay.</Text>
+										<Answers>
+											<Answer1>
+												<Text>I would stay, but what about my wife and my child? I want them to life so I need to give up my shop.</Text>
+												<Chance>50</Chance>
+												<Outcome>0</Outcome>
+												<Questions>
+													<Question1>
+														<Text>This is no reason.</Text>
+                            <Answers>
+                              <Answer1>
+                                <Text>I will close my shop now. You need to go.</Text>
+                                <Chance>100</Chance>
+                                <Outcome>1</Outcome>
+                                <Questions></Questions>
+                              </Answer1>
+                            </Answers>
+													</Question1>
+                          <Question2>
+                            <Text> We are sorry. We will help you to sort things out.</Text>
+                            <Answers>
+                              <Answer1>
+                                <Text>This would be very nice.</Text>
+                                <Chance>100</Chance>
+                                <Outcome>0</Outcome>
+                                <Questions>
+                                  <Question1>
+                                    <Text>...</Text>
+                                    <Answers>
+                                      <Answer1>
+                                        <Text>Thank you for your help. Here have this sword as a gift.</Text>
+                                        <Outcome>5;3 </Outcome>
+                                        <Chance>100</Chance>
+                                        <Questions></Questions>
+                                      </Answer1>
+                                    </Answers>
+                                  </Question1>
+                                </Questions>
+                              </Answer1>
+                            </Answers>
+                          </Question2>
+												</Questions>
+											</Answer1>
+											<Answer2>
+												<Text>Don't talk to me like that. Leave my shop!</Text>
+												<Chance>50</Chance>
+												<Outcome>0</Outcome>
+													<Questions>
+														<Question1>
+															<Text>*Stay*</Text>
+																<Answers>
+																	<Text>You really want to stay? After you assulted me?</Text>
+																	<Chance>100</Chance>
+																	<Outcome>2</Outcome>
+																	<Questions></Questions>
+																</Answers>
+														</Question1>
+														<Question2>
+															<Text> *Escape*</Text>
+                              <Answers>
+                                <Answer1>
+                                  <Text>Run, run! Don't let me see you again or you will be very sorry.</Text>
+                                  <Chance>100</Chance>
+                                  <Outcome>1</Outcome>
+                                  <Questions></Questions>
+                                </Answer1>
+                              </Answers>
+														</Question2>
+														<Question3>
+															<Text> We only wanted to test your decision. Don't get so angry at us! Do you want to join us?</Text>
+                              <Answers>
+                                <Answer1>
+                                  <Text> With you? Not in 100 years!Get away.</Text>
+                                  <Chance>98</Chance>
+                                  <Outcome>1</Outcome>
+                                  <Questions></Questions>
+                                </Answer1>
+                                <Answer2>
+                                  <Text>OK. Thank you for the offer.</Text>
+                                  <Chance>2</Chance>
+                                  <Outcome>4</Outcome>
+                                  <Questions></Questions>
+                                </Answer2>
+                              </Answers>
+														</Question3>
+													</Questions>
+											</Answer2>
+										</Answers>
+								</Question3>
+							</Questions>
+						</Answer1>
+						<Answer2>
+							<Text>You know about this plague? Nobody want to believe me!</Text>
+							<Chance>10</Chance>
+							<Outcome>0</Outcome>
+							<Questions>
+								<Question1>
+									<Text>Yes, we are travelling to the next harbour to get away.</Text>
+										<Answers>
+										  <Answer1>
+											<Text> Would you take me with you?</Text>
+											<Chance>100</Chance>
+											<Outcome>0</Outcome>
+											<Questions>
+											  <Question1>
+												<Text>Of course. Pack your things.</Text>
+												<Answers>
+												  <Answer1>
+													<Text> Thank you. Thank you so much.</Text>
+													<Chance>100</Chance>
+													<Outcome>4</Outcome>
+													<Questions></Questions>
+												  </Answer1>
+												</Answers>
+											  </Question1>
+											</Questions>
+										  </Answer1>
+								      <Question2>
+									      <Text>Whoa, sorry but we need to leave. We think you are a litte to panicked.</Text>
+									        <Answers>
+										      <Answer1>
+										        <Text> What,... wait I want ... please... *the group walks away*</Text>
+											      <Chance>100</Chance>
+											      <Outcome>1</Outcome>
+											      <Quesitons></Quesitons>
+										        </Answer1>
+										      </Answers>
+								      </Question2>
+										</Answers>
+								</Question1>
+							</Questions>
+						</Answer2>
+						<Answer3>
+							<Text>What for a plague?</Text>
+							<Chance>25</Chance>
+							<Outcome>0</Outcome>
+							<Questions>
+								<Question1>
+									<Text>We are fleeing from a deadly plaque. A traveller told us that it has killed nearly all of his village.</Text>
+										<Answers>
+                      <Answer1>
+                        <Text>Oh no. This is bad. Hopefully it doesn't come here. I can't leave.</Text>
+                        <Chance>50</Chance>
+                        <Outcome>1</Outcome>
+                        <Questions></Questions>
+                      </Answer1>
+                      <Answer2>
+                        <Text>>You only want discount on my items, or even for free! Get out of my shop and stop telling this lies!</Text>
+                        <Chance>50</Chance>
+                        <Outcome>0</Outcome>
+                        <Questions>
+                          <Question1>
+                            <Text>*Stay></Text>
+                            <Answers>
+                              <Answer1>
+                                <Text> You wanted it this way!</Text>
+                                <Chance>100</Chance>
+                                <Outcome>2</Outcome>
+                                <Quesitons></Quesitons>
+                              </Answer1>
+                            </Answers>
+                          </Question1>
+                          <Question2>
+                            <Text>*Escape*</Text>
+                            <Questions>
+                              <Question1>
+                                <Text>Remember: Stop telling this lie. You will regret it!</Text>
+                                <Chance>100</Chance>
+                                <Outcome>1</Outcome>
+                                <Questions></Questions>
+                              </Question1>
+                            </Questions>
+                          </Question2>
+                        </Questions>
+                      </Answer2>
+										</Answers>
+								</Question1>
+							</Questions>
+						</Answer3>
+					</Answers>
+			</Question1>
+      <Question2>
+        <Text> Oh cool. What do you have to offer?</Text>
+        <Answers>
+          <Answer1>
+              <Text>I have to offer:</Text>
+							<Chance>100</Chance>
+							<Outcome>0</Outcome>
+							<Questions>
+								<Question1>
+									<Text>a dagger</Text>
+										<Answers>
+											<Answer1>
+												<Text> Here you are. Have a nice journey!</Text>
+												<Chance>75</Chance>
+												<Outcome>1</Outcome>
+												<Questions></Questions>
+											</Answer1>
+											<Answer2>
+												<Text> I am very sorry. I missed that I sold it already</Text>
+												<Chance>25</Chance>
+												<Outcome>0</Outcome>
+												<Questions>
+													<Question1>
+														<Text>We are sorry. This was the only thing we needed.</Text>
+															<Answers>
+																<Answer1>
+																	<Text>I am really sorry. Have a nice journey!</Text>
+																	<Chance>100</Chance>
+																	<Outcome>1</Outcome>
+																	<Questions></Questions>
+																</Answer1>
+															</Answers>
+													</Question1>
+													<Question2>
+														<Text>We also need a battle axe.</Text>
+																<Answers>
+																	<Answer1>
+																		<Text>Here you are! Stay safe.</Text>
+																		<Chance>100</Chance>
+																		<Outcome>1</Outcome>
+																		<Questions></Questions>
+																	</Answer1>
+																</Answers>
+													</Question2>
+													<Question3>
+														<Text>We are searching for a sword.</Text>
+																<Answers>
+																	<Answer1>
+																		<Text>This is the best I can give you. Bye.</Text>
+																		<Chance>100</Chance>
+																		<Outcome>1</Outcome>
+																		<Questions></Questions>
+																	</Answer1>
+																</Answers>
+													</Question3>
+													<Question4>
+														<Text>Do you still have your small sword?</Text>
+																<Answers>
+																	<Answer1>
+																		<Text>Let me look... Here it is. Come again if you need something.</Text>
+																		<Chance>100</Chance>
+																		<Outcome>1</Outcome>
+																		<Questions></Questions>
+																	</Answer1>
+																</Answers>
+													</Question4>
+												</Questions>
+											</Answer2>
+										</Answers>
+								</Question1>
+								<Question2>
+									<Text>a small sword</Text>
+										<Answers>
+											<Answer1>
+												<Text> Here you are. Have a nice journey!</Text>
+												<Chance>75</Chance>
+												<Outcome>1</Outcome>
+												<Questions></Questions>
+											</Answer1>
+											<Answer2>
+												<Text> I am very sorry. I missed that I sold it already</Text>
+												<Chance>25</Chance>
+												<Outcome>0</Outcome>
+												<Questions>
+													<Question1>
+														<Text>We are sorry. This was the only thing we needed.</Text>
+															<Answers>
+																<Answer1>
+																	<Text>I am really sorry. Have a nice journey!</Text>
+																	<Chance>100</Chance>
+																	<Outcome>1</Outcome>
+																	<Questions></Questions>
+																</Answer1>
+															</Answers>
+													</Question1>
+													<Question2>
+														<Text>We also need a dagger.</Text>
+																<Answers>
+																	<Answer1>
+																		<Text>Here you are! Stay safe.</Text>
+																		<Chance>100</Chance>
+																		<Outcome>1</Outcome>
+																		<Questions></Questions>
+																	</Answer1>
+																</Answers>
+													</Question2>
+													<Question3>
+														<Text>We are searching for a sword.</Text>
+																<Answers>
+																	<Answer1>
+																		<Text>This is the best I can give you. Bye.</Text>
+																		<Chance>100</Chance>
+																		<Outcome>1</Outcome>
+																		<Questions></Questions>
+																	</Answer1>
+																</Answers>
+													</Question3>
+													<Question4>
+														<Text>Do you still have a battle axe?</Text>
+																<Answers>
+																	<Answer1>
+																		<Text>Let me look... Here it is. Come again if you need something.</Text>
+																		<Chance>100</Chance>
+																		<Outcome>1</Outcome>
+																		<Questions></Questions>
+																	</Answer1>
+																</Answers>
+													</Question4>
+												</Questions>
+											</Answer2>
+										</Answers>
+								</Question2>
+								<Question3>
+									<Text>a sword</Text>
+										<Answers>
+											<Answer1>
+												<Text> Here you are. Have a nice journey!</Text>
+												<Chance>75</Chance>
+												<Outcome>1</Outcome>
+												<Questions></Questions>
+											</Answer1>
+											<Answer2>
+												<Text> I am very sorry. I missed that I sold it already</Text>
+												<Chance>25</Chance>
+												<Outcome>0</Outcome>
+												<Questions>
+													<Question1>
+														<Text>We are sorry. This was the only thing we needed.</Text>
+															<Answers>
+																<Answer1>
+																	<Text>I am really sorry. Have a nice journey!</Text>
+																	<Chance>100</Chance>
+																	<Outcome>1</Outcome>
+																	<Questions></Questions>
+																</Answer1>
+															</Answers>
+													</Question1>
+													<Question2>
+														<Text>We also need a dagger.</Text>
+																<Answers>
+																	<Answer1>
+																		<Text>Here you are! Stay safe.</Text>
+																		<Chance>100</Chance>
+																		<Outcome>1</Outcome>
+																		<Questions></Questions>
+																	</Answer1>
+																</Answers>
+													</Question2>
+													<Question3>
+														<Text>We are searching for a battle axe.</Text>
+																<Answers>
+																	<Answer1>
+																		<Text>This is the best I can give you. Bye.</Text>
+																		<Chance>100</Chance>
+																		<Outcome>1</Outcome>
+																		<Questions></Questions>
+																	</Answer1>
+																</Answers>
+													</Question3>
+													<Question4>
+														<Text>Do you still have your small sword?</Text>
+																<Answers>
+																	<Answer1>
+																		<Text>Let me look... Here it is. Come again if you need something.</Text>
+																		<Chance>100</Chance>
+																		<Outcome>1</Outcome>
+																		<Questions></Questions>
+																	</Answer1>
+																</Answers>
+													</Question4>
+												</Questions>
+											</Answer2>
+										</Answers>
+								</Question3>
+								<Question4>
+									<Text>a battle axe</Text>
+										<Answers>
+											<Answer1>
+												<Text> Here you are. Have a nice journey!</Text>
+												<Chance>75</Chance>
+												<Outcome>1</Outcome>
+												<Questions></Questions>
+											</Answer1>
+											<Answer2>
+												<Text> I am very sorry. I missed that I sold it already</Text>
+												<Chance>25</Chance>
+												<Outcome>0</Outcome>
+												<Questions>
+													<Question1>
+														<Text>We are sorry. This was the only thing we needed.</Text>
+															<Answers>
+																<Answer1>
+																	<Text>I am really sorry. Have a nice journey!</Text>
+																	<Chance>100</Chance>
+																	<Outcome>1</Outcome>
+																	<Questions></Questions>
+																</Answer1>
+															</Answers>
+													</Question1>
+													<Question2>
+														<Text>We also need a dagger.</Text>
+																<Answers>
+																	<Answer1>
+																		<Text>Here you are! Stay safe.</Text>
+																		<Chance>100</Chance>
+																		<Outcome>1</Outcome>
+																		<Questions></Questions>
+																	</Answer1>
+																</Answers>
+													</Question2>
+													<Question3>
+														<Text>We are searching for a sword.</Text>
+																<Answers>
+																	<Answer1>
+																		<Text>This is the best I can give you. Bye.</Text>
+																		<Chance>100</Chance>
+																		<Outcome>1</Outcome>
+																		<Questions></Questions>
+																	</Answer1>
+																</Answers>
+													</Question3>
+													<Question4>
+														<Text>Do you still have your small sword?</Text>
+																<Answers>
+																	<Answer1>
+																		<Text>Let me look... Here it is. Come again if you need something.</Text>
+																		<Chance>100</Chance>
+																		<Outcome>1</Outcome>
+																		<Questions></Questions>
+																	</Answer1>
+																</Answers>
+													</Question4>
+												</Questions>
+											</Answer2>
+										</Answers>
+								</Question4>
+							</Questions>
+						</Answer1>
+        </Answers>
+      </Question2>
+      <Question3>
+        <Text>Thank you. But we need nothing.</Text>
+        <Answers>
+          <Answer1>
+            <Text> Oh ok. Have a nice trip.</Text>
+            <Chance>75</Chance>
+            <Outcome>1</Outcome>
+            <Questions></Questions>
+          </Answer1>
+          <Answer2>
+            <Text>Are my products not good enough for you?</Text>
+            <Chance>25</Chance>
+            <Outcome>0</Outcome>
+            <Questions>
+              <Question1>
+                <Text>They are great, but we can't carry more. </Text>
+                <Answers>
+                  <Answer1>
+                    <Text>Oh I'm sorry. Nice journey.</Text>
+                    <Chance>100</Chance>
+                    <Outcome>1</Outcome>
+                    <Questions></Questions>
+                  </Answer1>
+                </Answers>
+              </Question1>
+              <Question2>
+                <Text>To say it clear: Yes!</Text>
+                <Answers>
+                  <Answer1>
+                    <Text> What the heck! I am the best blacksmith in the whole area! You won't get away with this!</Text>
+                    <Chache>100</Chache>
+                    <Outcome>2</Outcome>
+                    <Questions></Questions>
+                  </Answer1>
+                </Answers>
+              </Question2>
+            </Questions>
+          </Answer2>
+        </Answers>
+      </Question3>
+		</Questions>
+	</Start2>
+  <Start3>
+    <Text> BLACKSMITH: After you robbed me last night you come back?</Text>
+    <Chace>25</Chace>
+    <Outcome>0</Outcome>
+    <Questions>
+      <Question1>
+        <Text>*Escape>*</Text>
+        <Answers>
+          <Answer1>
+            <Text>I will get you!</Text>
+            <Chance>75</Chance>
+            <Outcome>1</Outcome>
+            <Questions></Questions>
+          </Answer1>
+          <Answer2>
+            <Text> As if I would let you escape a second time.</Text>
+            <Chance>25</Chance>
+            <Outcome>2</Outcome>
+            <Questions></Questions>
+          </Answer2>
+        </Answers>
+      </Question1>
+      <Question2>
+        <Text> We have done nothing. Leave us alone.</Text>
+        <Answers>
+          <Answer1>
+            <Text> As if! </Text>
+            <Chance>15</Chance>
+            <Outcome>2</Outcome>
+            <Questions></Questions>
+          </Answer1>
+          <Answer2>
+            <Text>Really? I am sorry. Maybe I should not open my shop today. Come back another time.</Text>
+          <Chance>60</Chance>
+          <Outcome>1</Outcome>
+          <Questions></Questions>
+          </Answer2>
+          <Answer3>
+            <Text> I am sorry. What do you want? I have to offer:</Text>
+            <Questions>
+              <Question1>
+									<Text>a dagger</Text>
+										<Answers>
+											<Answer1>
+												<Text> Here you are. Have a nice journey!</Text>
+												<Chance>75</Chance>
+												<Outcome>1</Outcome>
+												<Questions></Questions>
+											</Answer1>
+											<Answer2>
+												<Text> I am very sorry. I think they robbed it. Is there something else you need?</Text>
+												<Chance>25</Chance>
+												<Outcome>0</Outcome>
+												<Questions>
+													<Question1>
+														<Text>We are sorry. This was the only thing we needed.</Text>
+															<Answers>
+																<Answer1>
+																	<Text>I am really sorry. Have a nice journey!</Text>
+																	<Chance>100</Chance>
+																	<Outcome>1</Outcome>
+																	<Questions></Questions>
+																</Answer1>
+															</Answers>
+													</Question1>
+													<Question2>
+														<Text>We also need a battle axe.</Text>
+																<Answers>
+																	<Answer1>
+																		<Text>Here you are! Stay safe.</Text>
+																		<Chance>100</Chance>
+																		<Outcome>1</Outcome>
+																		<Questions></Questions>
+																	</Answer1>
+																</Answers>
+													</Question2>
+													<Question3>
+														<Text>We are searching for a sword.</Text>
+																<Answers>
+																	<Answer1>
+																		<Text>This is the best I can give you. Bye.</Text>
+																		<Chance>100</Chance>
+																		<Outcome>1</Outcome>
+																		<Questions></Questions>
+																	</Answer1>
+																</Answers>
+													</Question3>
+													<Question4>
+														<Text>Do you still have your small sword?</Text>
+																<Answers>
+																	<Answer1>
+																		<Text>Let me look... Here it is. Come again if you need something.</Text>
+																		<Chance>100</Chance>
+																		<Outcome>1</Outcome>
+																		<Questions></Questions>
+																	</Answer1>
+																</Answers>
+													</Question4>
+												</Questions>
+											</Answer2>
+										</Answers>
+								</Question1>
+								<Question2>
+									<Text>a small sword</Text>
+										<Answers>
+											<Answer1>
+												<Text> Here you are. Have a nice journey!</Text>
+												<Chance>75</Chance>
+												<Outcome>1</Outcome>
+												<Questions></Questions>
+											</Answer1>
+											<Answer2>
+												<Text> I am very sorry. I think they robbed it. Is there something else you need?</Text>
+												<Chance>25</Chance>
+												<Outcome>0</Outcome>
+												<Questions>
+													<Question1>
+														<Text>We are sorry. This was the only thing we needed.</Text>
+															<Answers>
+																<Answer1>
+																	<Text>I am really sorry. Have a nice journey!</Text>
+																	<Chance>100</Chance>
+																	<Outcome>1</Outcome>
+																	<Questions></Questions>
+																</Answer1>
+															</Answers>
+													</Question1>
+													<Question2>
+														<Text>We also need a dagger.</Text>
+																<Answers>
+																	<Answer1>
+																		<Text>Here you are! Stay safe.</Text>
+																		<Chance>100</Chance>
+																		<Outcome>1</Outcome>
+																		<Questions></Questions>
+																	</Answer1>
+																</Answers>
+													</Question2>
+													<Question3>
+														<Text>We are searching for a sword.</Text>
+																<Answers>
+																	<Answer1>
+																		<Text>This is the best I can give you. Bye.</Text>
+																		<Chance>100</Chance>
+																		<Outcome>1</Outcome>
+																		<Questions></Questions>
+																	</Answer1>
+																</Answers>
+													</Question3>
+													<Question4>
+														<Text>Do you still have a battle axe?</Text>
+																<Answers>
+																	<Answer1>
+																		<Text>Let me look... Here it is. Come again if you need something.</Text>
+																		<Chance>100</Chance>
+																		<Outcome>1</Outcome>
+																		<Questions></Questions>
+																	</Answer1>
+																</Answers>
+													</Question4>
+												</Questions>
+											</Answer2>
+										</Answers>
+								</Question2>
+								<Question3>
+									<Text>a sword</Text>
+										<Answers>
+											<Answer1>
+												<Text> Here you are. Have a nice journey!</Text>
+												<Chance>75</Chance>
+												<Outcome>1</Outcome>
+												<Questions></Questions>
+											</Answer1>
+											<Answer2>
+												<Text> I am very sorry. I think they robbed it. Is there something else you need?</Text>
+												<Chance>25</Chance>
+												<Outcome>0</Outcome>
+												<Questions>
+													<Question1>
+														<Text>We are sorry. This was the only thing we needed.</Text>
+															<Answers>
+																<Answer1>
+																	<Text>I am really sorry. Have a nice journey!</Text>
+																	<Chance>100</Chance>
+																	<Outcome>1</Outcome>
+																	<Questions></Questions>
+																</Answer1>
+															</Answers>
+													</Question1>
+													<Question2>
+														<Text>We also need a dagger.</Text>
+																<Answers>
+																	<Answer1>
+																		<Text>Here you are! Stay safe.</Text>
+																		<Chance>100</Chance>
+																		<Outcome>1</Outcome>
+																		<Questions></Questions>
+																	</Answer1>
+																</Answers>
+													</Question2>
+													<Question3>
+														<Text>We are searching for a battle axe.</Text>
+																<Answers>
+																	<Answer1>
+																		<Text>This is the best I can give you. Bye.</Text>
+																		<Chance>100</Chance>
+																		<Outcome>1</Outcome>
+																		<Questions></Questions>
+																	</Answer1>
+																</Answers>
+													</Question3>
+													<Question4>
+														<Text>Do you still have your small sword?</Text>
+																<Answers>
+																	<Answer1>
+																		<Text>Let me look... Here it is. Come again if you need something.</Text>
+																		<Chance>100</Chance>
+																		<Outcome>1</Outcome>
+																		<Questions></Questions>
+																	</Answer1>
+																</Answers>
+													</Question4>
+												</Questions>
+											</Answer2>
+										</Answers>
+								</Question3>
+								<Question4>
+									<Text>a battle axe</Text>
+										<Answers>
+											<Answer1>
+												<Text> Here you are. Have a nice journey!</Text>
+												<Chance>75</Chance>
+												<Outcome>1</Outcome>
+												<Questions></Questions>
+											</Answer1>
+											<Answer2>
+												<Text> I am very sorry. I think they robbed it. Is there something else you need?</Text>
+												<Chance>25</Chance>
+												<Outcome>0</Outcome>
+												<Questions>
+													<Question1>
+														<Text>We are sorry. This was the only thing we needed.</Text>
+															<Answers>
+																<Answer1>
+																	<Text>I am really sorry. Have a nice journey!</Text>
+																	<Chance>100</Chance>
+																	<Outcome>1</Outcome>
+																	<Questions></Questions>
+																</Answer1>
+															</Answers>
+													</Question1>
+													<Question2>
+														<Text>We also need a dagger.</Text>
+																<Answers>
+																	<Answer1>
+																		<Text>Here you are! Stay safe.</Text>
+																		<Chance>100</Chance>
+																		<Outcome>1</Outcome>
+																		<Questions></Questions>
+																	</Answer1>
+																</Answers>
+													</Question2>
+													<Question3>
+														<Text>We are searching for a sword.</Text>
+																<Answers>
+																	<Answer1>
+																		<Text>This is the best I can give you. Bye.</Text>
+																		<Chance>100</Chance>
+																		<Outcome>1</Outcome>
+																		<Questions></Questions>
+																	</Answer1>
+																</Answers>
+													</Question3>
+													<Question4>
+														<Text>Do you still have your small sword?</Text>
+																<Answers>
+																	<Answer1>
+																		<Text>Let me look... Here it is. Come again if you need something.</Text>
+																		<Chance>100</Chance>
+																		<Outcome>1</Outcome>
+																		<Questions></Questions>
+																	</Answer1>
+																</Answers>
+													</Question4>
+												</Questions>
+											</Answer2>
+										</Answers>
+								</Question4>
+							</Questions>
+          </Answer3>
+        </Answers>
+      </Question2>
+    </Questions>
+  </Start3>
+</Starts>

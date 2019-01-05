@@ -1,6 +1,6 @@
 ﻿<Starts>
 	<Start1>
-		<Text>What do you want here? This is our place! Go away, we don't know if you are infected!</Text>
+		<Text>REFUGEE: What do you want here? This is our place! Go away, we don't know if you are infected!</Text>
 		<Chance>50</Chance>
 		<Outcome>0</Outcome>
 		<Questions>
@@ -64,7 +64,7 @@
 		</Questions>
 	</Start1>
 	<Start2>
-		<Text>Come here! Let us talk about our journey and tell storys on the campfire.</Text>
+		<Text>REFUGEE: Come here! Let us talk about our journey and tell storys on the campfire.</Text>
 		<Chance>50</Chance>
 		<Outcome>0</Outcome>
 		<Questions>
