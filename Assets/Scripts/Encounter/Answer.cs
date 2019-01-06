@@ -1,13 +1,14 @@
 ﻿using System.Xml;
+using System.Collections.Generic;
 
 class Answer
 {
     string answer;
     int chance;
-    int outcome;
+    List<int> outcome;
     XmlNode questions;
 
-    public Answer (string answer, int chance, int outcome, XmlNode questions)
+    public Answer (string answer, int chance, List<int> outcome, XmlNode questions)
     {
         this.answer = answer;
         this.chance = chance;
@@ -22,7 +23,7 @@ class Answer
     {
         return chance;
     }
-    public int GetOutcome()
+    public List<int> GetOutcome()
     {
         return outcome;
     }
