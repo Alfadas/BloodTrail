@@ -43,6 +43,12 @@ public enum COMBAT_ACTION
     ProvokeAndDefend,
     Dodge
 }
+public enum COMBAT_BEHAVIOUR
+{
+    Attack,
+    Defend,
+    Buff,
+}
 
 class EncounterEnums
 {

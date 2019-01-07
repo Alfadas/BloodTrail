@@ -215,7 +215,8 @@ public class Character : MonoBehaviour
 	// Displays a marker below a character to mark him as active friend or targeted foe.
 	public void markCharacter(bool foe)
 		{
-		if(foe)
+        marker.SetActive(true);
+        if (foe)
 			{
 			marker.GetComponent<Renderer>().material = foecolor;
 			}
@@ -223,7 +224,6 @@ public class Character : MonoBehaviour
 			{
 			marker.GetComponent<Renderer>().material = friendcolor;
 			}
-		marker.SetActive(true);
 		}
 
 	// Deactivates the marker below the character.

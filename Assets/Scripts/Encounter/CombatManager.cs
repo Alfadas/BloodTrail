@@ -88,21 +88,29 @@ public class CombatManager : MonoBehaviour {
             }
             while (currentCharacter == null);
 
-            if (enemies.Contains(currentCharacter))
+            if (currentCharacter.IsStuned())
             {
-				characterButtonManager.highlightCharacter(null);
-                aiTurn = true;
-                currentCharacter.markCharacter(false);
-                EnemyTurn();
+                currentCharacter.SetStuned(false);
+                EndTurn();
             }
             else
             {
-				soundManager.playSFX("turn");
-				characterButtonManager.highlightCharacter(currentCharacter);
-                aiTurn = false;
-                currentCharacter.markCharacter(false);
-                CombatButtons.SetActive(true);
-                combatButtonManager.ActivateButtons(currentCharacter);
+                if (enemies.Contains(currentCharacter))
+                {
+                    characterButtonManager.highlightCharacter(null);
+                    aiTurn = true;
+                    currentCharacter.markCharacter(false);
+                    EnemyTurn();
+                }
+                else
+                {
+                    soundManager.playSFX("turn");
+                    characterButtonManager.highlightCharacter(currentCharacter);
+                    aiTurn = false;
+                    currentCharacter.markCharacter(false);
+                    CombatButtons.SetActive(true);
+                    combatButtonManager.ActivateButtons(currentCharacter);
+                }
             }
         }
     }
@@ -226,8 +234,13 @@ public class CombatManager : MonoBehaviour {
                 soundManager.playSFX("parry");
                 damage = Mathf.RoundToInt(damage * selectedCharacter.GetDamageReduction());
             }
+            if (action == COMBAT_ACTION.Kick)
+            {
+                selectedCharacter.SetStuned(true);
+            }
             if (selectedCharacter.hurt(damage))
             {
+                selectedCharacter = null;
                 if (!enemies.Remove(selectedCharacter) && !playerGroup.Remove(selectedCharacter))
                 {
                     Debug.Log("Unknown casualty " + selectedCharacter);

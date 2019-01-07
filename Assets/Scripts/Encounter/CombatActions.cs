@@ -78,7 +78,6 @@ public class CombatActions : MonoBehaviour
     }
     public void CounterAttack(int attackMulti)
     {
-        Character currentCharacter = combatManager.GetCurrentCharecter();
         Character selectedCharacter = combatManager.GetSelectedCharecter();
 
         int damage = Mathf.RoundToInt(selectedCharacter.getStat(Character.STAT_AGILITY) * counterAttackAgiMulti) + selectedCharacter.getWeaponDamage() + selectedCharacter.GetEncourage();
