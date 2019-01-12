@@ -21,22 +21,6 @@ public class CombatButtonManager : MonoBehaviour
     [SerializeField] Button dodgeBt;
     [SerializeField] Button encourageBt;
     [SerializeField] Button distractBt;
-    [Header("Stat Mins")]
-    [SerializeField] int simpleAttackStrMin;
-    [SerializeField] int heavyAttackStrMin;
-    [SerializeField] int swiftAttackAgiMin;
-    [SerializeField] int weackpointAttackStrMin;
-    [SerializeField] int weackpointAttackIntMin;
-    [SerializeField] int kickStrMin;
-    [SerializeField] int kickAgiMin;
-    [SerializeField] int counterAttackAgiMin;
-    [SerializeField] int defendEndMin;
-    [SerializeField] int provokeChaMin;
-    [SerializeField] int dodgeAgiMin;
-    [SerializeField] int dodgeIntMin;
-    [SerializeField] int encourageChaMin;
-    [SerializeField] int encourageIntMin;
-    [SerializeField] int distractIntMin;
 
     public void ActivateButtons(Character currentCharacter)
     {
@@ -71,7 +55,7 @@ public class CombatButtonManager : MonoBehaviour
         int intelligence = currentCharacter.getStat(Character.STAT_INTELLIGENCE);
         int strength = currentCharacter.getStat(Character.STAT_STRENGTH);
 
-        if (agility < swiftAttackAgiMin && strength < simpleAttackStrMin)
+        if (agility < CombatActions.EASY_STAT_MIN && strength < CombatActions.EASY_STAT_MIN)
         {
             if (agility > strength)
             {
@@ -82,31 +66,31 @@ public class CombatButtonManager : MonoBehaviour
                 combatActionButtons.Add(simpleAttackBt);
             }
         }
-        if (strength >= simpleAttackStrMin)
+        if (strength >= CombatActions.EASY_STAT_MIN)
         {
             combatActionButtons.Add(simpleAttackBt);
         }
-        if (agility >= swiftAttackAgiMin)
+        if (agility >= CombatActions.EASY_STAT_MIN)
         {
             combatActionButtons.Add(swiftAttackBt);
         }
-        if (strength >= heavyAttackStrMin)
+        if (strength >= CombatActions.MEDIUM_STAT_MIN)
         {
             combatActionButtons.Add(heavyAttackBt);
         }
-        if (intelligence >= weackpointAttackIntMin && strength >= weackpointAttackStrMin)
+        if (intelligence >= CombatActions.MEDIUM_STAT_MIN && strength >= CombatActions.EASY_STAT_MIN)
         {
             combatActionButtons.Add(weackpointAttackBt);
         }
-        if (strength >= kickStrMin && agility >= kickAgiMin)
+        if (strength >= CombatActions.MEDIUM_STAT_MIN && agility >= CombatActions.MEDIUM_STAT_MIN)
         {
             combatActionButtons.Add(kickBt);
         }
-        if (agility >= counterAttackAgiMin)
+        if (agility >= CombatActions.MEDIUM_STAT_MIN)
         {
             combatActionButtons.Add(counterAttackStanceBt);
         }
-        if (endurance >= defendEndMin)
+        if (endurance >= CombatActions.MEDIUM_STAT_MIN)
         {
             combatActionButtons.Add(DefendBt);
         }
@@ -114,26 +98,26 @@ public class CombatButtonManager : MonoBehaviour
         {
             combatActionButtons.Add(tryToDefendBt);
         }
-        if (charisma >= provokeChaMin)
+        if (charisma >= CombatActions.MEDIUM_STAT_MIN)
         {
-            if (endurance >= defendEndMin)
+            if (endurance >= CombatActions.MEDIUM_STAT_MIN)
             {
                 combatActionButtons.Add(provokeAndDefendBt);
             }
-            if (agility >= counterAttackAgiMin)
+            if (agility >= CombatActions.MEDIUM_STAT_MIN)
             {
                 combatActionButtons.Add(provokeAndCounterBt);
             }
         }
-        if (agility >= dodgeAgiMin && intelligence >= distractIntMin)
+        if (agility >= CombatActions.MEDIUM_STAT_MIN && intelligence >= CombatActions.MEDIUM_STAT_MIN)
         {
             combatActionButtons.Add(dodgeBt);
         }
-        if (charisma >= encourageChaMin && intelligence >= encourageIntMin)
+        if (charisma >= CombatActions.MEDIUM_STAT_MIN && intelligence >= CombatActions.MEDIUM_STAT_MIN)
         {
             combatActionButtons.Add(encourageBt);
         }
-        if (intelligence >= distractIntMin)
+        if (intelligence >= CombatActions.EASY_STAT_MIN)
         {
             combatActionButtons.Add(distractBt);
         }

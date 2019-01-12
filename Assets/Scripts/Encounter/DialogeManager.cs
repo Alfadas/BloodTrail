@@ -98,7 +98,7 @@ public class DialogeManager : MonoBehaviour {
         {
             for (int i = 0; i < answersNode.ChildNodes.Count; i++)
             {
-                string[] outcomeStrings = answersNode.ChildNodes[i].ChildNodes[0].InnerXml.Split(';');
+                string[] outcomeStrings = answersNode.ChildNodes[i].ChildNodes[2].InnerXml.Split(';');
                 List<int> outcomes = new List<int>();
                 foreach(string outcome in outcomeStrings)
                 {
@@ -110,7 +110,7 @@ public class DialogeManager : MonoBehaviour {
         }
         else
         {
-            string[] outcomeStrings = answersNode.ChildNodes[0].ChildNodes[0].InnerXml.Split(';');
+            string[] outcomeStrings = answersNode.ChildNodes[0].ChildNodes[2].InnerXml.Split(';');
             List<int> outcomes = new List<int>();
             foreach (string outcome in outcomeStrings)
             {

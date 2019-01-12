@@ -119,8 +119,11 @@ public class CombatManager : MonoBehaviour {
     {
 		characterButtonManager.highlightCharacter(null);
         currentCharacter.unmarkCharacter();
-        participantsQueue.Enqueue(currentCharacter);
-        currentCharacter = null;
+        if (currentCharacter != null)
+        {
+            participantsQueue.Enqueue(currentCharacter);
+            currentCharacter = null;
+        }
         NextTurn();
     }
 
@@ -240,11 +243,11 @@ public class CombatManager : MonoBehaviour {
             }
             if (selectedCharacter.hurt(damage))
             {
-                selectedCharacter = null;
                 if (!enemies.Remove(selectedCharacter) && !playerGroup.Remove(selectedCharacter))
                 {
                     Debug.Log("Unknown casualty " + selectedCharacter);
                 }
+                selectedCharacter = null;
             }
         }
         else
@@ -265,6 +268,7 @@ public class CombatManager : MonoBehaviour {
             {
                 Debug.Log("Unknown casualty " + selectedCharacter);
             }
+            currentCharacter = null;
         }
         StartCoroutine(AttackAnimation()); // TODO: move to CombatActions
     }

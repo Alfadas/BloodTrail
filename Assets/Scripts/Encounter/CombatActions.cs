@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class CombatActions : MonoBehaviour
 {
+    public const int EASY_STAT_MIN = 50;
+    public const int MEDIUM_STAT_MIN = 65;
+    public const int HARD_STAT_MIN = 80;
+
     [SerializeField] CombatManager combatManager;
     [Header("Simple Attack")]
     [SerializeField] float simpleAttackStrMulti = 0.4f;
