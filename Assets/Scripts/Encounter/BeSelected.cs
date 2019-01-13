@@ -17,7 +17,7 @@ public class BeSelected : MonoBehaviour {
     {
         if (!combatManager.aiTurn)
         {
-            combatManager.SetSelected(character);
+            combatManager.SetSelected(character, true);
         }
     }
 }

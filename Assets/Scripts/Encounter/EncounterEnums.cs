@@ -27,6 +27,28 @@ public enum ENCOUNTER_OUTCOME
     Loot,
     Dialogue
 }
+public enum COMBAT_ACTION
+{
+    SimpleAttack,
+    HeavyAttack,
+    SwiftAttack,
+    CounterAttack,
+    Distract,
+    TryToDefend,
+    DefensiveStance,
+    Kick,
+    WeakpointAttack,
+    Encourage,
+    ProvokeAndCounter,
+    ProvokeAndDefend,
+    Dodge
+}
+public enum COMBAT_BEHAVIOUR
+{
+    Attack,
+    Defend,
+    Buff,
+}
 
 class EncounterEnums
 {

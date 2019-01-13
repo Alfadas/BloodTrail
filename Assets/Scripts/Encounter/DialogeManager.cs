@@ -98,13 +98,25 @@ public class DialogeManager : MonoBehaviour {
         {
             for (int i = 0; i < answersNode.ChildNodes.Count; i++)
             {
-                Answer answer = new Answer(answersNode.ChildNodes[i].ChildNodes[0].InnerXml, int.Parse(answersNode.ChildNodes[i].ChildNodes[1].InnerXml), int.Parse(answersNode.ChildNodes[i].ChildNodes[2].InnerXml), answersNode.ChildNodes[i].ChildNodes[3]);
+                string[] outcomeStrings = answersNode.ChildNodes[i].ChildNodes[2].InnerXml.Split(';');
+                List<int> outcomes = new List<int>();
+                foreach(string outcome in outcomeStrings)
+                {
+                    outcomes.Add(int.Parse(outcome));
+                }
+                Answer answer = new Answer(answersNode.ChildNodes[i].ChildNodes[0].InnerXml, int.Parse(answersNode.ChildNodes[i].ChildNodes[1].InnerXml), outcomes, answersNode.ChildNodes[i].ChildNodes[3]);
                 answers.Add(answer);
             }
         }
         else
         {
-            Answer answer = new Answer(answersNode.ChildNodes[0].ChildNodes[0].InnerXml, int.Parse(answersNode.ChildNodes[0].ChildNodes[1].InnerXml), int.Parse(answersNode.ChildNodes[0].ChildNodes[2].InnerXml), answersNode.ChildNodes[0].ChildNodes[3]);
+            string[] outcomeStrings = answersNode.ChildNodes[0].ChildNodes[2].InnerXml.Split(';');
+            List<int> outcomes = new List<int>();
+            foreach (string outcome in outcomeStrings)
+            {
+                outcomes.Add(int.Parse(outcome));
+            }
+            Answer answer = new Answer(answersNode.ChildNodes[0].ChildNodes[0].InnerXml, int.Parse(answersNode.ChildNodes[0].ChildNodes[1].InnerXml), outcomes, answersNode.ChildNodes[0].ChildNodes[3]);
             answers.Add(answer);
         }
 
@@ -130,24 +142,29 @@ public class DialogeManager : MonoBehaviour {
         {
             buttonText.text = "";
         }
-        if (nextAnswer.GetOutcome() == 1)
+        if (nextAnswer.GetOutcome()[0] == 1)
         {
             buttonTexts[0].text = ok;
             return;
         }
-        else if (nextAnswer.GetOutcome() == 2)
+        else if (nextAnswer.GetOutcome()[0] == 2)
         {
             buttonTexts[0].text = nok;
             return;
         }
-        else if (nextAnswer.GetOutcome() == 3)
+        else if (nextAnswer.GetOutcome()[0] == 3)
         {
             buttonTexts[0].text = join;
             return;
         }
-        else if (nextAnswer.GetOutcome() == 4)
+        else if (nextAnswer.GetOutcome()[0] == 4)
         {
             buttonTexts[0].text = heal;
+            return;
+        }
+        else if (nextAnswer.GetOutcome()[0] > 4)
+        {
+            buttonTexts[0].text = ok;
             return;
         }
 
