@@ -13093,6 +13093,7 @@ MonoBehaviour:
   characterManager: {fileID: 1908375230}
   characterButtonManager: {fileID: 728974321}
   combatButtonManager: {fileID: 1406122723}
+  combatAIController: {fileID: 1977554653}
   soundManager: {fileID: 683322145}
   combatActions: {fileID: 1977554652}
   fightTutorial: {fileID: 45901942}
@@ -13138,7 +13139,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f99c31ea36144c843879c4c1ca0ba7b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  combatActions: {fileID: 0}
+  combatActions: {fileID: 1977554652}
 --- !u!1001 &1979845149
 PrefabInstance:
   m_ObjectHideFlags: 0

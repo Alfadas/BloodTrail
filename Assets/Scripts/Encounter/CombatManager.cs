@@ -8,6 +8,7 @@ public class CombatManager : MonoBehaviour {
     [SerializeField] CharacterManager characterManager;
 	[SerializeField] CharacterButtonManager characterButtonManager;
     [SerializeField] CombatButtonManager combatButtonManager;
+    [SerializeField] CombatAIController combatAIController;
 	[SerializeField] SoundManager soundManager;
     [SerializeField] CombatActions combatActions;
 	[SerializeField] GameObject fightTutorial;
@@ -51,6 +52,8 @@ public class CombatManager : MonoBehaviour {
         participants.AddRange(enemies);
         participants.AddRange(playerGroup);
         participantCount = participants.Count;
+
+        combatAIController.GenerateAIBehaviour(enemies);
 
         for(int i = 1; i <= participantCount; i++) // while(participants.Count > 0)? More readable and could cut participantCount variable
         {
