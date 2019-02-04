@@ -11,12 +11,12 @@ public class CombatAIController : MonoBehaviour
     int defend;
     int buff;
 
-    Dictionary<Character, COMBAT_BEHAVIOUR> enemyBehaviour;
+    Dictionary<Character, CombatAIBrain> enemyBrains;
 
-    public void GenerateAIBehaviour(List<Character> enemies)
+    public void GenerateAIBehaviour(List<Character> enemies, List<Character> characters)
     {
-        enemyBehaviour = new Dictionary<Character, COMBAT_BEHAVIOUR>();
-        List <Character> done = new List<Character>();
+        enemyBrains = new Dictionary<Character, CombatAIBrain>();
+        List<Character> done = new List<Character>();
         attack = 1;
         defend = 0;
         buff = 0;
@@ -48,7 +48,7 @@ public class CombatAIController : MonoBehaviour
                 buff++;
             }
         }
-        List<Character> sortedOffensiveList = enemies.OrderByDescending(o => o.getStat(Character.STAT_AGILITY)+o.getStat(Character.STAT_STRENGTH)).ToList();
+        List<Character> sortedOffensiveList = enemies.OrderByDescending(o => o.getStat(Character.STAT_AGILITY) + o.getStat(Character.STAT_STRENGTH)).ToList();
         List<Character> sortedDefesiveList = enemies.OrderByDescending(o => o.getStat(Character.STAT_ENDURANCE) + o.getStat(Character.STAT_CHARISMA)).ToList();
         List<Character> sortedSupportList = enemies.OrderByDescending(o => o.getStat(Character.STAT_INTELLIGENCE) + o.getStat(Character.STAT_CHARISMA)).ToList();
 
@@ -56,13 +56,13 @@ public class CombatAIController : MonoBehaviour
         {
             if (sortedSupportList[i].getStat(Character.STAT_INTELLIGENCE) >= CombatActions.EASY_STAT_MIN)
             {
-                enemyBehaviour.Add(sortedSupportList[i], COMBAT_BEHAVIOUR.Buff);
+                enemyBrains.Add(sortedSupportList[i], new CombatAIBrain(COMBAT_BEHAVIOUR.Support, characters));
                 done.Add(sortedSupportList[i]);
             }
             else
             {
                 int remaining = buff - (i + 1);
-                for(int j = 0; j < remaining; j++)
+                for (int j = 0; j < remaining; j++)
                 {
                     int roll = Random.Range(1, 3);
                     if (roll == 1)
@@ -83,7 +83,7 @@ public class CombatAIController : MonoBehaviour
             {
                 if (sortedDefesiveList[i].getStat(Character.STAT_ENDURANCE) >= CombatActions.EASY_STAT_MIN)
                 {
-                    enemyBehaviour.Add(sortedDefesiveList[i], COMBAT_BEHAVIOUR.Defend);
+                    enemyBrains.Add(sortedDefesiveList[i], new CombatAIBrain(COMBAT_BEHAVIOUR.Defend, characters));
                     done.Add(sortedDefesiveList[i]);
                 }
                 else
@@ -102,7 +102,7 @@ public class CombatAIController : MonoBehaviour
         {
             if (done.Contains(sortedOffensiveList[i]))
             {
-                enemyBehaviour.Add(sortedOffensiveList[i], COMBAT_BEHAVIOUR.Attack);
+                enemyBrains.Add(sortedOffensiveList[i], new CombatAIBrain(COMBAT_BEHAVIOUR.Attack, characters));
                 done.Add(sortedOffensiveList[i]);
             }
             else
@@ -112,8 +112,28 @@ public class CombatAIController : MonoBehaviour
         }
     }
 
-    public void AITurn(Character currentCharacter ,int enemyCount, int enemyDistracting, int enemyProvoking)
+    public void AITurn(Character currentCharacter, int aiCount, int enemyDistracting, int enemyProvoking)
     {
-        
+        CombatAIBrain currentBrain;
+        enemyBrains.TryGetValue(currentCharacter, out currentBrain);
+        if (currentBrain.getBehaviour() == COMBAT_BEHAVIOUR.Support && aiCount > 1)
+        {
+            
+        }
+        else if (currentBrain.getBehaviour() == COMBAT_BEHAVIOUR.Defend && aiCount > 1)
+        {
+
+        }
+        else
+        {
+
+        }
+    }
+
+    public void DeleteEnemy(Character aiCharacter, Character enemy)
+    {
+        CombatAIBrain combatAIBrain;
+        enemyBrains.TryGetValue(aiCharacter, out combatAIBrain);
+        combatAIBrain.DeleteEnemy(enemy);
     }
 }

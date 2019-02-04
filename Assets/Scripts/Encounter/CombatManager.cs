@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CombatManager : MonoBehaviour {
     [SerializeField] RollEncounter rollEncounter;
@@ -53,7 +54,7 @@ public class CombatManager : MonoBehaviour {
         participants.AddRange(playerGroup);
         participantCount = participants.Count;
 
-        combatAIController.GenerateAIBehaviour(enemies);
+        combatAIController.GenerateAIBehaviour(enemies, playerGroup);
 
         for(int i = 1; i <= participantCount; i++) // while(participants.Count > 0)? More readable and could cut participantCount variable
         {
@@ -112,7 +113,13 @@ public class CombatManager : MonoBehaviour {
                     aiTurn = false;
                     currentCharacter.markCharacter(false);
                     CombatButtons.SetActive(true);
-                    combatButtonManager.ActivateButtons(currentCharacter);
+                    List<Button> combatActionButtons = currentCharacter.GetCombatActionButtons();
+                    if (combatActionButtons.Count == 0)
+                    {
+                        combatActionButtons = combatActions.BuildActionButtonList(combatActionButtons, currentCharacter);
+                        currentCharacter.SetCombatActionButtons(combatActionButtons);
+                    }
+                    combatButtonManager.ActivateButtons(currentCharacter, combatActionButtons);
                 }
             }
         }
@@ -165,7 +172,6 @@ public class CombatManager : MonoBehaviour {
     {
         bool denied = false;
         bool countered = false;
-        bool reflected = false;
         soundManager.playSFX("attack");
         if (selectedCharacter == null || (playerGroup.Contains(selectedCharacter) && !aiTurn))
         {
@@ -178,11 +184,18 @@ public class CombatManager : MonoBehaviour {
             {
                 if (playerCharacter.getStat(Character.STAT_INTELLIGENCE) > currentCharacter.getStat(Character.STAT_INTELLIGENCE))
                 {
-                    if (playerCharacter.getStat(Character.STAT_INTELLIGENCE) > currentCharacter.getStat(Character.STAT_INTELLIGENCE) * 2)
+                    if (playerCharacter.getStat(Character.STAT_INTELLIGENCE) > currentCharacter.getStat(Character.STAT_INTELLIGENCE) + combatActions.GetAdditionalIntToCrit())
                     {
-                        reflected = true;
+                        damage = Mathf.RoundToInt(damage * combatActions.GetDistractCritSuccessMulti());
                     }
-                    denied = true;
+                    else
+                    {
+                        damage = Mathf.RoundToInt(damage * combatActions.GetDistractSuccessMulti());
+                    }
+                }
+                else
+                {
+                    damage = Mathf.RoundToInt(damage * combatActions.GetDistractFailMulti());
                 }
             }
         }
@@ -192,11 +205,18 @@ public class CombatManager : MonoBehaviour {
             {
                 if (enemy.getStat(Character.STAT_INTELLIGENCE) > currentCharacter.getStat(Character.STAT_INTELLIGENCE))
                 {
-                    denied = true;
-                    if (enemy.getStat(Character.STAT_INTELLIGENCE) > currentCharacter.getStat(Character.STAT_INTELLIGENCE) * 2)
+                    if (enemy.getStat(Character.STAT_INTELLIGENCE) > currentCharacter.getStat(Character.STAT_INTELLIGENCE) + combatActions.GetAdditionalIntToCrit())
                     {
-                        reflected = true;
+                        damage = Mathf.RoundToInt(damage * combatActions.GetDistractCritSuccessMulti());
                     }
+                    else
+                    {
+                        damage = Mathf.RoundToInt(damage * combatActions.GetDistractSuccessMulti());
+                    }
+                }
+                else
+                {
+                    damage = Mathf.RoundToInt(damage * combatActions.GetDistractFailMulti());
                 }
             }
         }
@@ -208,17 +228,6 @@ public class CombatManager : MonoBehaviour {
                 if (selectedCharacter.IscounterAttacking())
                 {
                     countered = true;
-                }
-            }
-        }
-
-        if (reflected)
-        {
-            if (currentCharacter.hurt(damage))
-            {
-                if (!enemies.Remove(currentCharacter) && !playerGroup.Remove(selectedCharacter))
-                {
-                    Debug.Log("Unknown casualty " + selectedCharacter);
                 }
             }
         }
@@ -246,6 +255,13 @@ public class CombatManager : MonoBehaviour {
             }
             if (selectedCharacter.hurt(damage))
             {
+                if (playerGroup.Contains(selectedCharacter))
+                {
+                    foreach (Character enemy in enemies)
+                    {
+                        combatAIController.DeleteEnemy(enemy, selectedCharacter);
+                    }
+                }
                 if (!enemies.Remove(selectedCharacter) && !playerGroup.Remove(selectedCharacter))
                 {
                     Debug.Log("Unknown casualty " + selectedCharacter);
@@ -267,6 +283,13 @@ public class CombatManager : MonoBehaviour {
     {
         if (currentCharacter.hurt(damage))
         {
+            if (playerGroup.Contains(currentCharacter))
+            {
+                foreach(Character enemy in enemies)
+                {
+                    combatAIController.DeleteEnemy(enemy, currentCharacter);
+                }
+            }
             if (!enemies.Remove(currentCharacter) && !playerGroup.Remove(selectedCharacter))
             {
                 Debug.Log("Unknown casualty " + selectedCharacter);

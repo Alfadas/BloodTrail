@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CombatActions : MonoBehaviour
 {
@@ -9,11 +10,12 @@ public class CombatActions : MonoBehaviour
     public const int HARD_STAT_MIN = 80;
 
     [SerializeField] CombatManager combatManager;
+    [SerializeField] CombatButtonManager combatButtonManager;
     [Header("Simple Attack")]
     [SerializeField] float simpleAttackStrMulti = 0.4f;
     [SerializeField] float simpleAttackArmorMulti = 1f;
     [Header("Heavy Attack")]
-    [SerializeField] float heavyAttackStrMulti = 0.5f;
+    [SerializeField] float heavyAttackStrMulti = 0.55f;
     [SerializeField] float heavyAttackArmorMulti = 1f;
     [Header("Swift Attack")]
     [SerializeField] float swiftAttackAgiMulti = 0.2f;
@@ -27,12 +29,15 @@ public class CombatActions : MonoBehaviour
     [Header("Counter Attack")]
     [SerializeField] float counterAttackAgiMulti = 0.4f;
     [SerializeField] float counterAttackArmorMulti = 1f;
-    [Header("Encourage")]
-    [SerializeField] int encourageDamageBuff = 7;
     [Header("Try To Defend")]
     [SerializeField] float tryToDefendDamageReduction = 0.25f;
     [Header("Defensive Stance")]
     [SerializeField] float defensiveStanceDamageReduction = 0.5f;
+    [Header("Distract")]
+    [SerializeField] float distractFailMulti = 0.9f;
+    [SerializeField] float distractSuccessMulti = 0.65f;
+    [SerializeField] float distractCritSuccessMulti = 0.35f;
+    [SerializeField] int additionalIntToCrit = 20;
 
     //attacks
     public void SimpleAttack()
@@ -104,7 +109,7 @@ public class CombatActions : MonoBehaviour
         currentCharacter.ResetActiveActions();
 
         currentCharacter.SetEncouraging(true);
-        combatManager.EncourageTeam(encourageDamageBuff);
+        combatManager.EncourageTeam(currentCharacter.getStat(Character.STAT_INTELLIGENCE)/10);
         combatManager.SCoroutine();
     }
     public void TryToDefend()
@@ -177,5 +182,105 @@ public class CombatActions : MonoBehaviour
         {
             combatManager.DistractingTeam(false);
         }
+    }
+    public List<Button> BuildActionButtonList(List<Button> combatActionButtons, Character currentCharacter, COMBAT_BEHAVIOUR combatBehaviour)
+    {
+        int agility = currentCharacter.getStat(Character.STAT_AGILITY);
+        int charisma = currentCharacter.getStat(Character.STAT_CHARISMA);
+        int endurance = currentCharacter.getStat(Character.STAT_ENDURANCE);
+        int intelligence = currentCharacter.getStat(Character.STAT_INTELLIGENCE);
+        int strength = currentCharacter.getStat(Character.STAT_STRENGTH);
+
+        if (agility < CombatActions.EASY_STAT_MIN && strength < CombatActions.EASY_STAT_MIN)
+        {
+            if (agility > strength)
+            {
+                if (combatBehaviour== COMBAT_BEHAVIOUR.Player)
+                {
+                    combatActionButtons.Add(combatButtonManager.GetSwiftAttackBt());
+                }
+                else
+                {
+
+                }
+            }
+            else
+            {
+                combatActionButtons.Add(combatButtonManager.GetSimpleAttackBt());
+            }
+        }
+        if (strength >= CombatActions.EASY_STAT_MIN)
+        {
+            combatActionButtons.Add(combatButtonManager.GetSimpleAttackBt());
+        }
+        if (agility >= CombatActions.EASY_STAT_MIN)
+        {
+            combatActionButtons.Add(combatButtonManager.GetSwiftAttackBt());
+        }
+        if (strength >= CombatActions.MEDIUM_STAT_MIN)
+        {
+            combatActionButtons.Add(combatButtonManager.GetHeavyAttackBt());
+        }
+        if (intelligence >= CombatActions.MEDIUM_STAT_MIN && strength >= CombatActions.EASY_STAT_MIN)
+        {
+            combatActionButtons.Add(combatButtonManager.GetWeackpointAttackBt());
+        }
+        if (strength >= CombatActions.MEDIUM_STAT_MIN && agility >= CombatActions.MEDIUM_STAT_MIN)
+        {
+            combatActionButtons.Add(combatButtonManager.GetKickBt());
+        }
+        if (agility >= CombatActions.MEDIUM_STAT_MIN)
+        {
+            combatActionButtons.Add(combatButtonManager.GetCounterAttackStanceBt());
+        }
+        if (endurance >= CombatActions.MEDIUM_STAT_MIN)
+        {
+            combatActionButtons.Add(combatButtonManager.GetDefendBt());
+        }
+        else
+        {
+            combatActionButtons.Add(combatButtonManager.GetTryToDefendBt());
+        }
+        if (charisma >= CombatActions.MEDIUM_STAT_MIN)
+        {
+            if (endurance >= CombatActions.MEDIUM_STAT_MIN)
+            {
+                combatActionButtons.Add(combatButtonManager.GetProvokeAndDefendBt());
+            }
+            if (agility >= CombatActions.MEDIUM_STAT_MIN)
+            {
+                combatActionButtons.Add(combatButtonManager.GetProvokeAndCounterBt());
+            }
+        }
+        if (agility >= CombatActions.MEDIUM_STAT_MIN && intelligence >= CombatActions.MEDIUM_STAT_MIN)
+        {
+            combatActionButtons.Add(combatButtonManager.GetDodgeBt());
+        }
+        if (charisma >= CombatActions.MEDIUM_STAT_MIN && intelligence >= CombatActions.MEDIUM_STAT_MIN)
+        {
+            combatActionButtons.Add(combatButtonManager.GetEncourageBt());
+        }
+        if (intelligence >= CombatActions.EASY_STAT_MIN)
+        {
+            combatActionButtons.Add(combatButtonManager.GetDistractBt());
+        }
+        return combatActionButtons;
+    }
+
+    public float GetDistractFailMulti()
+    {
+        return distractFailMulti;
+    }
+    public float GetDistractSuccessMulti()
+    {
+        return distractSuccessMulti;
+    }
+    public float GetDistractCritSuccessMulti()
+    {
+        return distractCritSuccessMulti;
+    }
+    public int GetAdditionalIntToCrit()
+    {
+        return additionalIntToCrit;
     }
 }
