@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 1407522808}
-  m_IndirectSpecularColor: {r: 0.2670276, g: 0.32728577, b: 0.3572308, a: 1}
+  m_IndirectSpecularColor: {r: 0.2670277, g: 0.32728603, b: 0.3572309, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -7969,21 +7969,6 @@ MonoBehaviour:
   dodgeBt: {fileID: 1740582700}
   encourageBt: {fileID: 1489378458}
   distractBt: {fileID: 1826613794}
-  simpleAttackStrMin: 50
-  heavyAttackStrMin: 65
-  swiftAttackAgiMin: 50
-  weackpointAttackStrMin: 50
-  weackpointAttackIntMin: 65
-  kickStrMin: 50
-  kickAgiMin: 65
-  counterAttackAgiMin: 65
-  defendEndMin: 65
-  provokeChaMin: 65
-  dodgeAgiMin: 65
-  dodgeIntMin: 65
-  encourageChaMin: 65
-  encourageIntMin: 65
-  distractIntMin: 50
 --- !u!1 &1407522807
 GameObject:
   m_ObjectHideFlags: 0
@@ -13093,6 +13078,7 @@ MonoBehaviour:
   characterManager: {fileID: 1908375230}
   characterButtonManager: {fileID: 728974321}
   combatButtonManager: {fileID: 1406122723}
+  combatAIController: {fileID: 1977554653}
   soundManager: {fileID: 683322145}
   combatActions: {fileID: 1977554652}
   fightTutorial: {fileID: 45901942}
@@ -13111,6 +13097,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   combatManager: {fileID: 1977554651}
+  combatButtonManager: {fileID: 1406122723}
   simpleAttackStrMulti: 0.4
   simpleAttackArmorMulti: 1
   heavyAttackStrMulti: 0.5
@@ -13119,13 +13106,17 @@ MonoBehaviour:
   swiftAttackArmorMulti: 1
   weakpointAttackStrMulti: 0.2
   weakpointAttackArmorMulti: 1
+  damageReductionReduction: 0.5
   kickStrMulti: 0.2
   kickArmorMulti: 2
   counterAttackAgiMulti: 0.4
   counterAttackArmorMulti: 1
-  encourageDamageBuff: 7
   tryToDefendDamageReduction: 0.25
   defensiveStanceDamageReduction: 0.5
+  distractFailMulti: 0.1
+  distractSuccessMulti: 0.35
+  distractCritSuccessMulti: 0.65
+  additionalIntToCrit: 20
 --- !u!114 &1977554653
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13138,7 +13129,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f99c31ea36144c843879c4c1ca0ba7b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  combatActions: {fileID: 0}
+  combatActions: {fileID: 1977554652}
+  combatManager: {fileID: 1977554651}
 --- !u!1001 &1979845149
 PrefabInstance:
   m_ObjectHideFlags: 0

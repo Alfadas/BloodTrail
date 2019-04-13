@@ -18,16 +18,18 @@ public class Character : MonoBehaviour
 	public const int STAT_INTELLIGENCE = 3;
 	public const int STAT_CHARISMA = 4;
 
-	private static System.Random random = new System.Random();
+    [HideInInspector]public float EndMulti = 1.2f;
+
+    private static System.Random random = new System.Random();
 	private CharacterManager manager;
 	private string charactername;
-	private int health;
-	private int nutrition;
+	protected int health;
+	protected int nutrition;
 	private int[] stats;
     private int encourage;
     private float damageReduction;
     private bool encouraging;
-    private bool stuned;
+    protected bool stuned;
     private bool dodging;
     private bool counterAttacking;
     private bool provoking;
@@ -57,17 +59,6 @@ public class Character : MonoBehaviour
 			heal(time * 2);
 			}
 		}
-
-    public void ReRollCharacter()
-    {
-        reRollStats();
-
-        nutrition = getMaxNutrition();
-        health = getMaxHealth();
-        combatActionButtons = new List<Button>();
-        stuned = false;
-        ResetActiveActions();
-    }
 
     public void ResetActiveActions()
     {
@@ -144,7 +135,7 @@ public class Character : MonoBehaviour
 		}
 
 	// Generates new random stats for this character.
-	private void reRollStats()
+	protected void reRollStats()
 		{
 		int maxstatboost = 5 - defaultstatboost;
 		int statboostmodifier = 0;
@@ -307,7 +298,7 @@ public class Character : MonoBehaviour
 	// Returns the current maximum health for this character based on his current endurance stat
 	public int getMaxHealth()
 		{
-		return Mathf.RoundToInt(getStat(STAT_ENDURANCE) * 1.2f);
+		return Mathf.RoundToInt(getStat(STAT_ENDURANCE) * EndMulti);
 		}
 
 	// Returns the current maximum nutrition for this character based on his current endurance stat
@@ -428,7 +419,7 @@ public class Character : MonoBehaviour
 
     public void SetEncourage(int encourage)
     {
-        this.encourage = encourage;
+        this.encourage += encourage;
     }
 
     public void SetDamageReduction(float damageReduction)

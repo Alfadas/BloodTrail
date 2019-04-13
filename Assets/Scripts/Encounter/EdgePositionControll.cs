@@ -9,7 +9,7 @@ public class EdgePositionControll : MonoBehaviour {
 
     int maxTrys = 20;
     int buildNumber = 0;
-    public int placeTry = 0;
+    [HideInInspector] public int placeTry = 0;
 
     private void OnTriggerStay(Collider other)
     {

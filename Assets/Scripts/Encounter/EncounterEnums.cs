@@ -45,9 +45,11 @@ public enum COMBAT_ACTION
 }
 public enum COMBAT_BEHAVIOUR
 {
+    Player,
     Attack,
     Defend,
-    Buff,
+    Support,
+    Provoke,
 }
 
 class EncounterEnums

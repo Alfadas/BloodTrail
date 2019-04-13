@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class BeSelected : MonoBehaviour {
 
-    [SerializeField] CombatManager combatManager;
+     CombatManager combatManager;
 
     Character character;
 
     private void Start()
     {
+        combatManager = FindObjectOfType<CombatManager>();
         character = gameObject.GetComponent<Character>();
     }
 

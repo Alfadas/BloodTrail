@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CombatManager : MonoBehaviour {
     [SerializeField] RollEncounter rollEncounter;
@@ -8,13 +10,13 @@ public class CombatManager : MonoBehaviour {
     [SerializeField] CharacterManager characterManager;
 	[SerializeField] CharacterButtonManager characterButtonManager;
     [SerializeField] CombatButtonManager combatButtonManager;
+    [SerializeField] CombatAIController combatAIController;
 	[SerializeField] SoundManager soundManager;
     [SerializeField] CombatActions combatActions;
 	[SerializeField] GameObject fightTutorial;
-    List<Character> enemies;
+    List<NpcCharacter> enemies;
     List<Character> playerGroup;
     List<Character> participants;
-    int participantCount;
 
     Queue<Character> participantsQueue;
     Character firstCharacter;
@@ -39,7 +41,6 @@ public class CombatManager : MonoBehaviour {
 			}
 
         participantsQueue = new Queue<Character>();
-        playerGroup = new List<Character>(); // Wasted processing power, See line 29
         participants = new List<Character>();
         enemiesDistracting = new List<Character>();
         playerDistracting = new List<Character>();
@@ -48,24 +49,23 @@ public class CombatManager : MonoBehaviour {
 
         playerGroup = characterManager.getCharacters();
         enemies = buildEncounter.GetEnemies();
-        participants.AddRange(enemies);
-        participants.AddRange(playerGroup);
-        participantCount = participants.Count;
-
-        for(int i = 1; i <= participantCount; i++) // while(participants.Count > 0)? More readable and could cut participantCount variable
+        foreach(NpcCharacter npcCharacter in enemies)
         {
-            int highestSpeed = 0; // See below, same principle, set to first characters speed
-            Character fastestParticipant = null; // Stinks after NullPointerExceptions, could set it to first participant instead of null https://en.wikipedia.org/wiki/Defensive_programming
-            foreach (Character participant in participants)
-            {
-                if (participant.getStat(2) > highestSpeed)
-                {
-                    highestSpeed = participant.getStat(2);
-                    fastestParticipant = participant;
-                }
-            }
-            participantsQueue.Enqueue(fastestParticipant);
-            participants.Remove(fastestParticipant);
+            participants.Add(npcCharacter);
+        }
+        participants.AddRange(playerGroup);
+
+        combatAIController.InitializeAI(enemies, playerGroup);
+
+        participants = participants.OrderByDescending(o => o.getStat(Character.STAT_AGILITY)).ToList();
+        foreach (Character participant in participants)
+        {
+            participantsQueue.Enqueue(participant);
+        }
+        participants.Clear();
+        foreach (Character playerCharacter in playerGroup)
+        {
+            combatActions.BuildActionButtonList(playerCharacter, true);
         }
         StartCoroutine(WaitForSecToStart(2));
     }
@@ -81,7 +81,15 @@ public class CombatManager : MonoBehaviour {
             do
             {
                 currentCharacter = participantsQueue.Dequeue();
-                if (!enemies.Contains(currentCharacter) && !playerGroup.Contains(currentCharacter))
+                if (currentCharacter.GetType() == typeof(NpcCharacter))
+                {
+                    var npcCharacter = (NpcCharacter)currentCharacter;
+                    if (!enemies.Contains(npcCharacter))
+                    {
+                        currentCharacter = null;
+                    }
+                }
+                else if (!playerGroup.Contains(currentCharacter))
                 {
                     currentCharacter = null;
                 }
@@ -95,12 +103,12 @@ public class CombatManager : MonoBehaviour {
             }
             else
             {
-                if (enemies.Contains(currentCharacter))
+                if (currentCharacter.GetType() == typeof(NpcCharacter))
                 {
                     characterButtonManager.highlightCharacter(null);
                     aiTurn = true;
                     currentCharacter.markCharacter(false);
-                    EnemyTurn();
+                    combatAIController.AITurn((NpcCharacter)currentCharacter, playerGroup, enemies, playerProvoking);
                 }
                 else
                 {
@@ -109,7 +117,8 @@ public class CombatManager : MonoBehaviour {
                     aiTurn = false;
                     currentCharacter.markCharacter(false);
                     CombatButtons.SetActive(true);
-                    combatButtonManager.ActivateButtons(currentCharacter);
+                    List<Button> combatActionButtons = currentCharacter.GetCombatActionButtons();
+                    combatButtonManager.ActivateButtons(currentCharacter, combatActionButtons);
                 }
             }
         }
@@ -143,26 +152,36 @@ public class CombatManager : MonoBehaviour {
         {
             selectedCharacter.unmarkCharacter();
         }
+        selectedCharacter = selected;
         if (playerProvoking.Count>0 && !fromPlayer)
         {
-            selectedCharacter = playerProvoking[Random.Range(0, playerProvoking.Count)];
+            foreach (Character provoking in playerProvoking)
+            {
+                if (CompareStats(Character.STAT_CHARISMA, Character.STAT_INTELLIGENCE, provoking, currentCharacter))
+                {
+                    selectedCharacter = provoking;
+                }
+            }
         }
         else if (enemiesProvoking.Count > 0 && fromPlayer)
         {
-            selectedCharacter = enemiesProvoking[Random.Range(0, enemiesProvoking.Count)];
-        }
-        else
-        {
-            selectedCharacter = selected;
+            foreach (Character provoking in enemiesProvoking)
+            {
+                if (CompareStats(Character.STAT_CHARISMA, Character.STAT_INTELLIGENCE, provoking, currentCharacter))
+                {
+                    selectedCharacter = provoking;
+                }
+            }
         }
         selectedCharacter.markCharacter(true);
     }
 
     public void Attack(int damage, float defensModifier, COMBAT_ACTION action)
     {
+        float damageReduction = 0;
+        BattleLog(action.ToString());
         bool denied = false;
         bool countered = false;
-        bool reflected = false;
         soundManager.playSFX("attack");
         if (selectedCharacter == null || (playerGroup.Contains(selectedCharacter) && !aiTurn))
         {
@@ -171,55 +190,42 @@ public class CombatManager : MonoBehaviour {
 
         if (aiTurn)
         {
-            foreach (Character playerCharacter in playerDistracting)
+            damageReduction = ApplyDistract(damageReduction, playerDistracting, currentCharacter);
+            if (selectedCharacter.IscounterAttacking())
             {
-                if (playerCharacter.getStat(Character.STAT_INTELLIGENCE) > currentCharacter.getStat(Character.STAT_INTELLIGENCE))
-                {
-                    if (playerCharacter.getStat(Character.STAT_INTELLIGENCE) > currentCharacter.getStat(Character.STAT_INTELLIGENCE) * 2)
-                    {
-                        reflected = true;
-                    }
-                    denied = true;
-                }
+                CombatAiPcMemory combatAiPcMemory = combatAIController.GetCombatAiPcMemory(selectedCharacter);
+                combatAiPcMemory.WasCountering = true;
+                combatAiPcMemory.IsCountering = true;
             }
         }
         else if (!aiTurn)
         {
-            foreach (Character enemy in enemiesDistracting)
-            {
-                if (enemy.getStat(Character.STAT_INTELLIGENCE) > currentCharacter.getStat(Character.STAT_INTELLIGENCE))
-                {
-                    denied = true;
-                    if (enemy.getStat(Character.STAT_INTELLIGENCE) > currentCharacter.getStat(Character.STAT_INTELLIGENCE) * 2)
-                    {
-                        reflected = true;
-                    }
-                }
-            }
+            damageReduction = ApplyDistract(damageReduction, enemiesDistracting, currentCharacter);
         }
         if ((selectedCharacter.IsDodging() || selectedCharacter.IscounterAttacking())&& action != COMBAT_ACTION.SwiftAttack)
         {
-            if (currentCharacter.getStat(Character.STAT_AGILITY) > selectedCharacter.getStat(Character.STAT_AGILITY))
+            if(CompareStats(Character.STAT_AGILITY, Character.STAT_AGILITY, currentCharacter, selectedCharacter))
             {
-                denied = true;
                 if (selectedCharacter.IscounterAttacking())
                 {
+                    denied = true;
                     countered = true;
+                    BattleLog("Countered");
+                }
+                else if (action == COMBAT_ACTION.Kick)
+                {
+                    selectedCharacter.SetStuned(true);
+                    BattleLog("Target stuned");
+                }
+                else
+                {
+                    denied = true;
+                    BattleLog("dodged");
                 }
             }
         }
 
-        if (reflected)
-        {
-            if (currentCharacter.hurt(damage))
-            {
-                if (!enemies.Remove(currentCharacter) && !playerGroup.Remove(selectedCharacter))
-                {
-                    Debug.Log("Unknown casualty " + selectedCharacter);
-                }
-            }
-        }
-        else if (countered)
+        if (countered)
         {
             if (action == COMBAT_ACTION.HeavyAttack)
             {
@@ -232,21 +238,29 @@ public class CombatManager : MonoBehaviour {
         }
         else if (!denied)
         {
-            if (selectedCharacter.GetDamageReduction() > 0) // that was not implemented before? well, now I need it for SFX
+            damageReduction += selectedCharacter.GetDamageReduction();
+            if (action == COMBAT_ACTION.WeakpointAttack)
+            {
+                damageReduction *= combatActions.GetDamageReductionReductin();
+            }
+            if (damageReduction > 0.9f)
+            {
+                damageReduction = 0.9f;
+            }
+            if (selectedCharacter.GetDamageReduction() > 0) 
             {
                 soundManager.playSFX("parry");
-                damage = Mathf.RoundToInt(damage * selectedCharacter.GetDamageReduction());
+                damage -= Mathf.RoundToInt(damage * damageReduction);
+                BattleLog("Target defended");
             }
-            if (action == COMBAT_ACTION.Kick)
+            else
             {
-                selectedCharacter.SetStuned(true);
+                damage -= Mathf.RoundToInt(damage * damageReduction);
             }
+            BattleLog("Target hit with " + damage + " damage");
             if (selectedCharacter.hurt(damage))
             {
-                if (!enemies.Remove(selectedCharacter) && !playerGroup.Remove(selectedCharacter))
-                {
-                    Debug.Log("Unknown casualty " + selectedCharacter);
-                }
+                KillCharacter(selectedCharacter);
                 selectedCharacter = null;
             }
         }
@@ -260,82 +274,216 @@ public class CombatManager : MonoBehaviour {
             StartCoroutine(AttackAnimation()); // TODO: move to CombatActions
         }
     }
+
+    private float ApplyDistract(float damageReduction, List<Character> distracting, Character distracted)
+    {
+        foreach (Character character in distracting)
+        {
+            if (aiTurn)
+            {
+                CombatAiPcMemory combatAiPcMemory = combatAIController.GetCombatAiPcMemory(character);
+                combatAiPcMemory.WasDistracting = true;
+                combatAiPcMemory.IsDistracting = true;
+            }
+            if (CompareStats(Character.STAT_INTELLIGENCE, Character.STAT_INTELLIGENCE, character, distracted))
+            {
+                if (CompareStats(Character.STAT_INTELLIGENCE, Character.STAT_INTELLIGENCE, character, distracted, combatActions.GetAdditionalIntToCrit()))
+                {
+                    damageReduction += combatActions.GetDistractCritSuccessMulti();
+                    BattleLog("critDistract");
+                }
+                else
+                {
+                    damageReduction += combatActions.GetDistractSuccessMulti();
+                    BattleLog("Distract");
+                }
+            }
+            else
+            {
+                damageReduction += combatActions.GetDistractFailMulti();
+                BattleLog("distract Failed");
+            }
+        }
+
+        return damageReduction;
+    }
+    private bool CompareStats(int stat1, int stat2, Character character1, Character character2)
+    {
+        if (character1.getStat(stat1) > character2.getStat(stat2))
+        {
+            if (character1.GetType() == typeof(NpcCharacter))
+            {
+                combatAIController.GetCombatAiPcMemory(character2).TrySetMaxStat(stat2, character1.getStat(stat1));
+            }
+            else
+            {
+                combatAIController.GetCombatAiPcMemory(character1).TrySetMinStat(stat1, character2.getStat(stat2));
+            }
+            return true;
+        }
+        else
+        {
+            if (character1.GetType() == typeof(NpcCharacter))
+            {
+                combatAIController.GetCombatAiPcMemory(character2).TrySetMinStat(stat2, character1.getStat(stat1));
+            }
+            else
+            {
+                combatAIController.GetCombatAiPcMemory(character1).TrySetMaxStat(stat1, character2.getStat(stat2));
+            }
+            return false;
+        }
+    }
+    private bool CompareStats(int stat1, int stat2, Character character1, Character character2, int critDif)
+    {
+        if (character1.getStat(stat1) > character2.getStat(stat2) + critDif)
+        {
+            if (character1.GetType() == typeof(NpcCharacter))
+            {
+                combatAIController.GetCombatAiPcMemory(character2).TrySetMaxStat(stat2, character1.getStat(stat1) - critDif);
+            }
+            else
+            {
+                combatAIController.GetCombatAiPcMemory(character1).TrySetMinStat(stat1, character2.getStat(stat2) + critDif);
+            }
+            return true;
+        }
+        else
+        {
+            if (character1.GetType() == typeof(NpcCharacter))
+            {
+                combatAIController.GetCombatAiPcMemory(character2).TrySetMinStat(stat2, character1.getStat(stat1) - critDif);
+            }
+            else
+            {
+                combatAIController.GetCombatAiPcMemory(character1).TrySetMaxStat(stat1, character2.getStat(stat2) + critDif);
+            }
+            return false;
+        }
+    }
+
     public void CounterAttack(int damage, float defensModifier)
     {
+        BattleLog("attacker hit with " + damage + " damage");
         if (currentCharacter.hurt(damage))
         {
-            if (!enemies.Remove(currentCharacter) && !playerGroup.Remove(selectedCharacter))
-            {
-                Debug.Log("Unknown casualty " + selectedCharacter);
-            }
+            KillCharacter(currentCharacter);
             currentCharacter = null;
         }
         StartCoroutine(AttackAnimation()); // TODO: move to CombatActions
     }
+
+    public void SetSupporting(bool isActive)
+    {
+        if (!aiTurn)
+        {
+            CombatAiPcMemory combatAiPcMemory = combatAIController.GetCombatAiPcMemory(currentCharacter);
+            combatAiPcMemory.IsSupporting = isActive;
+        }
+    }
+
+    private void KillCharacter(Character character)
+    {
+        if (playerGroup.Contains(character))
+        {
+            combatAIController.RemoveCombatAiPcMemory(character);
+            if (!playerGroup.Remove(character))
+            {
+                Debug.Log("Unknown Player casualty " + character);
+            }
+        }
+        else if (character.GetType() == typeof(NpcCharacter))
+        {
+            var npcCharacter = (NpcCharacter)character;
+            if (!enemies.Remove(npcCharacter))
+            {
+                Debug.Log("Unknown Enemy casualty " + character);
+            }
+        }
+    }
+
     public void EncourageTeam(int damageBuff)
     {
-        if (enemies.Contains(currentCharacter))
+        if (aiTurn)
         {
-            foreach (Character enemy in enemies)
+            BattleLog("Enemies Supported");
+            foreach (NpcCharacter enemy in enemies)
             {
                 enemy.SetEncourage(damageBuff);
             }
         }
-        else if (playerGroup.Contains(currentCharacter))
+        else
         {
+            if (damageBuff < 0)
+            {
+                combatAIController.GetCombatAiPcMemory(currentCharacter).IsSupporting = false;
+            }
+            else
+            {
+                combatAIController.GetCombatAiPcMemory(currentCharacter).IsSupporting = true;
+            }
+            BattleLog("Characters buffed: + " + damageBuff + " damage");
             foreach (Character playerCharacter in playerGroup)
             {
                 playerCharacter.SetEncourage(damageBuff);
             }
         }
     }
-    public void ProvokingTeam(bool active)
+    public void ProvokingTeam(bool isActive)
     {
-        if (enemies.Contains(currentCharacter))
+        if (aiTurn)
         {
-            if (active)
+            if (isActive)
             {
                 enemiesProvoking.Remove(currentCharacter);
             }
             else
             {
+                BattleLog("Enemie Provoking");
                 enemiesProvoking.Add(currentCharacter);
             }
         }
-        else if (playerGroup.Contains(currentCharacter))
+        else
         {
-            if (active)
+            if (isActive)
             {
                 playerProvoking.Remove(currentCharacter);
             }
             else
             {
+                BattleLog("Enemies Provoked");
                 playerProvoking.Add(currentCharacter);
             }
         }
     }
     public void DistractingTeam(bool active)
     {
-        if (enemies.Contains(currentCharacter))
+        if (aiTurn)
         {
             if (active)
             {
                 enemiesDistracting.Remove(currentCharacter);
+
             }
             else
             {
                 enemiesDistracting.Add(currentCharacter);
+                BattleLog("Enemies Supported");
             }
         }
-        else if (playerGroup.Contains(currentCharacter))
+        else
         {
             if (active)
             {
                 playerDistracting.Remove(currentCharacter);
+                combatAIController.GetCombatAiPcMemory(currentCharacter).IsSupporting = false;
+                combatAIController.GetCombatAiPcMemory(currentCharacter).IsDistracting = false;
             }
             else
             {
+                combatAIController.GetCombatAiPcMemory(currentCharacter).IsSupporting = true;
                 playerDistracting.Add(currentCharacter);
+                BattleLog("Enemies Distracted");
             }
         }
     }
@@ -351,18 +499,6 @@ public class CombatManager : MonoBehaviour {
         // int reward = 5; //TODO add reward // TODO: reward only if player is victorious, EndFight() is also called, when playerGroup is empty
         rollEncounter.EndEncounter(0);
     }
-    void EnemyTurn()
-    {
-        int rollAction;
-        int rollCharacter;
-        rollAction = Random.Range(1, combatActionCount + 1);
-        rollCharacter = Random.Range(0, playerGroup.Count);
-        SetSelected(playerGroup[rollCharacter],false);
-        if (rollAction == 1)
-        {
-            combatActions.SimpleAttack();
-        }
-    }
 
     IEnumerator AttackAnimation() // TODO: move to CombatAnimator
     {
@@ -374,5 +510,9 @@ public class CombatManager : MonoBehaviour {
     {
         yield return new WaitForSeconds(sec);
         NextTurn();
+    }
+    void BattleLog(string text)
+    {
+        Debug.Log(text);
     }
 }

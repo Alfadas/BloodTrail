@@ -22,7 +22,7 @@ public class CombatButtonManager : MonoBehaviour
     [SerializeField] Button encourageBt;
     [SerializeField] Button distractBt;
 
-    public void ActivateButtons(Character currentCharacter)
+    public void ActivateButtons(Character currentCharacter, List<Button> combatActionButtons)
     {
         simpleAttackBt.gameObject.SetActive(false);
         heavyAttackBt.gameObject.SetActive(false);
@@ -38,92 +38,8 @@ public class CombatButtonManager : MonoBehaviour
         encourageBt.gameObject.SetActive(false);
         distractBt.gameObject.SetActive(false);
 
-        List<Button> combatActionButtons = currentCharacter.GetCombatActionButtons();
-        if (combatActionButtons.Count == 0)
-        {
-            combatActionButtons = BuildActionButtonList(combatActionButtons, currentCharacter);
-            currentCharacter.SetCombatActionButtons(combatActionButtons);
-        }
         PositionCombatButtons(combatActionButtons);
     }
-
-    List<Button> BuildActionButtonList(List<Button> combatActionButtons, Character currentCharacter)
-    {
-        int agility = currentCharacter.getStat(Character.STAT_AGILITY);
-        int charisma = currentCharacter.getStat(Character.STAT_CHARISMA);
-        int endurance = currentCharacter.getStat(Character.STAT_ENDURANCE);
-        int intelligence = currentCharacter.getStat(Character.STAT_INTELLIGENCE);
-        int strength = currentCharacter.getStat(Character.STAT_STRENGTH);
-
-        if (agility < CombatActions.EASY_STAT_MIN && strength < CombatActions.EASY_STAT_MIN)
-        {
-            if (agility > strength)
-            {
-                combatActionButtons.Add(swiftAttackBt);
-            }
-            else
-            {
-                combatActionButtons.Add(simpleAttackBt);
-            }
-        }
-        if (strength >= CombatActions.EASY_STAT_MIN)
-        {
-            combatActionButtons.Add(simpleAttackBt);
-        }
-        if (agility >= CombatActions.EASY_STAT_MIN)
-        {
-            combatActionButtons.Add(swiftAttackBt);
-        }
-        if (strength >= CombatActions.MEDIUM_STAT_MIN)
-        {
-            combatActionButtons.Add(heavyAttackBt);
-        }
-        if (intelligence >= CombatActions.MEDIUM_STAT_MIN && strength >= CombatActions.EASY_STAT_MIN)
-        {
-            combatActionButtons.Add(weackpointAttackBt);
-        }
-        if (strength >= CombatActions.MEDIUM_STAT_MIN && agility >= CombatActions.MEDIUM_STAT_MIN)
-        {
-            combatActionButtons.Add(kickBt);
-        }
-        if (agility >= CombatActions.MEDIUM_STAT_MIN)
-        {
-            combatActionButtons.Add(counterAttackStanceBt);
-        }
-        if (endurance >= CombatActions.MEDIUM_STAT_MIN)
-        {
-            combatActionButtons.Add(DefendBt);
-        }
-        else
-        {
-            combatActionButtons.Add(tryToDefendBt);
-        }
-        if (charisma >= CombatActions.MEDIUM_STAT_MIN)
-        {
-            if (endurance >= CombatActions.MEDIUM_STAT_MIN)
-            {
-                combatActionButtons.Add(provokeAndDefendBt);
-            }
-            if (agility >= CombatActions.MEDIUM_STAT_MIN)
-            {
-                combatActionButtons.Add(provokeAndCounterBt);
-            }
-        }
-        if (agility >= CombatActions.MEDIUM_STAT_MIN && intelligence >= CombatActions.MEDIUM_STAT_MIN)
-        {
-            combatActionButtons.Add(dodgeBt);
-        }
-        if (charisma >= CombatActions.MEDIUM_STAT_MIN && intelligence >= CombatActions.MEDIUM_STAT_MIN)
-        {
-            combatActionButtons.Add(encourageBt);
-        }
-        if (intelligence >= CombatActions.EASY_STAT_MIN)
-        {
-            combatActionButtons.Add(distractBt);
-        }
-        return combatActionButtons;
-    }
-
     void PositionCombatButtons(List<Button> combatActionButtons)
     {
         float sideMulti = (combatActionButtons.Count * 0.5f);
@@ -136,5 +52,58 @@ public class CombatButtonManager : MonoBehaviour
             combatActionButtons[i].transform.localPosition = new Vector3(lastXPosition, 0);
             lastXPosition = lastXPosition - (buttonWidth + space);
         }
+    }
+
+    public Button GetSimpleAttackBt()
+    {
+        return simpleAttackBt;
+    }
+    public Button GetHeavyAttackBt()
+    {
+        return heavyAttackBt;
+    }
+    public Button GetSwiftAttackBt()
+    {
+        return swiftAttackBt;
+    }
+    public Button GetWeackpointAttackBt()
+    {
+        return weackpointAttackBt;
+    }
+    public Button GetKickBt()
+    {
+        return kickBt;
+    }
+    public Button GetCounterAttackStanceBt()
+    {
+        return counterAttackStanceBt;
+    }
+    public Button GetTryToDefendBt()
+    {
+        return tryToDefendBt;
+    }
+    public Button GetDefendBt()
+    {
+        return DefendBt;
+    }
+    public Button GetProvokeAndDefendBt()
+    {
+        return provokeAndDefendBt;
+    }
+    public Button GetProvokeAndCounterBt()
+    {
+        return provokeAndCounterBt;
+    }
+    public Button GetDodgeBt()
+    {
+        return dodgeBt;
+    }
+    public Button GetEncourageBt()
+    {
+        return encourageBt;
+    }
+    public Button GetDistractBt()
+    {
+        return distractBt;
     }
 }

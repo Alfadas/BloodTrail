@@ -69,7 +69,7 @@ public class BuildEncounter : MonoBehaviour
 	public List<GameObject> mid;
 	public List<GameObject> edge;
 	public List<GameObject> back;
-	List<Character> enemies;
+	List<NpcCharacter> enemies;
 	List<Character> playerGroup;
 	Map map;
 	int edgeWidth = 5;
@@ -98,7 +98,7 @@ public class BuildEncounter : MonoBehaviour
 		edge = new List<GameObject>();
 		mid = new List<GameObject>();
 		back = new List<GameObject>();
-		enemies = new List<Character>();
+		enemies = new List<NpcCharacter>();
 		playerGroup = new List<Character>();
 		int edgeObjectCount = 0;
 		isStreet = false;
@@ -279,7 +279,7 @@ public class BuildEncounter : MonoBehaviour
 				}
 			if(backCounter <= encounterEnemyCount)
 				{
-				Character newEnemy = backObj.GetComponent<Character>();
+				NpcCharacter newEnemy = backObj.GetComponent<NpcCharacter>();
                 newEnemy.ReRollCharacter();
 				enemies.Add(newEnemy);
 				}
@@ -400,7 +400,7 @@ public class BuildEncounter : MonoBehaviour
 			}
 		}
 
-	public List<Character> GetEnemies()
+	public List<NpcCharacter> GetEnemies()
 		{
 		return enemies;
 		}
