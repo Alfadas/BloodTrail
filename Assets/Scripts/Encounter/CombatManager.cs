@@ -24,7 +24,7 @@ public class CombatManager : MonoBehaviour {
     Character selectedCharacter;
     [SerializeField] GameObject CombatButtons;
 
-    int combatActionCount = 1;
+    int turnCounter = 0;
     public bool aiTurn = false;
 	private bool tutorialShown = false;
     List<Character> enemiesDistracting;
@@ -72,6 +72,8 @@ public class CombatManager : MonoBehaviour {
 
     void NextTurn()
     {
+        turnCounter++;
+        BattleLog("turn: " + turnCounter.ToString() + " -----------");
 		if (enemies.Count == 0 || playerGroup.Count == 0)
         {
             EndFight();
@@ -386,6 +388,7 @@ public class CombatManager : MonoBehaviour {
     {
         if (playerGroup.Contains(character))
         {
+            BattleLog("PC died");
             combatAIController.RemoveCombatAiPcMemory(character);
             if (!playerGroup.Remove(character))
             {
@@ -394,6 +397,7 @@ public class CombatManager : MonoBehaviour {
         }
         else if (character.GetType() == typeof(NpcCharacter))
         {
+            BattleLog("NPC died");
             var npcCharacter = (NpcCharacter)character;
             if (!enemies.Remove(npcCharacter))
             {
@@ -406,7 +410,10 @@ public class CombatManager : MonoBehaviour {
     {
         if (aiTurn)
         {
-            BattleLog("Enemies Supported");
+            if (damageBuff > 0)
+            {
+                BattleLog("Enemies Supported");
+            }
             foreach (NpcCharacter enemy in enemies)
             {
                 enemy.SetEncourage(damageBuff);
@@ -511,7 +518,7 @@ public class CombatManager : MonoBehaviour {
         yield return new WaitForSeconds(sec);
         NextTurn();
     }
-    void BattleLog(string text)
+    public void BattleLog(string text)
     {
         Debug.Log(text);
     }

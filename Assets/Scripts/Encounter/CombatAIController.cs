@@ -113,7 +113,7 @@ public class CombatAIController : MonoBehaviour
             }
             else
             {
-                i--;
+                defend++;
             }
         }
         for (int i = 0; i < attack; i++)
@@ -125,7 +125,7 @@ public class CombatAIController : MonoBehaviour
             }
             else
             {
-                i--;
+                attack++;
             }
         }
 

@@ -168,6 +168,7 @@ public class CombatActions : MonoBehaviour
         ControllGroupeActives(currentCharacter);
         currentCharacter.ResetActiveActions();
 
+        combatManager.BattleLog("Defence Stance");
         currentCharacter.SetDamageReduction(tryToDefendDamageReduction);
         combatManager.SCoroutine();
     }
@@ -177,6 +178,7 @@ public class CombatActions : MonoBehaviour
         ControllGroupeActives(currentCharacter);
         currentCharacter.ResetActiveActions();
 
+        combatManager.BattleLog("Defence Stance");
         currentCharacter.SetDamageReduction(defensiveStanceDamageReduction);
         combatManager.SCoroutine();
     }
